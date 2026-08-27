@@ -142,9 +142,10 @@ const stateCount = new Set(CITIES.map((c) => c.state)).size;
 export function IndiaMap() {
   return (
     <div className="bg-map-ground flex h-full w-full flex-col md:flex-row">
-      <div className="relative min-w-0 flex-auto">
+      <div className="relative h-[320px] min-w-0 shrink-0 sm:h-[400px] md:h-auto md:flex-auto">
         <svg
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+          preserveAspectRatio="xMidYMid meet"
           role="img"
           aria-labelledby="india-map-title india-map-desc"
           className="block h-full w-full"
@@ -155,6 +156,14 @@ export function IndiaMap() {
             opening soon. The full list is in the text beside the map.
           </desc>
 
+          {/*
+            Zoomed on a phone. India is tall and narrow and this projection is
+            1.72:1, so at phone width the country rendered small with ocean
+            either side. Scaling the whole drawing about India's centre enlarges
+            the coastline, markers, labels and the scale bar together — so the
+            500km bar stays truthful — and crops the empty edges. No second
+            projection and no extra path data.
+          */}
           <defs>
             <pattern id="lt-map-dots" width="7" height="7" patternUnits="userSpaceOnUse">
               <rect width="7" height="7" className="fill-forest/40" />
@@ -162,94 +171,96 @@ export function IndiaMap() {
             </pattern>
           </defs>
 
-          <path d={graticulePath} fill="none" strokeWidth={0.7} className="stroke-cream/[0.06]" />
+          <g className="origin-[50%_47%] scale-[1.65] [transform-box:view-box] md:scale-100">
+            <path d={graticulePath} fill="none" strokeWidth={0.7} className="stroke-cream/[0.06]" />
 
-          <g>
-            {otherPaths.map((d, index) => (
-              <path
-                key={`other-${index}`}
-                d={d}
-                strokeWidth={0.7}
-                className="fill-hero-ground stroke-sage/40"
-              />
-            ))}
-          </g>
+            <g>
+              {otherPaths.map((d, index) => (
+                <path
+                  key={`other-${index}`}
+                  d={d}
+                  strokeWidth={0.7}
+                  className="fill-hero-ground stroke-sage/40"
+                />
+              ))}
+            </g>
 
-          <g>
-            {indiaPaths.map((d, index) => (
-              <path
-                key={`india-${index}`}
-                d={d}
-                fill="url(#lt-map-dots)"
-                strokeWidth={1.1}
-                className="stroke-sage/80"
-              />
-            ))}
-          </g>
+            <g>
+              {indiaPaths.map((d, index) => (
+                <path
+                  key={`india-${index}`}
+                  d={d}
+                  fill="url(#lt-map-dots)"
+                  strokeWidth={1.1}
+                  className="stroke-sage/80"
+                />
+              ))}
+            </g>
 
-          <g aria-hidden="true">
-            {NEIGHBOURS.map((n) => {
-              const [x, y] = project(n.lon, n.lat);
-              return (
-                <text
-                  key={n.label}
-                  x={x}
-                  y={y}
-                  textAnchor="middle"
-                  fontSize={11}
-                  fontWeight={700}
-                  letterSpacing="0.18em"
-                  className="fill-cream/45"
-                >
-                  {n.label}
-                </text>
-              );
-            })}
-          </g>
-
-          <g aria-hidden="true">
-            {CITIES.map((city) => {
-              const [x, y] = project(city.lon, city.lat);
-              const offset = LABEL_OFFSETS[city.slug] ?? {
-                dx: 9,
-                dy: -3,
-                anchor: 'start' as const,
-              };
-              return (
-                <g key={city.slug} transform={`translate(${x},${y})`}>
-                  {city.isOpen && <circle r={9} className="fill-accent" opacity={0.2} />}
-                  <circle
-                    r={city.isOpen ? 4.4 : 3.6}
-                    strokeWidth={1.5}
-                    className={
-                      city.isOpen ? 'fill-accent stroke-none' : 'stroke-cream/80 fill-transparent'
-                    }
-                  />
+            <g aria-hidden="true">
+              {NEIGHBOURS.map((n) => {
+                const [x, y] = project(n.lon, n.lat);
+                return (
                   <text
-                    x={offset.dx}
-                    y={offset.dy}
-                    textAnchor={offset.anchor}
-                    fontSize={13}
-                    fontWeight={city.isOpen ? 700 : 500}
-                    className={city.isOpen ? 'fill-cream' : 'fill-cream/70'}
+                    key={n.label}
+                    x={x}
+                    y={y}
+                    textAnchor="middle"
+                    fontSize={11}
+                    fontWeight={700}
+                    letterSpacing="0.18em"
+                    className="fill-cream/45"
                   >
-                    {city.name}
+                    {n.label}
                   </text>
-                </g>
-              );
-            })}
-          </g>
+                );
+              })}
+            </g>
 
-          <g transform={`translate(${PAD + 2},${HEIGHT - PAD + 4})`} aria-hidden="true">
-            <path
-              d={`M0,-5 V0 H${scaleWidth.toFixed(1)} V-5`}
-              fill="none"
-              strokeWidth={1}
-              className="stroke-cream/50"
-            />
-            <text x={scaleWidth + 9} y={1} fontSize={11} className="fill-cream/50">
-              {SCALE_KM} km
-            </text>
+            <g aria-hidden="true">
+              {CITIES.map((city) => {
+                const [x, y] = project(city.lon, city.lat);
+                const offset = LABEL_OFFSETS[city.slug] ?? {
+                  dx: 9,
+                  dy: -3,
+                  anchor: 'start' as const,
+                };
+                return (
+                  <g key={city.slug} transform={`translate(${x},${y})`}>
+                    {city.isOpen && <circle r={9} className="fill-accent" opacity={0.2} />}
+                    <circle
+                      r={city.isOpen ? 4.4 : 3.6}
+                      strokeWidth={1.5}
+                      className={
+                        city.isOpen ? 'fill-accent stroke-none' : 'stroke-cream/80 fill-transparent'
+                      }
+                    />
+                    <text
+                      x={offset.dx}
+                      y={offset.dy}
+                      textAnchor={offset.anchor}
+                      fontSize={13}
+                      fontWeight={city.isOpen ? 700 : 500}
+                      className={city.isOpen ? 'fill-cream' : 'fill-cream/70'}
+                    >
+                      {city.name}
+                    </text>
+                  </g>
+                );
+              })}
+            </g>
+
+            <g transform={`translate(${PAD + 2},${HEIGHT - PAD + 4})`} aria-hidden="true">
+              <path
+                d={`M0,-5 V0 H${scaleWidth.toFixed(1)} V-5`}
+                fill="none"
+                strokeWidth={1}
+                className="stroke-cream/50"
+              />
+              <text x={scaleWidth + 9} y={1} fontSize={11} className="fill-cream/50">
+                {SCALE_KM} km
+              </text>
+            </g>
           </g>
         </svg>
       </div>

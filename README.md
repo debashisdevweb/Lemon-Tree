@@ -135,10 +135,10 @@ Three things this pays for:
   applies nothing. That is how the footer wordmark ended up rendering
   "Lemon TreeHOTELS" with its gap collapsed to zero.
 
-### Hero rhythm
+### Hero rhythm and hierarchy
 
-The hero is the one place the gaps are stated explicitly, because the
-relationships carry meaning:
+The hero is the one place the gaps and the type are both stated explicitly,
+because the relationships carry meaning.
 
 | From → to            | Step  | 375px | Why                                |
 | -------------------- | ----- | ----- | ---------------------------------- |
@@ -146,6 +146,21 @@ relationships carry meaning:
 | headline → script    | `4xs` | 4px   | two halves of one sentence         |
 | script → bullet list | `md`  | 25px  | different content, real separation |
 | list → promo pill    | `lg`  | 34px  | a new idea                         |
+
+The two headings deliberately sit **above** the global 0.85 reduction, and the
+supporting copy below it, so the hierarchy is unambiguous. At 375px:
+
+|                                       | Size | Weight                          |
+| ------------------------------------- | ---- | ------------------------------- |
+| Script line — "wherever you go."      | 52px | 400 (Sacramento has one weight) |
+| Headline — "Warm Indian hospitality," | 46px | **500**                         |
+| Bullet list                           | 14px | 400                             |
+| Eyebrow                               | 11px | 700, tracked                    |
+
+`tests/unit/tokens.test.ts` asserts this exception explicitly — that the hero
+headings exceed the reduced scale and that the list stays under half the
+headline while remaining above the readable floor — so it cannot be flattened
+back by a future scale change without failing.
 
 Below `lg` the script and list stack with the list right-aligned; from `lg` they
 sit side by side, bottom-aligned, as the artboard has them.
@@ -268,6 +283,38 @@ routes to the same booking sheet were competing in one screenful, so:
   reference, and keeping the page visible behind it so the overlay reads as
   temporary. It carries Investors, Sign in and Book now, which have no header
   slot at this width and were previously unreachable on a phone.
+
+### The presence map on mobile
+
+The projection is 1.72:1, but India is tall and narrow — so at phone width the
+country rendered small with ocean either side. The whole drawing is now scaled
+about India's centre on mobile, which enlarges the coastline, markers, labels and
+the 500km scale bar together (so the bar stays truthful) and crops the empty
+edges. India fills 83% × 89% of the frame at 375px, up from roughly half that,
+with no second projection and no extra path data.
+
+### The booking sheet on mobile
+
+Three fixes, in order of how badly they read:
+
+- **Tabs.** `grid-cols-3` gave each tab a third of the width and clipped "Last
+  minute offers". A scrollable row fixed the clipping but hid tabs behind a
+  scroll with no affordance. Three labels cannot fit on one line at 320px at a
+  readable size, so below `md` they wrap and each grows to fill its row — two
+  tidy rows, nothing hidden. From `md` the design's equal three-column row
+  returns.
+- **The close button** sat on the tab row. Motion applies a transform to
+  `Dialog.Content`, and a transformed ancestor becomes the containing block for
+  `position: fixed`, so its offset was measured from the sheet rather than the
+  viewport. Moving it outside `Dialog.Content` fixed the geometry and broke
+  accessibility instead — Radix marks everything outside the content
+  `aria-hidden` while modal, so the only close affordance vanished from the
+  accessibility tree. It now lives in the sheet chrome.
+- **The fields** read as one loose list. They are separated by hairlines with a
+  single vertical rhythm below `sm`, and the sheet is capped at `92svh` with
+  internal scroll — it reaches ~780px once the fields have real spacing, and it
+  is bottom-anchored, so on a short phone the tab row would otherwise clip off
+  the top.
 
 ### Cover-crop image sizing
 
@@ -399,7 +446,7 @@ Measured on the production build with Lighthouse, median of three runs.
 
 | Metric | Measured | Budget  | Status |
 | ------ | -------- | ------- | ------ |
-| LCP    | ~3200 ms | 2500 ms | ✗ fail |
+| LCP    | ~3160 ms | 2500 ms | ✗ fail |
 | CLS    | 0.000    | 0.1     | ✓      |
 | TBT    | 6 ms     | 200 ms  | ✓      |
 | FCP    | ~1100 ms | —       | —      |

@@ -37,7 +37,7 @@ export function Presence({ map }: { map: ReactNode }) {
         />
 
         <Reveal delay={120} className="mt-gap-heading">
-          <div className="bg-map-ground min-h-[357px] overflow-hidden md:aspect-[1.72/1] md:min-h-[clamp(361.2px,36.125vw,637.5px)]">
+          <div className="bg-map-ground overflow-hidden md:aspect-[1.72/1] md:min-h-[clamp(361.2px,36.125vw,637.5px)]">
             {map}
           </div>
         </Reveal>

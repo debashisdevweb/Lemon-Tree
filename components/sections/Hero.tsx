@@ -48,7 +48,7 @@ export function Hero() {
           <h1
             id="hero-heading"
             aria-label={`${HERO.headline} ${HERO.script}`}
-            className="anim-hero-h1 mt-gap-eyebrow font-display text-h1 text-cream leading-[0.98] font-normal tracking-[-0.022em]"
+            className="anim-hero-h1 mt-gap-eyebrow font-display text-h1 text-cream leading-[0.98] font-medium tracking-[-0.022em]"
           >
             {HERO.headline}
           </h1>
@@ -75,7 +75,7 @@ export function Hero() {
             {/* Right-aligned and right-hugging below the script on a phone,
                 which is how the reference stacks these two; from lg they sit
                 side by side and the alignment no longer matters. */}
-            <ul className="anim-hero-list text-hero-list text-cream mb-4xs gap-3xs ml-auto flex list-none flex-col p-0 text-right font-medium lg:ml-0 lg:text-left">
+            <ul className="anim-hero-list text-hero-list text-cream mb-4xs gap-3xs ml-auto flex list-none flex-col p-0 text-right font-normal lg:ml-0 lg:text-left">
               {HERO.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}

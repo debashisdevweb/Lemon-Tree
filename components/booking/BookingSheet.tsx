@@ -198,7 +198,20 @@ export function BookingSheet() {
                   Check availability
                 </Dialog.Title>
 
-                <form onSubmit={onSubmit} className="max-w-sheet-max px-sm pb-xs mx-auto">
+                <form
+                  onSubmit={onSubmit}
+                  className={cn(
+                    'max-w-sheet-max px-sm pb-xs mx-auto',
+                    /*
+                      The sheet grew tall once the fields got real spacing —
+                      about 780px. It is anchored to the bottom, so on a short
+                      phone the tab row would have been clipped off the top.
+                      Capping the height and scrolling inside keeps every field
+                      reachable.
+                    */
+                    'max-h-[92svh] overflow-y-auto overscroll-contain'
+                  )}
+                >
                   <div className="shadow-sheet overflow-hidden rounded-lg">
                     <Tabs.Root
                       value={tab}
@@ -207,17 +220,20 @@ export function BookingSheet() {
                       {/* Forest strip: tabs + discount code */}
                       <div className="bg-forest grid gap-px md:grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)]">
                         {/*
-                          Content-width tabs in a scrollable row, not three
-                          equal columns. `grid-cols-3` gave each tab a third of
-                          the width, which clipped "Last minute offers" on a
-                          phone. They fit at 375px; below that the row scrolls.
+                          Wrapping, content-width tabs below md. `grid-cols-3`
+                          gave each tab a third of the width and clipped "Last
+                          minute offers"; a scrollable row fixed the clipping
+                          but hid tabs behind a scroll with no affordance.
+                          Three labels cannot fit on one line at 320px at a
+                          readable size, so they wrap and each grows to fill its
+                          row — tidy, and nothing is hidden. From md the design's
+                          equal three-column row returns.
                         */}
                         <Tabs.List
                           aria-label="Booking type"
                           className={cn(
-                            'bg-forest flex gap-px overflow-x-auto',
-                            '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-                            'md:grid md:grid-cols-3 md:overflow-visible',
+                            'bg-forest flex flex-wrap gap-px',
+                            'md:grid md:grid-cols-3',
                           )}
                         >
                           {TAB_ORDER.map((value) => (
@@ -225,8 +241,8 @@ export function BookingSheet() {
                               key={value}
                               value={value}
                               className={cn(
-                                'on-dark px-btn-tab-x py-btn-tab-y text-tab shrink-0 cursor-pointer',
-                                'border-0 whitespace-nowrap md:shrink',
+                                'on-dark px-btn-tab-x py-btn-tab-y text-tab grow cursor-pointer',
+                                'border-0 whitespace-nowrap md:grow-0',
                                 'transition-colors duration-[var(--dur-hover-swap)]',
                                 'text-cream bg-transparent font-normal',
                                 'data-[state=active]:bg-cream data-[state=active]:font-bold',
@@ -295,7 +311,7 @@ export function BookingSheet() {
                             <div
                               className={cn(
                                 'bg-paper gap-x-xs grid',
-                                'px-sm py-sm',
+                                'px-pad-card py-pad-card',
                                 /*
                                   Stacked, each field separated by a hairline
                                   and given the same vertical rhythm. Without

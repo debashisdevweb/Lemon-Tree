@@ -155,7 +155,7 @@
   --text-input: clamp(16px, 0.977vw, 16.1px); /* newsletter input */
   --text-prose-lg: clamp(16px, 1.02vw, 17px); /* brands prose */
   --text-field-value: clamp(16px, 1.147vw, 19.6px); /* sheet field values */
-  --text-hero-list: clamp(15.5px, 1.232vw, 21.2px); /* hero bullet list */
+  --text-hero-list: clamp(14px, 1.05vw, 18px); /* hero bullet list */ /* hero bullet list */
   --text-bar-title: clamp(15px, 1.105vw, 18.7px); /* "Find a hotel" */
   --text-h4: clamp(19px, 1.36vw, 23.8px); /* benefit tile, brand name */
   --text-closing-link: clamp(20px, 1.488vw, 26.3px); /* closing link list */
@@ -171,10 +171,10 @@
   --text-h2: clamp(32px, 3.655vw, 64.6px); /* section headline */
   --text-figure: clamp(32px, 3.06vw, 54.4px); /* "2x" */
   --text-loader-word: clamp(32px, 4.675vw, 74.8px);
-  --text-h1: clamp(40px, 6.481vw, 119px); /* hero headline */
+  --text-h1: clamp(46px, 7.6vw, 132px); /* hero headline */ /* hero headline */
   --text-closing: clamp(40px, 7.14vw, 142.8px); /* "Come stay with us," */
   --text-closing-script: clamp(44px, 5.95vw, 110.5px);
-  --text-hero-script: clamp(46px, 6.587vw, 119px);
+  --text-hero-script: clamp(52px, 7.2vw, 128px);
   --text-loader-script: clamp(47px, 7.013vw, 110.5px);
 
   /* --- Spacing base ----------------------------------------------------

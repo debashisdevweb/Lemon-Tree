@@ -149,7 +149,6 @@ describe('the global size scale', () => {
    * and inputs at 12.8px on a phone.
    */
   it.each([
-    ['text-h1', 7.625, 140],
     ['text-h2', 4.3, 76],
     ['text-nav', 1.15, 17],
     ['text-body-sm', 1.05, 18],
@@ -157,6 +156,29 @@ describe('the global size scale', () => {
     const [, gotVw, gotMax] = parseClamp(readVar(name));
     expect(gotVw).toBeCloseTo(vw * UI_SCALE, 2);
     expect(gotMax).toBeCloseTo(shipped(max), 1);
+  });
+
+  /**
+   * The hero's two headings sit deliberately above the global reduction, at the
+   * client's direction: they carry the page, so they were enlarged and the
+   * supporting copy around them was stepped down to sharpen the hierarchy.
+   * Asserted rather than left implicit so the exception stays visible.
+   */
+  it('keeps the hero headings larger than the reduced scale would give', () => {
+    const h1 = parseClamp(readVar('text-h1'));
+    const script = parseClamp(readVar('text-hero-script'));
+
+    expect(h1[0]).toBeGreaterThan(shipped(44)); // above the un-scaled artboard floor
+    expect(script[0]).toBeGreaterThan(h1[0]); // the script line is the larger of the two
+  });
+
+  it('keeps the hero supporting copy below its headings', () => {
+    const list = parseClamp(readVar('text-hero-list'));
+    const h1 = parseClamp(readVar('text-h1'));
+
+    expect(list[0]).toBeLessThan(h1[0] / 2);
+    // Still readable: above the small-text floor.
+    expect(list[0]).toBeGreaterThanOrEqual(14);
   });
 
   it.each([
