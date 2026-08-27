@@ -54,7 +54,7 @@ type FieldErrors = Partial<Record<'destination' | 'checkIn' | 'checkOut' | 'disc
 
 function TicketIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[clamp(20px,1.7vw,27px)] shrink-0">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[clamp(17px,1.445vw,22.9px)] shrink-0">
       <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
       <line
         x1="8"
@@ -73,7 +73,7 @@ function TicketIcon() {
 
 function SearchIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[clamp(16px,1.2vw,20px)]">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[clamp(13.6px,1.02vw,17px)]">
       <circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" strokeWidth="2" />
       <line
         x1="15.6"
@@ -196,7 +196,7 @@ export function BookingSheet() {
 
                 <form
                   onSubmit={onSubmit}
-                  className="max-w-sheet-max mx-auto px-[clamp(12px,2vw,32px)] pb-[clamp(12px,1.8vw,26px)]"
+                  className="max-w-sheet-max mx-auto px-[clamp(10.2px,1.7vw,27.2px)] pb-[clamp(10.2px,1.53vw,22.1px)]"
                 >
                   <div className="shadow-sheet overflow-hidden rounded-lg">
                     <Tabs.Root
@@ -226,7 +226,7 @@ export function BookingSheet() {
                           ))}
                         </Tabs.List>
 
-                        <div className="on-dark gap-gap-tight bg-forest flex items-center px-[clamp(14px,1.4vw,22px)]">
+                        <div className="on-dark gap-gap-tight bg-forest flex items-center px-[clamp(11.9px,1.19vw,18.7px)]">
                           <span className="text-cream">
                             <TicketIcon />
                           </span>
@@ -256,8 +256,8 @@ export function BookingSheet() {
                           {value === tab && (
                             <div
                               className={cn(
-                                'gap-y-gap-tight bg-paper grid items-center gap-x-[clamp(10px,1.6vw,28px)]',
-                                'px-[clamp(16px,1.9vw,32px)] py-[clamp(16px,1.6vw,26px)]',
+                                'gap-y-gap-tight bg-paper grid items-center gap-x-[clamp(8.5px,1.36vw,23.8px)]',
+                                'px-[clamp(13.6px,1.615vw,27.2px)] py-[clamp(13.6px,1.36vw,22.1px)]',
                                 'grid-cols-1 sm:grid-cols-2',
                                 'lg:grid-cols-[auto_minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)_auto]',
                               )}
@@ -333,7 +333,7 @@ export function BookingSheet() {
                       <p
                         id={errorId}
                         role="alert"
-                        className="bg-paper text-body-sm text-accent-text px-[clamp(16px,1.9vw,32px)] pb-[clamp(12px,1.2vw,20px)] font-bold"
+                        className="bg-paper text-body-sm text-accent-text px-[clamp(13.6px,1.615vw,27.2px)] pb-[clamp(10.2px,1.02vw,17px)] font-bold"
                       >
                         {firstError}
                       </p>
@@ -354,7 +354,7 @@ export function BookingSheet() {
                       ease: 'easeOut',
                     }}
                     className={cn(
-                      'fixed top-[clamp(52px,5vw,80px)] right-[clamp(16px,2vw,34px)] z-[320]',
+                      'fixed top-[clamp(44.2px,4.25vw,68px)] right-[clamp(13.6px,1.7vw,28.9px)] z-[320]',
                       'size-close-btn grid cursor-pointer place-items-center rounded-full border-0',
                       'bg-paper/90 text-forest transition-colors duration-[var(--dur-hover-swap)]',
                       'hover:bg-paper',

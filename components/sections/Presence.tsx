@@ -21,7 +21,7 @@ export function Presence({ map }: { map: ReactNode }) {
     <section
       id="presence"
       aria-labelledby="presence-heading"
-      className="bg-cream py-section-y relative z-20 px-[clamp(24px,4vw,64px)]"
+      className="bg-cream py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
     >
       <div className="max-w-shell mx-auto">
         <SectionHeader
@@ -37,7 +37,7 @@ export function Presence({ map }: { map: ReactNode }) {
         />
 
         <Reveal delay={120} className="mt-gap-grid">
-          <div className="bg-map-ground min-h-[420px] overflow-hidden md:aspect-[1.72/1] md:min-h-[clamp(425px,42.5vw,750px)]">
+          <div className="bg-map-ground min-h-[357px] overflow-hidden md:aspect-[1.72/1] md:min-h-[clamp(361.2px,36.125vw,637.5px)]">
             {map}
           </div>
         </Reveal>

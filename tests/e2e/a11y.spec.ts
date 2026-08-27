@@ -1,6 +1,12 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import { revealAll, revealsSettled, settleHome, skipLoader } from './helpers';
+import {
+  animationsSettled,
+  revealAll,
+  revealsSettled,
+  settleHome,
+  skipLoader,
+} from './helpers';
 
 /**
  * WCAG 2.2 AA. The reference fails a number of these (no focus styles, no
@@ -16,6 +22,7 @@ test('home page has no axe violations', async ({ page }) => {
   await settleHome(page);
   await revealAll(page);
   await revealsSettled(page);
+  await animationsSettled(page);
 
   const results = await scan(page).analyze();
   expect(results.violations).toEqual([]);
@@ -28,6 +35,7 @@ test('the open booking sheet has no axe violations', async ({ page }) => {
 
   await page.getByRole('button', { name: /check availability/i }).first().click();
   await expect(page.getByRole('dialog')).toBeVisible();
+  await animationsSettled(page);
 
   const results = await scan(page).analyze();
   expect(results.violations).toEqual([]);
@@ -61,6 +69,7 @@ test('the mobile menu has no axe violations', async ({ page }) => {
 
   await page.getByRole('button', { name: /open menu/i }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
+  await animationsSettled(page);
 
   const results = await scan(page).analyze();
   expect(results.violations).toEqual([]);

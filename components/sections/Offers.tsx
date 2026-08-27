@@ -27,7 +27,7 @@ export function Offers() {
     <section
       id="offers"
       aria-labelledby="offers-heading"
-      className="bg-cream py-section-y relative z-20 px-[clamp(24px,4vw,64px)]"
+      className="bg-cream py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
     >
       <div className="max-w-shell mx-auto">
         <SectionHeader

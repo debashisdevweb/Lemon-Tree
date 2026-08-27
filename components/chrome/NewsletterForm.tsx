@@ -71,7 +71,7 @@ export function NewsletterForm() {
           aria-invalid={errors.email ? true : undefined}
           aria-describedby={message ? errorId : undefined}
           className={cn(
-            'min-w-0 flex-auto border-0 bg-transparent px-[clamp(10px,1.2vw,18px)]',
+            'min-w-0 flex-auto border-0 bg-transparent px-[clamp(8.5px,1.02vw,15.3px)]',
             'text-input text-ink placeholder:text-muted outline-none',
           )}
           {...register('email')}

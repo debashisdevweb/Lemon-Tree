@@ -61,7 +61,7 @@ export function SiteHeader() {
       ref={headerRef}
       data-solid={isSolid || undefined}
       className={cn(
-        'h-nav gap-gap-grid fixed inset-x-0 top-0 z-60 flex items-center px-[clamp(20px,3.2vw,54px)]',
+        'h-nav gap-gap-grid fixed inset-x-0 top-0 z-60 flex items-center px-[clamp(17px,2.72vw,45.9px)]',
         'transition-[background-color,color,box-shadow] duration-[var(--dur-nav)] ease-in-out',
         isSolid ? 'bg-cream text-forest shadow-nav' : 'on-dark text-cream bg-transparent',
       )}
@@ -72,7 +72,7 @@ export function SiteHeader() {
 
       <nav
         aria-label="Sections"
-        className="text-nav hidden flex-auto justify-center gap-[clamp(14px,1.9vw,30px)] font-bold xl:flex"
+        className="text-nav hidden flex-auto justify-center gap-[clamp(11.9px,1.615vw,25.5px)] font-bold xl:flex"
       >
         {PRIMARY_NAV.map((link) => (
           <a
@@ -85,7 +85,7 @@ export function SiteHeader() {
         ))}
       </nav>
 
-      <div className="text-nav ml-auto flex shrink-0 items-center gap-[clamp(12px,1.6vw,26px)] font-bold">
+      <div className="text-nav ml-auto flex shrink-0 items-center gap-[clamp(10.2px,1.36vw,22.1px)] font-bold">
         <Link
           href="/contact"
           className="hover:text-accent-text hidden text-inherit transition-colors duration-[var(--dur-hover-swap)] lg:inline"
@@ -128,8 +128,8 @@ export function SiteHeader() {
             <Dialog.Overlay className="fixed inset-0 z-[340] bg-[rgb(var(--brand-sheet-scrim)/0.52)] data-[state=open]:animate-[lt-fade_var(--dur-fade)_ease_both]" />
             <Dialog.Content
               className={cn(
-                'gap-gap-grid fixed inset-y-0 right-0 z-[350] flex w-[min(360px,86vw)] flex-col',
-                'bg-cream overflow-y-auto p-[clamp(20px,3.2vw,40px)]',
+                'gap-gap-grid fixed inset-y-0 right-0 z-[350] flex w-[min(306px,86vw)] flex-col',
+                'bg-cream overflow-y-auto p-[clamp(17px,2.72vw,34px)]',
                 'data-[state=open]:animate-[lt-fade_var(--dur-fade)_ease_both]',
               )}
             >

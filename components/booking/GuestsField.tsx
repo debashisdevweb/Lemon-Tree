@@ -108,7 +108,7 @@ export function GuestsField({
           /* Escape closes the stepper only, never the sheet behind it. */
           onEscapeKeyDown={(event) => event.stopPropagation()}
           className={cn(
-            'bg-paper p-card-pad-sm shadow-bar z-[320] w-[min(320px,84vw)] rounded-md',
+            'bg-paper p-card-pad-sm shadow-bar z-[320] w-[min(272px,84vw)] rounded-md',
             'gap-gap-tight flex flex-col',
           )}
         >

@@ -105,16 +105,66 @@ describe('meta theme colours mirror the palette', () => {
   });
 });
 
-describe('the recovered scale lands on clean values', () => {
-  it('un-scales the artboard gutter and nav height by 1.25', () => {
-    expect(readVar('spacing-gutter')).toBe('clamp(24px, 4vw, 64px)');
-    expect(readVar('spacing-nav')).toBe('clamp(64px, 5.9vw, 96px)');
+describe('the global size scale', () => {
+  /**
+   * Sizes are the artboard's values un-scaled by 0.8 (it was authored at 80%),
+   * then reduced by a global 0.85 at the client's request. These assertions are
+   * written as that arithmetic rather than as literal strings, so the intent
+   * survives the next scale change and a stray edit still fails.
+   */
+  const UI_SCALE = 0.85;
+  const shipped = (recovered: number): number => Number((recovered * UI_SCALE).toFixed(1));
+
+  const parseClamp = (raw: string): [number, number, number] => {
+    const m = /clamp\(\s*([\d.]+)px\s*,\s*([\d.]+)v[wh]\s*,\s*([\d.]+)px\s*\)/.exec(raw);
+    if (!m) throw new Error(`not a px/vw clamp triple: ${raw}`);
+    return [Number(m[1]), Number(m[2]), Number(m[3])];
+  };
+
+  it.each([
+    ['spacing-gutter', 24, 4, 64],
+    ['spacing-nav', 64, 5.9, 96],
+    ['text-h1', 44, 7.625, 140],
+    ['text-h2', 34, 4.3, 76],
+    ['text-nav', 13, 1.15, 17],
+  ])('--%s is the recovered triple x0.85', (name, min, vw, max) => {
+    const [gotMin, gotVw, gotMax] = parseClamp(readVar(name));
+    expect(gotMin).toBeCloseTo(shipped(min), 1);
+    expect(gotVw).toBeCloseTo(vw * UI_SCALE, 2);
+    expect(gotMax).toBeCloseTo(shipped(max), 1);
   });
 
-  it('keeps radii on whole pixels', () => {
-    expect(readVar('radius-xs')).toBe('6px');
-    expect(readVar('radius-sm')).toBe('8px');
-    expect(readVar('radius-md')).toBe('11px');
-    expect(readVar('radius-lg')).toBe('16px');
+  it.each([
+    ['radius-xs', 6],
+    ['radius-sm', 8],
+    ['radius-md', 11],
+    ['radius-lg', 16],
+    ['border-hair', 1.5],
+  ])('--%s is its recovered value x0.85', (name, recovered) => {
+    expect(Number(readVar(name).replace('px', ''))).toBeCloseTo(shipped(recovered), 1);
+  });
+
+  it('scales Tailwind\u2019s spacing base once, rather than at each use', () => {
+    // 0.25rem is Tailwind's default; every p-*, gap-*, size-* multiplies it.
+    expect(readVar('spacing')).toBe('0.2125rem');
+    expect(0.2125).toBeCloseTo(0.25 * UI_SCALE, 4);
+  });
+
+  it('leaves every duration and delay untouched by the size scale', () => {
+    // Motion is time. A size change must never alter the motion inventory.
+    expect(readMs('dur-reveal')).toBe(DURATION.reveal);
+    expect(readMs('dur-curtain')).toBe(DURATION.curtain);
+    expect(readMs('delay-hero-h1')).toBe(DELAY.heroH1);
+  });
+
+  it('scales the reveal travel distance with the rest of the sizes', () => {
+    expect(Number(readVar('reveal-y').replace('px', ''))).toBeCloseTo(shipped(34), 1);
+    expect(Number(readVar('loader-y').replace('px', ''))).toBeCloseTo(shipped(22), 1);
+  });
+
+  it('keeps unitless zoom factors unscaled', () => {
+    // These are ratios, not lengths.
+    expect(readVar('hero-zoom-from')).toBe('1.14');
+    expect(readVar('card-zoom-to')).toBe('1.05');
   });
 });

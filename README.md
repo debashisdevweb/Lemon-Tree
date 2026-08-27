@@ -16,23 +16,55 @@ npm run lh             # Core Web Vitals budget (desktop)
 
 ---
 
-## The 0.8 scale
+## Scale
 
-Every `px` and `vw` value in the source artboard is exactly **0.8×** an
-underlying clean value — the board was authored at 80%. Dividing by 0.8 recovers
-an 8px grid with no exceptions:
+Two factors are applied, in order.
 
-| Role        | As authored                     | Implemented                   |
-| ----------- | ------------------------------- | ----------------------------- |
-| Page gutter | `clamp(19.2px, 3.2vw, 51.2px)`  | `clamp(24px, 4vw, 64px)`      |
-| Nav height  | `clamp(51.2px, 4.72vw, 76.8px)` | `clamp(64px, 5.9vw, 96px)`    |
-| Radii       | 4.8 / 6.4 / 8.8 / 12.8px        | 6 / 8 / 11 / 16px             |
-| Hairline    | 1.2px                           | 1.5px                         |
-| H1          | `clamp(35.2px, 6.1vw, 112px)`   | `clamp(44px, 7.625vw, 140px)` |
+**1. Un-scale the artboard (÷ 0.8).** Every `px` and `vw` in the source artboard
+is exactly 0.8× an underlying clean value — it was authored at 80%. Dividing by
+0.8 recovers an 8px grid with no exceptions.
 
-Implemented literally, mobile body copy would land at 10–12px. All sizes here
-are the recovered 1.0× values. **Durations and easing curves are not scaled** —
-they are reproduced verbatim.
+**2. Global 0.85 reduction**, applied at the client's request. Net factor against
+the artboard: **1.0625×**.
+
+| Role        | Artboard                        | Recovered (÷0.8)              | Shipped (×0.85)                  |
+| ----------- | ------------------------------- | ----------------------------- | -------------------------------- |
+| Page gutter | `clamp(19.2px, 3.2vw, 51.2px)`  | `clamp(24px, 4vw, 64px)`      | `clamp(20.4px, 3.4vw, 54.4px)`   |
+| Nav height  | `clamp(51.2px, 4.72vw, 76.8px)` | `clamp(64px, 5.9vw, 96px)`    | `clamp(54.4px, 5.015vw, 81.6px)` |
+| Radii       | 4.8 / 6.4 / 8.8 / 12.8px        | 6 / 8 / 11 / 16px             | 5.1 / 6.8 / 9.3 / 13.6px         |
+| Hairline    | 1.2px                           | 1.5px                         | 1.3px                            |
+| H1          | `clamp(35.2px, 6.1vw, 112px)`   | `clamp(44px, 7.625vw, 140px)` | `clamp(37.4px, 6.481vw, 119px)`  |
+| Content max | 1420px                          | 1420px                        | 1207px                           |
+
+The reduction applies to **sizes only**. Durations, delays and easing curves are
+untouched and remain verbatim from the artboard;
+`tests/unit/tokens.test.ts` asserts both halves of that.
+
+Tailwind's numeric utilities (`p-4`, `gap-2`, `size-9`) and the `--spacing()`
+function all multiply one variable, so the factor is applied once as
+`--spacing: 0.2125rem` (0.25rem × 0.85) rather than at each use.
+
+Viewport references are deliberately **not** scaled, because they express "how
+much of the screen", not "how big": `100vw` inside `calc()`, the `vw` caps in
+`min()`, `100svh`, `h-screen`, and every `sizes` attribute on an image.
+
+### Measured result
+
+|                     | Mobile (375px) | Desktop (1440px) |
+| ------------------- | -------------- | ---------------- |
+| H1                  | 37.4px         | 93.3px           |
+| Section H2          | 28.9px         | 52.6px           |
+| Nav link            | 11.0px         | 14.1px           |
+| Body / eyebrow      | 10.2px         | 11.6px           |
+| Nav height          | 54px           | 72px             |
+| Horizontal overflow | 0              | 0                |
+
+> **Readability caution.** At this scale mobile body copy renders at **10.2px**
+> and nav links at **11px**. WCAG sets no minimum font size, so axe passes and
+> all gates are green — but 10.2px is below what is comfortable on a phone, and
+> it is close to the undersized-text problem that un-scaling the artboard was
+> meant to solve. If this reads too small in review, the factor is a single
+> value: see `--spacing` and the size tokens in `styles/tokens.css`.
 
 ## Tokens
 

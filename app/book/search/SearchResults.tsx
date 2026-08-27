@@ -91,7 +91,7 @@ export function SearchResults() {
     enabled: request !== null,
   });
 
-  const shell = 'mx-auto max-w-shell px-[clamp(24px,4vw,64px)] py-section-y';
+  const shell = 'mx-auto max-w-shell px-[clamp(20.4px,3.4vw,54.4px)] py-section-y';
 
   if (!parsed.success || !request) {
     return (
@@ -141,7 +141,7 @@ export function SearchResults() {
       {isPending && (
         <ul className="mt-gap-grid gap-gap-cards grid list-none p-0" aria-hidden="true">
           {[0, 1, 2].map((row) => (
-            <li key={row} className="bg-paper h-[104px] animate-pulse rounded-sm" />
+            <li key={row} className="bg-paper h-[88px] animate-pulse rounded-sm" />
           ))}
         </ul>
       )}

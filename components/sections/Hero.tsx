@@ -31,7 +31,7 @@ export function Hero() {
         className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-scrim)/0.56),rgb(var(--brand-scrim)/0.18)_40%,rgb(var(--brand-scrim)/0.7))]"
       />
 
-      <div className="on-dark pt-hero-pt pb-hero-pb relative flex h-full min-h-[100svh] flex-col justify-center px-[clamp(24px,4vw,64px)] md:min-h-0">
+      <div className="on-dark pt-hero-pt pb-hero-pb relative flex h-full min-h-[100svh] flex-col justify-center px-[clamp(20.4px,3.4vw,54.4px)] md:min-h-0">
         <div className="max-w-shell mx-auto w-full">
           <p className="anim-hero-eyebrow text-eyebrow-xs text-cream/90 font-bold tracking-[0.2em] uppercase">
             {HERO.eyebrow}
@@ -50,7 +50,7 @@ export function Hero() {
             </span>
           </h1>
 
-          <div className="gap-y-gap-grid flex flex-wrap items-end justify-between gap-x-[clamp(24px,5vw,100px)]">
+          <div className="gap-y-gap-grid flex flex-wrap items-end justify-between gap-x-[clamp(20.4px,4.25vw,85px)]">
             <div className="min-w-0 flex-1" />
             <ul className="anim-hero-list mb-gap-tight text-hero-list text-cream flex list-none flex-col gap-[--spacing(2.5)] p-0 font-medium">
               {HERO.points.map((point) => (
@@ -59,10 +59,10 @@ export function Hero() {
             </ul>
           </div>
 
-          <div className="anim-hero-cta gap-gap-grid mt-[clamp(28px,3.4vw,56px)] flex flex-wrap items-center">
+          <div className="anim-hero-cta gap-gap-grid mt-[clamp(23.8px,2.89vw,47.6px)] flex flex-wrap items-center">
             <a
               href={HERO.promo.href}
-              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent-text inline-flex flex-wrap items-center gap-[clamp(10px,1.1vw,18px)] rounded-full transition-colors duration-[var(--dur-hover-bg)]"
+              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent-text inline-flex flex-wrap items-center gap-[clamp(8.5px,0.935vw,15.3px)] rounded-full transition-colors duration-[var(--dur-hover-bg)]"
             >
               <span className="text-eyebrow-xs text-accent-text font-bold tracking-[0.1em] uppercase">
                 {HERO.promo.tag}
@@ -76,7 +76,7 @@ export function Hero() {
 
       <p
         aria-hidden="true"
-        className="anim-scroll-cue text-eyebrow-xs text-cream/75 absolute bottom-[clamp(105px,10.5vh,145px)] left-[clamp(24px,4vw,64px)] hidden items-center gap-[--spacing(3)] font-bold tracking-[0.2em] uppercase md:flex"
+        className="anim-scroll-cue text-eyebrow-xs text-cream/75 absolute bottom-[clamp(89.2px,8.925vh,123.2px)] left-[clamp(20.4px,3.4vw,54.4px)] hidden items-center gap-[--spacing(3)] font-bold tracking-[0.2em] uppercase md:flex"
       >
         {HERO.scrollCue}
         <span className="w-scroll-rule bg-cream/50 block h-px" />

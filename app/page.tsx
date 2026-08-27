@@ -54,7 +54,7 @@ export default function HomePage() {
             className="bg-cream pt-closing-pt relative z-20"
           >
             <Closing />
-            <div aria-hidden="true" className="h-[clamp(80px,15vh,220px)]" />
+            <div aria-hidden="true" className="h-[clamp(68px,12.75vh,187px)]" />
             <SiteFooter />
           </section>
         </main>

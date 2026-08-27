@@ -254,7 +254,7 @@ export function IndiaMap() {
         </svg>
       </div>
 
-      <aside className="on-dark gap-gap-tight border-cream/16 flex shrink-0 flex-col border-t-[length:var(--border-hair)] border-solid p-[clamp(18px,2.4vw,32px)] md:w-[clamp(216px,26%,320px)] md:border-t-0 md:border-l-[length:var(--border-hair)]">
+      <aside className="on-dark gap-gap-tight border-cream/16 flex shrink-0 flex-col border-t-[length:var(--border-hair)] border-solid p-[clamp(15.3px,2.04vw,27.2px)] md:w-[clamp(216px,26%,320px)] md:border-t-0 md:border-l-[length:var(--border-hair)]">
         <p className="text-eyebrow-xs text-cream/80 font-bold tracking-[0.18em] uppercase">
           Our presence
         </p>
@@ -263,7 +263,7 @@ export function IndiaMap() {
           <br />
           coast to hills
         </p>
-        <dl className="flex gap-[clamp(18px,1.8vw,28px)]">
+        <dl className="flex gap-[clamp(15.3px,1.53vw,23.8px)]">
           <div className="border-accent border-l-2 border-solid pl-[--spacing(3)]">
             <dd className="font-display text-h4 text-cream leading-none">{CITIES.length}</dd>
             <dt className="text-meta text-cream/80 mt-[--spacing(1)]">Cities</dt>

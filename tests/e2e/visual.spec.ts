@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { revealAll, settleHome, skipLoader } from './helpers';
+import { animationsSettled, revealAll, settleHome, skipLoader } from './helpers';
 
 /**
  * Screenshot baselines.
@@ -64,5 +64,11 @@ test('the contact page matches its baseline', async ({ page }) => {
   await skipLoader(page);
   await page.goto('/contact');
   await page.waitForLoadState('domcontentloaded');
+
+  // The footer's newsletter form is code-split and mounts after hydration, so
+  // waiting for it is what makes this shot deterministic rather than a race.
+  await expect(page.getByPlaceholder('Email address')).toBeVisible();
+  await animationsSettled(page);
+
   await expect(page).toHaveScreenshot('contact-full.png', { fullPage: true });
 });

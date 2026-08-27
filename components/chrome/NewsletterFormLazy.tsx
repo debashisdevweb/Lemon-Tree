@@ -13,7 +13,7 @@ import dynamic from 'next/dynamic';
  */
 const NewsletterForm = dynamic(() => import('./NewsletterForm').then((m) => m.NewsletterForm), {
   ssr: false,
-  loading: () => <div aria-hidden="true" className="min-h-[168px]" />,
+  loading: () => <div aria-hidden="true" className="min-h-[143px]" />,
 });
 
 export function NewsletterFormLazy() {

@@ -26,7 +26,7 @@ export function Rewards() {
       aria-labelledby="rewards-heading"
       className="on-dark bg-forest md:min-h-stack-min-lg relative z-3 grid overflow-hidden md:sticky md:top-0 md:h-screen lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]"
     >
-      <div className="pt-stack-pt pb-stack-pb flex flex-col justify-center px-[clamp(24px,4vw,64px)] lg:pr-[clamp(24px,3vw,56px)]">
+      <div className="pt-stack-pt pb-stack-pb flex flex-col justify-center px-[clamp(20.4px,3.4vw,54.4px)] lg:pr-[clamp(20.4px,2.55vw,47.6px)]">
         <Reveal fast className="gap-gap-tight flex items-baseline">
           <span className="font-display-italic text-infinity text-cream leading-none font-normal italic">
             {REWARDS.logoWord}
@@ -79,7 +79,7 @@ export function Rewards() {
         </Reveal>
       </div>
 
-      <div className="relative min-h-[280px] overflow-hidden lg:min-h-0">
+      <div className="relative min-h-[238px] overflow-hidden lg:min-h-0">
         <CoverImage image={REWARDS.image} sizes="(max-width:1024px) 100vw, 50vw" />
         <span
           aria-hidden="true"

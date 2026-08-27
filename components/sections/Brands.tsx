@@ -13,9 +13,9 @@ export function Brands() {
     <section
       id="brands"
       aria-labelledby="brands-heading"
-      className="bg-paper py-section-y relative z-20 px-[clamp(24px,4vw,64px)]"
+      className="bg-paper py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
     >
-      <div className="max-w-shell mx-auto grid items-start gap-[clamp(24px,4vw,80px)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="max-w-shell mx-auto grid items-start gap-[clamp(20.4px,3.4vw,68px)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Reveal>
           <Eyebrow tone="sage">{BRANDS.eyebrow}</Eyebrow>
           <h2

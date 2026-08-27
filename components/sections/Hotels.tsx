@@ -28,7 +28,7 @@ export function Hotels() {
     <section
       id="hotels"
       aria-labelledby="hotels-heading"
-      className="bg-cream py-section-y relative z-20 px-[clamp(24px,4vw,64px)]"
+      className="bg-cream py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
     >
       <div className="max-w-shell mx-auto">
         <Reveal>
@@ -82,7 +82,7 @@ export function Hotels() {
         </div>
 
         <SectionHeader
-          className="mt-[clamp(56px,7vw,120px)]"
+          className="mt-[clamp(47.6px,5.95vw,102px)]"
           eyebrow={UPCOMING.eyebrow}
           headline={UPCOMING.headline}
           headingId="upcoming-heading"

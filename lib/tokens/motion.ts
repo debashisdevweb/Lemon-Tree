@@ -50,10 +50,13 @@ export const EASE = {
   zoom: [0.2, 0.6, 0.2, 1],
 } as const satisfies Record<string, readonly [number, number, number, number]>;
 
-/** Travel distances. `revealY` is authored 27px un-scaled by 0.8. */
+/**
+ * Travel distances, in px. These are sizes, so they carry the same global 0.85
+ * reduction as everything else: authored 27px -> /0.8 = 34px -> x0.85 = 28.9px.
+ */
 export const TRANSFORM = {
-  revealY: 34,
-  loaderY: 22,
+  revealY: 28.9,
+  loaderY: 18.7,
   heroZoomFrom: 1.14,
   cardZoomTo: 1.05,
 } as const;

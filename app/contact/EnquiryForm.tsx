@@ -48,7 +48,7 @@ type EnquiryValues = z.infer<typeof enquirySchema>;
 
 const fieldClass =
   'mt-[--spacing(2)] w-full rounded-sm border-[length:var(--border-hair)] border-solid ' +
-  'border-forest/28 bg-paper px-[clamp(12px,1.2vw,18px)] py-[clamp(10px,1vw,15px)] ' +
+  'border-forest/28 bg-paper px-[clamp(10.2px,1.02vw,15.3px)] py-[clamp(8.5px,0.85vw,12.8px)] ' +
   'text-input text-ink outline-none placeholder:text-muted';
 
 const labelClass = 'block text-field-label font-bold text-forest';

@@ -16,7 +16,7 @@ export function Closing() {
   const { open } = useBooking();
 
   return (
-    <div className="max-w-shell mx-auto px-[clamp(24px,4vw,64px)]">
+    <div className="max-w-shell mx-auto px-[clamp(20.4px,3.4vw,54.4px)]">
       <h2
         id="closing-heading"
         className="text-closing text-forest text-center leading-none tracking-[-0.02em]"
@@ -29,7 +29,7 @@ export function Closing() {
         </Reveal>
       </h2>
 
-      <div className="grid items-start gap-[clamp(10px,2vw,40px)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <div className="grid items-start gap-[clamp(8.5px,1.7vw,34px)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <Reveal delay={140}>
           <p className="font-script text-closing-script text-forest text-center leading-none">
             {CLOSING.script}
@@ -37,7 +37,7 @@ export function Closing() {
         </Reveal>
 
         <Reveal delay={260}>
-          <ul className="mt-gap-grid gap-gap-tight text-closing-link text-forest flex list-none flex-col p-0 pl-[clamp(0px,4vw,80px)] font-bold">
+          <ul className="mt-gap-grid gap-gap-tight text-closing-link text-forest flex list-none flex-col p-0 pl-[clamp(0px,3.4vw,68px)] font-bold">
             {CLOSING.links.map((link) => (
               <li key={link.label}>
                 {'intent' in link && link.intent === 'booking' ? (

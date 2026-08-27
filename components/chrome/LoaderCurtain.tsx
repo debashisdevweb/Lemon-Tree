@@ -57,7 +57,7 @@ export function LoaderCurtain() {
       data-testid="loader-curtain"
       className="anim-curtain bg-curtain pointer-events-none fixed inset-0 z-[400] grid place-items-center"
     >
-      <div className="h-loader-bar-h w-loader-bar-w bg-cream/22 absolute top-[clamp(24px,4.2vh,52px)] left-1/2 -translate-x-1/2 overflow-hidden rounded-full">
+      <div className="h-loader-bar-h w-loader-bar-w bg-cream/22 absolute top-[clamp(20.4px,3.57vh,44.2px)] left-1/2 -translate-x-1/2 overflow-hidden rounded-full">
         <div className="anim-loader-bar bg-cream h-full w-full" />
       </div>
       <div className="text-cream text-center">

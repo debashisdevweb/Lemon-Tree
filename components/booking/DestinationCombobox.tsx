@@ -125,7 +125,7 @@ export function DestinationCombobox({
           role="listbox"
           aria-label="Cities and hotels"
           className={cn(
-            'absolute top-full left-0 z-10 mt-[--spacing(2)] max-h-[280px] w-[min(360px,80vw)]',
+            'absolute top-full left-0 z-10 mt-[--spacing(2)] max-h-[238px] w-[min(306px,80vw)]',
             'bg-paper shadow-bar list-none overflow-y-auto rounded-sm p-[--spacing(1)]',
           )}
           onMouseDown={(event) => {

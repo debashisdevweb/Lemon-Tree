@@ -5,8 +5,8 @@
  *
  * SCALE NOTE: every px and vw value in the source artboard is exactly 0.8x an
  * underlying clean value (the artboard was authored at 80%). All sizes below
- * are the recovered 1.0x values (authored / 0.8), which land on an 8px grid.
- * Example: authored gutter clamp(19.2px,3.2vw,51.2px) -> clamp(24px,4vw,64px).
+ * are the recovered 1.0x values (authored / 0.8), which land on an 6.8px grid.
+ * Example: authored gutter clamp(16.3px,2.72vw,43.5px) -> clamp(20.4px,3.4vw,54.4px).
  *
  * Durations and easing curves are NOT scaled - they are reproduced exactly as
  * authored, and are mirrored in lib/tokens/motion.ts (asserted equal by test).
@@ -36,7 +36,7 @@
   --brand-sage: #7a9260;
   /* Text-safe variants. The brand sage and terracotta are 2.7:1 and 3.6:1 on
    * cream — they fail WCAG AA as small text, and the reference uses both for
-   * 12px uppercase eyebrows throughout. These darkened pairs clear 4.5:1 on
+   * 10.2px uppercase eyebrows throughout. These darkened pairs clear 4.5:1 on
    * both cream and paper while reading as the same hue. The undarkened tokens
    * stay in use for fills, rules, map strokes and large display type. */
   --brand-sage-text: #586945;
@@ -120,118 +120,124 @@
    * Named by role, because the source scale is role-driven, not numeric.
    * Every value is a fluid clamp(min, vw, max) - the artboard has no
    * breakpoints for type at all. */
-  --text-micro: clamp(10px, 0.8vw, 13px); /* logo lockup "HOTELS" */
-  --text-eyebrow-xs: clamp(11px, 0.85vw, 14px); /* hero promo tag, scroll cue */
-  --text-eyebrow-sm: clamp(11px, 0.875vw, 14px); /* upcoming-card brand label */
-  --text-label: clamp(12px, 0.9vw, 15px); /* booking bar caption */
-  --text-eyebrow: clamp(12px, 0.95vw, 15px); /* section eyebrow - most used */
-  --text-meta: clamp(12px, 0.95vw, 16px); /* stat caption, card meta */
-  --text-field-label: clamp(12px, 1vw, 17px); /* sheet field labels */
-  --text-legal: clamp(13px, 1vw, 17px); /* footer legal row */
-  --text-body-sm: clamp(13px, 1.05vw, 18px); /* card body copy */
-  --text-btn-sm: clamp(13px, 1.1vw, 18px); /* outline buttons */
-  --text-nav: clamp(13px, 1.15vw, 17px); /* header nav links */
-  --text-btn-submit: clamp(14px, 1.05vw, 17px); /* newsletter submit */
-  --text-link: clamp(14px, 1.05vw, 18px); /* footer links */
-  --text-prose: clamp(14px, 1.1vw, 18px); /* section standfirst */
-  --text-body: clamp(14px, 1.15vw, 19px); /* rewards body, bar buttons */
-  --text-btn: clamp(14px, 1.2vw, 20px); /* sheet search button */
-  --text-tab: clamp(14px, 1.25vw, 21px); /* sheet tabs, discount input */
-  --text-input: clamp(15px, 1.15vw, 19px); /* newsletter input */
-  --text-prose-lg: clamp(15px, 1.2vw, 20px); /* brands prose */
-  --text-field-value: clamp(15px, 1.35vw, 23px); /* sheet field values */
-  --text-hero-list: clamp(15px, 1.45vw, 25px); /* hero bullet list */
-  --text-bar-title: clamp(16px, 1.3vw, 22px); /* "Find a hotel" */
-  --text-h4: clamp(18px, 1.6vw, 28px); /* benefit tile, brand name */
-  --text-closing-link: clamp(18px, 1.75vw, 31px); /* closing link list */
-  --text-h3-sm: clamp(19px, 1.7vw, 30px); /* upcoming card title */
-  --text-h3: clamp(19px, 1.8vw, 32px); /* destination card title */
-  --text-h3-offer: clamp(20px, 1.7vw, 30px); /* offer card title */
-  --text-h3-lg: clamp(22px, 2vw, 36px); /* event card title */
-  --text-wordmark: clamp(22px, 2.3vw, 36px); /* header wordmark */
-  --text-stat: clamp(24px, 2.3vw, 40px); /* presence stat figure */
-  --text-wordmark-lg: clamp(28px, 2.7vw, 44px); /* footer wordmark */
-  --text-infinity: clamp(28px, 2.8vw, 48px); /* "infinity" italic */
-  --text-h2-rewards: clamp(32px, 4.2vw, 72px);
-  --text-h2: clamp(34px, 4.3vw, 76px); /* section headline */
-  --text-figure: clamp(36px, 3.6vw, 64px); /* "2x" */
-  --text-loader-word: clamp(36px, 5.5vw, 88px);
-  --text-h1: clamp(44px, 7.625vw, 140px); /* hero headline */
-  --text-closing: clamp(44px, 8.4vw, 168px); /* "Come stay with us," */
-  --text-closing-script: clamp(50px, 7vw, 130px);
-  --text-hero-script: clamp(54px, 7.75vw, 140px);
-  --text-loader-script: clamp(55px, 8.25vw, 130px);
+  --text-micro: clamp(8.5px, 0.68vw, 11px); /* logo lockup "HOTELS" */
+  --text-eyebrow-xs: clamp(9.3px, 0.722vw, 11.9px); /* hero promo tag, scroll cue */
+  --text-eyebrow-sm: clamp(9.3px, 0.744vw, 11.9px); /* upcoming-card brand label */
+  --text-label: clamp(10.2px, 0.765vw, 12.8px); /* booking bar caption */
+  --text-eyebrow: clamp(10.2px, 0.807vw, 12.8px); /* section eyebrow - most used */
+  --text-meta: clamp(10.2px, 0.807vw, 13.6px); /* stat caption, card meta */
+  --text-field-label: clamp(10.2px, 0.85vw, 14.4px); /* sheet field labels */
+  --text-legal: clamp(11px, 0.85vw, 14.4px); /* footer legal row */
+  --text-body-sm: clamp(11px, 0.892vw, 15.3px); /* card body copy */
+  --text-btn-sm: clamp(11px, 0.935vw, 15.3px); /* outline buttons */
+  --text-nav: clamp(11px, 0.977vw, 14.4px); /* header nav links */
+  --text-btn-submit: clamp(11.9px, 0.892vw, 14.4px); /* newsletter submit */
+  --text-link: clamp(11.9px, 0.892vw, 15.3px); /* footer links */
+  --text-prose: clamp(11.9px, 0.935vw, 15.3px); /* section standfirst */
+  --text-body: clamp(11.9px, 0.977vw, 16.1px); /* rewards body, bar buttons */
+  --text-btn: clamp(11.9px, 1.02vw, 17px); /* sheet search button */
+  --text-tab: clamp(11.9px, 1.062vw, 17.8px); /* sheet tabs, discount input */
+  --text-input: clamp(12.8px, 0.977vw, 16.1px); /* newsletter input */
+  --text-prose-lg: clamp(12.8px, 1.02vw, 17px); /* brands prose */
+  --text-field-value: clamp(12.8px, 1.147vw, 19.6px); /* sheet field values */
+  --text-hero-list: clamp(12.8px, 1.232vw, 21.2px); /* hero bullet list */
+  --text-bar-title: clamp(13.6px, 1.105vw, 18.7px); /* "Find a hotel" */
+  --text-h4: clamp(15.3px, 1.36vw, 23.8px); /* benefit tile, brand name */
+  --text-closing-link: clamp(15.3px, 1.488vw, 26.3px); /* closing link list */
+  --text-h3-sm: clamp(16.1px, 1.445vw, 25.5px); /* upcoming card title */
+  --text-h3: clamp(16.1px, 1.53vw, 27.2px); /* destination card title */
+  --text-h3-offer: clamp(17px, 1.445vw, 25.5px); /* offer card title */
+  --text-h3-lg: clamp(18.7px, 1.7vw, 30.6px); /* event card title */
+  --text-wordmark: clamp(18.7px, 1.955vw, 30.6px); /* header wordmark */
+  --text-stat: clamp(20.4px, 1.955vw, 34px); /* presence stat figure */
+  --text-wordmark-lg: clamp(23.8px, 2.295vw, 37.4px); /* footer wordmark */
+  --text-infinity: clamp(23.8px, 2.38vw, 40.8px); /* "infinity" italic */
+  --text-h2-rewards: clamp(27.2px, 3.57vw, 61.2px);
+  --text-h2: clamp(28.9px, 3.655vw, 64.6px); /* section headline */
+  --text-figure: clamp(30.6px, 3.06vw, 54.4px); /* "2x" */
+  --text-loader-word: clamp(30.6px, 4.675vw, 74.8px);
+  --text-h1: clamp(37.4px, 6.481vw, 119px); /* hero headline */
+  --text-closing: clamp(37.4px, 7.14vw, 142.8px); /* "Come stay with us," */
+  --text-closing-script: clamp(42.5px, 5.95vw, 110.5px);
+  --text-hero-script: clamp(45.9px, 6.587vw, 119px);
+  --text-loader-script: clamp(46.8px, 7.013vw, 110.5px);
+
+  /* --- Spacing base ----------------------------------------------------
+   * Tailwind's default is 0.25rem. Every numeric spacing utility (p-4,
+   * gap-2, size-9, mt-3) and the --spacing() function multiply this, so the
+   * global 0.85 factor is applied here once rather than at each use. */
+  --spacing: 0.2125rem;
 
   /* --- Layout ---------------------------------------------------------- */
-  --spacing-shell: 1420px; /* content max-width (unscaled in source) */
-  --spacing-gutter: clamp(24px, 4vw, 64px);
-  --spacing-nav: clamp(64px, 5.9vw, 96px);
-  --spacing-section-y: clamp(76px, 8vw, 136px);
-  --spacing-stack-pt: clamp(76px, 7vw, 116px);
-  --spacing-stack-pb: clamp(96px, 12vh, 156px);
-  --spacing-hero-pt: clamp(76px, 7vw, 120px);
-  --spacing-hero-pb: clamp(105px, 13vh, 175px);
-  --spacing-closing-pt: clamp(96px, 11vw, 170px);
-  --spacing-gap-grid: clamp(14px, 1.6vw, 26px);
-  --spacing-gap-tight: clamp(10px, 1.1vw, 18px);
-  --spacing-gap-cards: clamp(10px, 1.1vw, 18px);
-  --spacing-card-pad: clamp(18px, 1.9vw, 32px);
-  --spacing-card-pad-sm: clamp(16px, 1.7vw, 28px);
-  --spacing-tile-pad-y: clamp(14px, 1.5vw, 24px);
-  --spacing-tile-pad-x: clamp(12px, 1.3vw, 20px);
-  --spacing-stack-min: 675px; /* 540 / 0.8 - hero min-height */
-  --spacing-stack-min-lg: 750px; /* 600 / 0.8 */
-  --spacing-event-min: clamp(288px, 32.5vw, 520px);
+  --spacing-shell: 1207px; /* content max-width (1420px recovered, x0.85) */
+  --spacing-gutter: clamp(20.4px, 3.4vw, 54.4px);
+  --spacing-nav: clamp(54.4px, 5.015vw, 81.6px);
+  --spacing-section-y: clamp(64.6px, 6.8vw, 115.6px);
+  --spacing-stack-pt: clamp(64.6px, 5.95vw, 98.6px);
+  --spacing-stack-pb: clamp(81.6px, 10.2vh, 132.6px);
+  --spacing-hero-pt: clamp(64.6px, 5.95vw, 102px);
+  --spacing-hero-pb: clamp(89.2px, 11.05vh, 148.8px);
+  --spacing-closing-pt: clamp(81.6px, 9.35vw, 144.5px);
+  --spacing-gap-grid: clamp(11.9px, 1.36vw, 22.1px);
+  --spacing-gap-tight: clamp(8.5px, 0.935vw, 15.3px);
+  --spacing-gap-cards: clamp(8.5px, 0.935vw, 15.3px);
+  --spacing-card-pad: clamp(15.3px, 1.615vw, 27.2px);
+  --spacing-card-pad-sm: clamp(13.6px, 1.445vw, 23.8px);
+  --spacing-tile-pad-y: clamp(11.9px, 1.275vw, 20.4px);
+  --spacing-tile-pad-x: clamp(10.2px, 1.105vw, 17px);
+  --spacing-stack-min: 573.8px; /* 540 / 0.8 x 0.85 - hero min-height */
+  --spacing-stack-min-lg: 637.5px; /* 600 / 0.8 x 0.85 */
+  --spacing-event-min: clamp(244.8px, 27.625vw, 442px);
 
 
   /* --- Control padding -------------------------------------------------
    * Buttons in the reference carry six distinct paddings, by role rather
    * than by a size ramp. Named accordingly so a component cannot pick a
    * padding the design does not contain. */
-  --spacing-btn-card-y: clamp(10px, 1vw, 17px);
-  --spacing-btn-card-x: clamp(14px, 1.4vw, 23px);
-  --spacing-btn-nav-y: clamp(9px, 0.85vw, 14px);
-  --spacing-btn-nav-x: clamp(16px, 1.6vw, 26px);
-  --spacing-btn-navline-y: clamp(8px, 0.75vw, 12px);
-  --spacing-btn-navline-x: clamp(14px, 1.3vw, 21px);
-  --spacing-btn-section-y: clamp(12px, 1.2vw, 20px);
-  --spacing-btn-section-x: clamp(18px, 1.8vw, 30px);
-  --spacing-btn-prominent-y: clamp(13px, 1.3vw, 22px);
-  --spacing-btn-prominent-x: clamp(20px, 2.1vw, 35px);
-  --spacing-btn-bar-y: clamp(13px, 1.25vw, 20px);
-  --spacing-btn-bar-x: clamp(14px, 1.375vw, 22px);
-  --spacing-btn-barcta-x: clamp(20px, 2vw, 32px);
-  --spacing-btn-sheet-y: clamp(14px, 1.35vw, 22px);
-  --spacing-btn-sheet-x: clamp(16px, 1.6vw, 26px);
-  --spacing-btn-tab-y: clamp(16px, 1.7vw, 27px);
-  --spacing-btn-tab-x: clamp(10px, 1.375vw, 18px);
-  --spacing-btn-toggle-y: clamp(7px, 0.7vw, 12px);
-  --spacing-btn-toggle-x: clamp(12px, 1.2vw, 20px);
-  --spacing-btn-submit-y: clamp(13px, 1.15vw, 18px);
-  --spacing-btn-submit-x: clamp(20px, 1.9vw, 30px);
-  --spacing-hero-pill-y: clamp(9px, 0.9vw, 14px);
-  --spacing-hero-pill-x: clamp(18px, 1.7vw, 28px);
+  --spacing-btn-card-y: clamp(8.5px, 0.85vw, 14.4px);
+  --spacing-btn-card-x: clamp(11.9px, 1.19vw, 19.6px);
+  --spacing-btn-nav-y: clamp(7.6px, 0.722vw, 11.9px);
+  --spacing-btn-nav-x: clamp(13.6px, 1.36vw, 22.1px);
+  --spacing-btn-navline-y: clamp(6.8px, 0.637vw, 10.2px);
+  --spacing-btn-navline-x: clamp(11.9px, 1.105vw, 17.8px);
+  --spacing-btn-section-y: clamp(10.2px, 1.02vw, 17px);
+  --spacing-btn-section-x: clamp(15.3px, 1.53vw, 25.5px);
+  --spacing-btn-prominent-y: clamp(11px, 1.105vw, 18.7px);
+  --spacing-btn-prominent-x: clamp(17px, 1.785vw, 29.8px);
+  --spacing-btn-bar-y: clamp(11px, 1.062vw, 17px);
+  --spacing-btn-bar-x: clamp(11.9px, 1.169vw, 18.7px);
+  --spacing-btn-barcta-x: clamp(17px, 1.7vw, 27.2px);
+  --spacing-btn-sheet-y: clamp(11.9px, 1.147vw, 18.7px);
+  --spacing-btn-sheet-x: clamp(13.6px, 1.36vw, 22.1px);
+  --spacing-btn-tab-y: clamp(13.6px, 1.445vw, 22.9px);
+  --spacing-btn-tab-x: clamp(8.5px, 1.169vw, 15.3px);
+  --spacing-btn-toggle-y: clamp(6px, 0.595vw, 10.2px);
+  --spacing-btn-toggle-x: clamp(10.2px, 1.02vw, 17px);
+  --spacing-btn-submit-y: clamp(11px, 0.977vw, 15.3px);
+  --spacing-btn-submit-x: clamp(17px, 1.615vw, 25.5px);
+  --spacing-hero-pill-y: clamp(7.6px, 0.765vw, 11.9px);
+  --spacing-hero-pill-x: clamp(15.3px, 1.445vw, 23.8px);
 
   /* --- Misc measured values -------------------------------------------- */
-  --spacing-loader-bar-w: 70px;      /* 56 / 0.8 */
-  --spacing-loader-bar-h: 3px;       /* 2.4 / 0.8 */
-  --spacing-close-btn: clamp(44px, 3.4vw, 56px);
-  --spacing-social-icon: clamp(22px, 1.8vw, 28px);
-  --spacing-checkbox: 22px;          /* 17.6 / 0.8 */
-  --spacing-newsletter-max: 540px;   /* 432 / 0.8 */
-  --spacing-sheet-max: 1475px;       /* 1180 / 0.8 */
-  --spacing-scroll-rule: clamp(26px, 2.5vw, 40px);
+  --spacing-loader-bar-w: 59.5px;      /* 56 / 0.8 x 0.85 */
+  --spacing-loader-bar-h: 2.5px;       /* 2.4 / 0.8 */
+  --spacing-close-btn: clamp(37.4px, 2.89vw, 47.6px);
+  --spacing-social-icon: clamp(18.7px, 1.53vw, 23.8px);
+  --spacing-checkbox: 18.7px;          /* 17.6 / 0.8 x 0.85 */
+  --spacing-newsletter-max: 459px;   /* 432 / 0.8 x 0.85 */
+  --spacing-sheet-max: 1253.8px;       /* 1180 / 0.8 x 0.85 */
+  --spacing-scroll-rule: clamp(22.1px, 2.125vw, 34px);
 
   /* --- Radius ---------------------------------------------------------- */
-  --radius-xs: 6px;
-  --radius-sm: 8px;
-  --radius-md: 11px;
-  --radius-lg: 16px;
+  --radius-xs: 5.1px;
+  --radius-sm: 6.8px;
+  --radius-md: 9.3px;
+  --radius-lg: 13.6px;
 
   /* --- Shadow ---------------------------------------------------------- */
-  --shadow-bar: 0 20px 44px rgb(var(--brand-bar-shadow) / 0.2);
-  --shadow-sheet: 0 -15px 60px rgb(var(--brand-sheet-scrim) / 0.32);
-  --shadow-nav: 0 1px 0 color-mix(in srgb, var(--brand-forest) 14%, transparent);
+  --shadow-bar: 0 17px 37.4px rgb(var(--brand-bar-shadow) / 0.2);
+  --shadow-sheet: 0 -12.8px 51px rgb(var(--brand-sheet-scrim) / 0.32);
+  --shadow-nav: 0 0.8px 0 color-mix(in srgb, var(--brand-forest) 14%, transparent);
 
   /* --- Easing (verbatim from artboard) --------------------------------- */
   --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
@@ -248,7 +254,7 @@
  * plain custom properties consumed via var() in components and in
  * lib/tokens/motion.ts. Values in ms. */
 :root {
-  --border-hair: 1.5px;
+  --border-hair: 1.3px;
 
   --dur-curtain: 2400ms;
   --dur-zoom: 15000ms;
@@ -274,10 +280,10 @@
   --delay-loader-script: 120ms;
   --delay-sheet-close: 150ms;
 
-  /* reveal travel: authored 27px -> 27 / 0.8 = 34px */
-  --reveal-y: 34px;
-  /* loader word travel: authored 18px -> 22px */
-  --loader-y: 22px;
+  /* reveal travel: authored 22.9px -> 27 / 0.8 = 28.9px */
+  --reveal-y: 28.9px;
+  /* loader word travel: authored 15.3px -> 18.7px */
+  --loader-y: 18.7px;
   --hero-zoom-from: 1.14;
   --card-zoom-to: 1.05;
 }

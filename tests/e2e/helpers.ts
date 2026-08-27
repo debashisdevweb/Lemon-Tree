@@ -96,3 +96,26 @@ export async function revealsSettled(page: Page): Promise<void> {
     { timeout: 15_000 }
   );
 }
+
+/**
+ * Wait until no CSS animation or transition is still running.
+ *
+ * axe reads rendered colour, so scanning an element mid-fade blends it with
+ * whatever is behind and reports contrast failures that do not exist in the
+ * settled state. The hero's 15s Ken Burns is excluded: it runs for the whole
+ * visit by design and never affects colour.
+ */
+export async function animationsSettled(page: Page): Promise<void> {
+  await page.waitForFunction(
+    () =>
+      document
+        .getAnimations()
+        .filter((animation) => {
+          const name = (animation as CSSAnimation).animationName;
+          return name !== 'lt-zoom-out';
+        })
+        .every((animation) => animation.playState !== 'running'),
+    undefined,
+    { timeout: 10_000 }
+  );
+}

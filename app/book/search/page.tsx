@@ -22,7 +22,7 @@ export default function SearchPage() {
         <SkipLink />
         <SiteHeader />
         <main id="main" className="bg-cream pt-nav min-h-screen">
-          <Suspense fallback={<div className="py-section-y px-[clamp(24px,4vw,64px)]" />}>
+          <Suspense fallback={<div className="py-section-y px-[clamp(20.4px,3.4vw,54.4px)]" />}>
             <SearchResults />
           </Suspense>
           <SiteFooter />

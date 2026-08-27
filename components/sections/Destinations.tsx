@@ -26,7 +26,7 @@ export function Destinations() {
       <section
         id="destinations"
         aria-labelledby="destinations-heading"
-        className="bg-cream pt-stack-pt pb-stack-pb md:min-h-stack-min-lg relative z-2 flex flex-col overflow-hidden px-[clamp(24px,4vw,64px)] md:sticky md:top-0 md:h-screen"
+        className="bg-cream pt-stack-pt pb-stack-pb md:min-h-stack-min-lg relative z-2 flex flex-col overflow-hidden px-[clamp(20.4px,3.4vw,54.4px)] md:sticky md:top-0 md:h-screen"
       >
         <div className="max-w-shell mx-auto flex min-h-0 w-full flex-auto flex-col">
           <SectionHeader
@@ -42,11 +42,11 @@ export function Destinations() {
               <Reveal
                 key={card.slug}
                 delay={CARD_DELAYS[index] ?? 0}
-                className="min-h-[220px] md:min-h-0"
+                className="min-h-[187px] md:min-h-0"
               >
                 <Link
                   href={`/book/search?theme=${card.slug}`}
-                  className="group relative flex h-full min-h-[220px] flex-col justify-end overflow-hidden md:min-h-0"
+                  className="group relative flex h-full min-h-[187px] flex-col justify-end overflow-hidden md:min-h-0"
                 >
                   <CoverImage
                     image={card.image}
