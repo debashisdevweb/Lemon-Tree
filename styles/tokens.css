@@ -155,6 +155,45 @@
   --spacing-stack-min-lg: 750px; /* 600 / 0.8 */
   --spacing-event-min: clamp(288px, 32.5vw, 520px);
 
+
+  /* --- Control padding -------------------------------------------------
+   * Buttons in the reference carry six distinct paddings, by role rather
+   * than by a size ramp. Named accordingly so a component cannot pick a
+   * padding the design does not contain. */
+  --spacing-btn-card-y: clamp(10px, 1vw, 17px);
+  --spacing-btn-card-x: clamp(14px, 1.4vw, 23px);
+  --spacing-btn-nav-y: clamp(9px, 0.85vw, 14px);
+  --spacing-btn-nav-x: clamp(16px, 1.6vw, 26px);
+  --spacing-btn-navline-y: clamp(8px, 0.75vw, 12px);
+  --spacing-btn-navline-x: clamp(14px, 1.3vw, 21px);
+  --spacing-btn-section-y: clamp(12px, 1.2vw, 20px);
+  --spacing-btn-section-x: clamp(18px, 1.8vw, 30px);
+  --spacing-btn-prominent-y: clamp(13px, 1.3vw, 22px);
+  --spacing-btn-prominent-x: clamp(20px, 2.1vw, 35px);
+  --spacing-btn-bar-y: clamp(13px, 1.25vw, 20px);
+  --spacing-btn-bar-x: clamp(14px, 1.375vw, 22px);
+  --spacing-btn-barcta-x: clamp(20px, 2vw, 32px);
+  --spacing-btn-sheet-y: clamp(14px, 1.35vw, 22px);
+  --spacing-btn-sheet-x: clamp(16px, 1.6vw, 26px);
+  --spacing-btn-tab-y: clamp(16px, 1.7vw, 27px);
+  --spacing-btn-tab-x: clamp(10px, 1.375vw, 18px);
+  --spacing-btn-toggle-y: clamp(7px, 0.7vw, 12px);
+  --spacing-btn-toggle-x: clamp(12px, 1.2vw, 20px);
+  --spacing-btn-submit-y: clamp(13px, 1.15vw, 18px);
+  --spacing-btn-submit-x: clamp(20px, 1.9vw, 30px);
+  --spacing-hero-pill-y: clamp(9px, 0.9vw, 14px);
+  --spacing-hero-pill-x: clamp(18px, 1.7vw, 28px);
+
+  /* --- Misc measured values -------------------------------------------- */
+  --spacing-loader-bar-w: 70px;      /* 56 / 0.8 */
+  --spacing-loader-bar-h: 3px;       /* 2.4 / 0.8 */
+  --spacing-close-btn: clamp(44px, 3.4vw, 56px);
+  --spacing-social-icon: clamp(22px, 1.8vw, 28px);
+  --spacing-checkbox: 22px;          /* 17.6 / 0.8 */
+  --spacing-newsletter-max: 540px;   /* 432 / 0.8 */
+  --spacing-sheet-max: 1475px;       /* 1180 / 0.8 */
+  --spacing-scroll-rule: clamp(26px, 2.5vw, 40px);
+
   /* --- Radius ---------------------------------------------------------- */
   --radius-xs: 6px;
   --radius-sm: 8px;

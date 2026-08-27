@@ -2,6 +2,10 @@ import type { NextConfig } from 'next';
 
 const config: NextConfig = {
   reactStrictMode: true,
+  /* Lint runs as its own CI step (`npm run lint`) with the flat config in
+   * eslint.config.mjs. eslint-config-next's eslintrc patch cannot run inside
+   * next build under ESLint 9 flat config, so it is not invoked there. */
+  eslint: { ignoreDuringBuilds: true },
   poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
