@@ -211,7 +211,7 @@ export function IndiaMap() {
       </div>
 
       <aside className="on-dark gap-gap-tight border-cream/16 flex shrink-0 flex-col border-t-[length:var(--border-hair)] border-solid p-[clamp(18px,2.4vw,32px)] md:w-[clamp(216px,26%,320px)] md:border-t-0 md:border-l-[length:var(--border-hair)]">
-        <p className="text-eyebrow-xs text-cream/60 font-bold tracking-[0.18em] uppercase">
+        <p className="text-eyebrow-xs text-cream/80 font-bold tracking-[0.18em] uppercase">
           Our presence
         </p>
         <p className="font-display text-h4 text-cream leading-[1.08] font-normal tracking-[-0.01em]">
@@ -222,11 +222,11 @@ export function IndiaMap() {
         <dl className="flex gap-[clamp(18px,1.8vw,28px)]">
           <div className="border-accent border-l-2 border-solid pl-[--spacing(3)]">
             <dd className="font-display text-h4 text-cream leading-none">{CITIES.length}</dd>
-            <dt className="text-meta text-cream/62 mt-[--spacing(1)]">Cities</dt>
+            <dt className="text-meta text-cream/80 mt-[--spacing(1)]">Cities</dt>
           </div>
           <div className="border-accent border-l-2 border-solid pl-[--spacing(3)]">
             <dd className="font-display text-h4 text-cream leading-none">{stateCount}</dd>
-            <dt className="text-meta text-cream/62 mt-[--spacing(1)]">States</dt>
+            <dt className="text-meta text-cream/80 mt-[--spacing(1)]">States</dt>
           </div>
         </dl>
         <hr className="border-cream/16 border-0 border-t-[length:var(--border-hair)] border-solid" />
@@ -237,10 +237,10 @@ export function IndiaMap() {
           </li>
           <li className="flex items-center gap-[--spacing(2.5)]">
             <span className="border-cream/75 size-3 shrink-0 rounded-full border-[length:var(--border-hair)] border-solid" />
-            <span className="text-cream/72">Opening soon</span>
+            <span className="text-cream/80">Opening soon</span>
           </li>
         </ul>
-        <p className="text-meta text-cream/60 mt-auto leading-[1.5]">
+        <p className="text-meta text-cream/80 mt-auto leading-[1.5]">
           A selection of the portfolio. Boundaries: Natural Earth via world-atlas (public domain).
         </p>
       </aside>

@@ -12,6 +12,11 @@
     scroll-padding-top: var(--spacing-nav);
   }
 
+  /* While a modal is open, nothing should be smooth-scrolling behind it. */
+  html[data-modal-open] {
+    scroll-behavior: auto;
+  }
+
   body {
     margin: 0;
     background: var(--color-cream);

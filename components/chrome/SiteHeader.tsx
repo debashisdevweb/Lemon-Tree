@@ -78,7 +78,7 @@ export function SiteHeader() {
           <a
             key={link.href}
             href={link.href}
-            className="hover:text-accent text-inherit transition-colors duration-[var(--dur-hover-swap)]"
+            className="hover:text-accent-text text-inherit transition-colors duration-[var(--dur-hover-swap)]"
           >
             {link.label}
           </a>
@@ -88,7 +88,7 @@ export function SiteHeader() {
       <div className="text-nav ml-auto flex shrink-0 items-center gap-[clamp(12px,1.6vw,26px)] font-bold">
         <Link
           href="/contact"
-          className="hover:text-accent hidden text-inherit transition-colors duration-[var(--dur-hover-swap)] lg:inline"
+          className="hover:text-accent-text hidden text-inherit transition-colors duration-[var(--dur-hover-swap)] lg:inline"
         >
           Investors
         </Link>
@@ -142,7 +142,7 @@ export function SiteHeader() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="text-closing-link text-forest hover:text-accent font-bold transition-colors duration-[var(--dur-hover-swap)]"
+                    className="text-closing-link text-forest hover:text-accent-text font-bold transition-colors duration-[var(--dur-hover-swap)]"
                   >
                     {link.label}
                   </a>

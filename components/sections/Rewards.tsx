@@ -31,7 +31,7 @@ export function Rewards() {
           <span className="font-display text-infinity text-cream leading-none font-normal italic">
             {REWARDS.logoWord}
           </span>
-          <span className="text-eyebrow-xs text-cream/66 font-bold tracking-[0.16em] uppercase">
+          <span className="text-eyebrow-xs text-cream/80 font-bold tracking-[0.16em] uppercase">
             {REWARDS.logoSuffix}
           </span>
         </Reveal>
@@ -74,7 +74,7 @@ export function Rewards() {
             <ButtonLink href="/contact" slot="prominent" variant="onDark">
               {REWARDS.signInCta}
             </ButtonLink>
-            <p className="text-meta text-cream/60">{REWARDS.disclaimer}</p>
+            <p className="text-meta text-cream/80">{REWARDS.disclaimer}</p>
           </div>
         </Reveal>
       </div>

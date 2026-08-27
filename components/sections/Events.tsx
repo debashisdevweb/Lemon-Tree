@@ -48,7 +48,7 @@ export function Events() {
                   <div className="mt-gap-grid">
                     <Link
                       href={`/contact?enquiry=${card.slug}`}
-                      className="text-meta text-cream hover:text-accent font-bold tracking-[0.1em] uppercase transition-colors duration-[var(--dur-hover-swap)]"
+                      className="text-meta text-cream hover:text-accent-text font-bold tracking-[0.1em] uppercase transition-colors duration-[var(--dur-hover-swap)]"
                     >
                       {EVENTS.cta} <span aria-hidden="true">&rarr;</span>
                     </Link>

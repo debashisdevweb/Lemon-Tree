@@ -98,7 +98,11 @@ export function DestinationCombobox({
           setIsOpen(true);
           setActive(0);
         }}
-        onFocus={() => setIsOpen(true)}
+        /* Deliberately not onFocus. The sheet moves focus here when it opens,
+           and a suggestion list that appears unasked covers the fields below
+           it — at 320px it lands directly on top of the Search button. It
+           opens on a click, on typing, or on an arrow key instead. */
+        onClick={() => setIsOpen(true)}
         onBlur={() => {
           // Let a click on an option land before the list unmounts.
           blurTimer.current = setTimeout(() => setIsOpen(false), 120);

@@ -103,7 +103,7 @@ export function Hotels() {
                   className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.08),rgb(var(--brand-card-scrim)/0.82))]"
                 />
                 <span className="p-card-pad-sm relative flex h-full flex-col justify-end">
-                  <span className="text-eyebrow-sm text-cream/72 font-bold tracking-[0.12em] uppercase">
+                  <span className="text-eyebrow-sm text-cream/80 font-bold tracking-[0.12em] uppercase">
                     {card.brand}
                   </span>
                   <span className="font-display text-h3-sm text-cream mt-[--spacing(2)] leading-[1.1] font-medium">

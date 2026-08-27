@@ -1,6 +1,15 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import type { BookingTab, StayType } from '@/lib/booking/schemas';
 
 /**
@@ -38,13 +47,52 @@ export function BookingProvider({
   const [tab, setTab] = useState<BookingTab>('online-booking');
   const [stay, setStay] = useState<StayType>(defaultStay);
 
+  /**
+   * Focus restore is handled here rather than left to Radix.
+   *
+   * The sheet has six programmatic entry points and no Dialog.Trigger, and it
+   * unmounts through AnimatePresence after a 600ms exit — between them, Radix's
+   * own restore does not reliably land focus back where it started. Capturing
+   * the element explicitly means a keyboard user always returns to the control
+   * they pressed.
+   */
+  const restoreTo = useRef<HTMLElement | null>(null);
+
   const open = useCallback((options?: OpenOptions) => {
+    const active = document.activeElement;
+    restoreTo.current = active instanceof HTMLElement ? active : null;
     if (options?.tab) setTab(options.tab);
     if (options?.stay) setStay(options.stay);
     setIsOpen(true);
   }, []);
 
-  const close = useCallback(() => setIsOpen(false), []);
+  const close = useCallback(() => {
+    setIsOpen(false);
+    const target = restoreTo.current;
+    restoreTo.current = null;
+    if (!target || !target.isConnected) return;
+    // Wait for the dialog's focus scope to release before taking focus back.
+    requestAnimationFrame(() => target.focus());
+  }, []);
+
+  /**
+   * Smooth scrolling and an open modal do not mix: any programmatic
+   * scrollIntoView while the sheet is up starts a smooth scroll of the page
+   * behind it, which the user never asked for and which fights the sheet's own
+   * layout. The attribute below switches it off for as long as the sheet is
+   * open (see app/globals.css).
+   */
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isOpen) {
+      root.dataset.modalOpen = 'true';
+    } else {
+      delete root.dataset.modalOpen;
+    }
+    return () => {
+      delete root.dataset.modalOpen;
+    };
+  }, [isOpen]);
 
   const value = useMemo<BookingContextValue>(
     () => ({ isOpen, tab, stay, open, close, setTab, setStay }),

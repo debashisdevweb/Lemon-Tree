@@ -95,8 +95,13 @@ function FieldShell({
     >
       <span className="text-field-label text-muted block">{label}</span>
       <span className="text-field-value text-ink-strong mt-[--spacing(1)] block font-bold">
-        {value}
-        <span className="sr-only">{longValue !== '—' ? ` — ${longValue}` : ' not chosen'}</span>
+        {/* The abbreviated date is for the eye only. Assistive tech gets the
+            unambiguous long form instead, so the accessible name reads
+            "Arrival, Thursday, 27 August 2026" rather than repeating itself. */}
+        <span aria-hidden="true">{value}</span>
+        {/* No leading comma: accessible-name computation already joins the
+            label and this value with a space. */}
+        <span className="sr-only">{longValue !== '—' ? longValue : 'no date chosen'}</span>
       </span>
     </Popover.Trigger>
   );
@@ -140,7 +145,14 @@ export function ArrivalField({
         describedBy={errorId}
       />
       <Popover.Portal>
-        <Popover.Content className={popoverContent} sideOffset={12} align="start">
+        <Popover.Content
+          className={popoverContent}
+          sideOffset={12}
+          align="start"
+          /* Escape must dismiss only the calendar. Without this the key also
+             reaches the booking dialog behind it and closes the whole sheet. */
+          onEscapeKeyDown={(event) => event.stopPropagation()}
+        >
           {stay === 'day-use' ? (
             <DayPicker
               mode="single"
@@ -166,12 +178,21 @@ export function ArrivalField({
               classNames={pickerClassNames}
               onSelect={(next) => {
                 if (!next?.from) return;
-                const nextIn = toIso(next.from);
-                // Default to a one-night stay so the field is never half-set.
-                const nextOut = next.to
-                  ? toIso(next.to)
-                  : toIso(new Date(next.from.getTime() + DAY));
-                onChange({ checkIn: nextIn, checkOut: nextOut });
+
+                // react-day-picker reports the first click of a range as
+                // { from: day, to: day }. Taking that literally would set an
+                // overnight departure equal to the arrival, which the schema
+                // correctly rejects — so a single-day selection becomes a
+                // one-night stay and the user adjusts the departure if needed.
+                const sameDay =
+                  next.to !== undefined && next.to.getTime() === next.from.getTime();
+                const departure =
+                  next.to && !sameDay ? next.to : new Date(next.from.getTime() + DAY);
+
+                onChange({ checkIn: toIso(next.from), checkOut: toIso(departure) });
+
+                // Close once both ends are real; stay open while the user is
+                // still extending the range.
                 if (next.to) setOpen(false);
               }}
             />
@@ -226,7 +247,14 @@ export function DepartureField({
         describedBy={errorId}
       />
       <Popover.Portal>
-        <Popover.Content className={popoverContent} sideOffset={12} align="start">
+        <Popover.Content
+          className={popoverContent}
+          sideOffset={12}
+          align="start"
+          /* Escape must dismiss only the calendar. Without this the key also
+             reaches the booking dialog behind it and closes the whole sheet. */
+          onEscapeKeyDown={(event) => event.stopPropagation()}
+        >
           <DayPicker
             mode="single"
             autoFocus

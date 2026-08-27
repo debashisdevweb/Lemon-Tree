@@ -44,14 +44,14 @@ export function Closing() {
                   <button
                     type="button"
                     onClick={() => open()}
-                    className="hover:text-accent cursor-pointer border-0 bg-transparent p-0 text-left text-inherit transition-colors duration-[var(--dur-hover-swap)]"
+                    className="hover:text-accent-text cursor-pointer border-0 bg-transparent p-0 text-left text-inherit transition-colors duration-[var(--dur-hover-swap)]"
                   >
                     {link.label}
                   </button>
                 ) : (
                   <a
                     href={'href' in link ? link.href : '#top'}
-                    className="hover:text-accent text-inherit transition-colors duration-[var(--dur-hover-swap)]"
+                    className="hover:text-accent-text text-inherit transition-colors duration-[var(--dur-hover-swap)]"
                   >
                     {link.label}
                   </a>

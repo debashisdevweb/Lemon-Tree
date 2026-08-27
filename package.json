@@ -13,7 +13,10 @@
     "test:watch": "vitest",
     "e2e": "playwright test",
     "e2e:update": "playwright test --update-snapshots",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run e2e",
+    "prepare": "husky",
+    "e2e:ui": "playwright test --ui",
+    "lh": "npx --yes @lhci/cli@0.14.x autorun --config=lighthouserc.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -61,5 +64,14 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vitest": "^4.1.11"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,json,md}": [
+      "prettier --write"
+    ]
   }
 }

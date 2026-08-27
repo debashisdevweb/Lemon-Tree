@@ -25,7 +25,7 @@ const base =
   'disabled:cursor-not-allowed disabled:opacity-60';
 
 const variants: Record<ButtonVariant, string> = {
-  solid: 'border-0 bg-accent text-paper hover:bg-accent-deep',
+  solid: 'border-0 bg-accent-cta text-paper hover:bg-accent-cta-hover',
   outline:
     'bg-transparent text-forest border-[length:var(--border-hair)] border-solid ' +
     'border-forest/40 hover:bg-forest hover:text-cream',

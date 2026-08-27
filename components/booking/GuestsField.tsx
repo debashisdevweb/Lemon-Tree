@@ -105,6 +105,8 @@ export function GuestsField({
         <Popover.Content
           sideOffset={12}
           align="start"
+          /* Escape closes the stepper only, never the sheet behind it. */
+          onEscapeKeyDown={(event) => event.stopPropagation()}
           className={cn(
             'bg-paper p-card-pad-sm shadow-bar z-[320] w-[min(320px,84vw)] rounded-md',
             'gap-gap-tight flex flex-col',
@@ -143,7 +145,7 @@ export function GuestsField({
             }}
           />
           {overCapacity && (
-            <p role="alert" className="text-meta text-accent-deep">
+            <p role="alert" className="text-meta text-accent-text">
               That is more than {MAX_GUESTS_PER_ROOM} guests per room — add a room to continue.
             </p>
           )}

@@ -41,7 +41,7 @@ export function SiteFooter() {
                   aria-label={social.label}
                   rel="noreferrer noopener"
                   target="_blank"
-                  className="hover:text-accent inline-flex text-inherit transition-colors duration-[var(--dur-hover-swap)]"
+                  className="hover:text-accent-text inline-flex text-inherit transition-colors duration-[var(--dur-hover-swap)]"
                 >
                   <SocialIcon platform={social.platform} />
                 </a>
@@ -62,14 +62,14 @@ export function SiteFooter() {
                     {link.href.startsWith('#') ? (
                       <a
                         href={link.href}
-                        className="hover:text-accent transition-colors duration-[var(--dur-hover-swap)]"
+                        className="hover:text-accent-text transition-colors duration-[var(--dur-hover-swap)]"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="hover:text-accent transition-colors duration-[var(--dur-hover-swap)]"
+                        className="hover:text-accent-text transition-colors duration-[var(--dur-hover-swap)]"
                       >
                         {link.label}
                       </Link>

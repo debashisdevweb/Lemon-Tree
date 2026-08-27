@@ -29,10 +29,25 @@ export const CHECK_OUT_LABELS: Record<StayType, string> = {
   'day-use': 'Check-out time',
 };
 
+/**
+ * A calendar date, as YYYY-MM-DD.
+ *
+ * Date.parse silently rolls invalid days over — '2026-02-31' becomes 3 March —
+ * so a parse check alone is not enough. The date is rebuilt in UTC and compared
+ * back against the input, which rejects any rollover.
+ */
 const isoDate = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, 'must be an ISO date (YYYY-MM-DD)')
-  .refine((v) => !Number.isNaN(Date.parse(`${v}T00:00:00Z`)), 'must be a real date');
+  .refine((value) => {
+    const [year, month, day] = value.split('-').map(Number) as [number, number, number];
+    const date = new Date(Date.UTC(year, month - 1, day));
+    return (
+      date.getUTCFullYear() === year &&
+      date.getUTCMonth() === month - 1 &&
+      date.getUTCDate() === day
+    );
+  }, 'must be a real date');
 
 export const MAX_STAY_NIGHTS = 30;
 export const MAX_GUESTS_PER_ROOM = 4;

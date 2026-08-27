@@ -151,7 +151,7 @@ export function SearchResults() {
 
       {isError && (
         <div className="mt-gap-grid bg-paper p-card-pad max-w-[60ch]">
-          <p className="text-body text-accent-deep font-bold">
+          <p className="text-body text-accent-text font-bold">
             {error instanceof Error ? error.message : 'We could not load rates.'}
           </p>
           <Button

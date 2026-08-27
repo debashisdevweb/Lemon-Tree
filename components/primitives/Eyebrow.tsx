@@ -7,12 +7,17 @@ import { cn } from '@/lib/cn';
  */
 export type EyebrowTone = 'sage' | 'accent' | 'forest' | 'onDark' | 'onDarkSoft';
 
+/**
+ * Eyebrows are 12-15px uppercase, so they use the text-safe sage and terracotta
+ * (see styles/tokens.css) rather than the display versions, which fail AA at
+ * this size. On dark grounds cream is held at 75% or above for the same reason.
+ */
 const tones: Record<EyebrowTone, string> = {
-  sage: 'text-sage',
-  accent: 'text-accent',
+  sage: 'text-sage-text',
+  accent: 'text-accent-text',
   forest: 'text-forest',
   onDark: 'text-cream',
-  onDarkSoft: 'text-cream/72',
+  onDarkSoft: 'text-cream/80',
 };
 
 const tracking = {

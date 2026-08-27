@@ -56,7 +56,7 @@ export function Brands() {
             <p className="mt-gap-grid">
               <Link
                 href="/contact"
-                className="text-body hover:text-accent font-bold underline underline-offset-[0.2em] transition-colors duration-[var(--dur-hover-swap)]"
+                className="text-body hover:text-accent-text font-bold underline underline-offset-[0.2em] transition-colors duration-[var(--dur-hover-swap)]"
               >
                 {BRANDS.moreCta}
               </Link>

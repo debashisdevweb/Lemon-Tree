@@ -60,7 +60,8 @@ export function Offers() {
                   )}
 
                   <div className="p-card-pad flex flex-auto flex-col">
-                    <Eyebrow tone={isMember ? 'sage' : 'accent'}>{card.eyebrow}</Eyebrow>
+                    {/* The member card is on forest, so sage would be 1.5:1 there. */}
+                    <Eyebrow tone={isMember ? 'onDarkSoft' : 'accent'}>{card.eyebrow}</Eyebrow>
 
                     <h3
                       className={`mt-gap-tight font-display text-h3-offer leading-[1.1] font-medium ${
@@ -89,7 +90,7 @@ export function Offers() {
                         <button
                           type="button"
                           onClick={() => open({ tab: 'online-booking', stay: 'day-use' })}
-                          className="text-body-sm text-forest hover:text-accent cursor-pointer self-start border-0 bg-transparent p-0 font-bold underline underline-offset-[0.2em] transition-colors duration-[var(--dur-hover-swap)]"
+                          className="text-body-sm text-forest hover:text-accent-text cursor-pointer self-start border-0 bg-transparent p-0 font-bold underline underline-offset-[0.2em] transition-colors duration-[var(--dur-hover-swap)]"
                         >
                           {card.action.label}
                         </button>
@@ -100,7 +101,7 @@ export function Offers() {
                               ? '#rewards'
                               : '/book/search?tab=special-offers'
                           }
-                          className={`text-body-sm hover:text-accent self-start font-bold underline underline-offset-[0.2em] transition-colors duration-[var(--dur-hover-swap)] ${
+                          className={`text-body-sm hover:text-accent-text self-start font-bold underline underline-offset-[0.2em] transition-colors duration-[var(--dur-hover-swap)] ${
                             isMember ? 'text-cream' : 'text-forest'
                           }`}
                         >

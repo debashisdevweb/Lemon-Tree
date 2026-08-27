@@ -73,7 +73,7 @@ export function Reveal({ children, delay = 0, fast = false, as, className }: Rev
   return (
     <Tag
       ref={ref}
-      data-revealed={shown || undefined}
+      data-revealed={shown ? 'true' : 'false'}
       className={cn(
         'motion-safe:translate-y-[var(--reveal-y)] motion-safe:opacity-0',
         'transition-[opacity,transform] ease-[var(--ease-reveal)]',

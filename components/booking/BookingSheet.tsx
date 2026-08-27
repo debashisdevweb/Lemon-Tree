@@ -181,6 +181,9 @@ export function BookingSheet() {
               }}
             >
               <motion.div
+                /* Radix does not forward aria-modal through asChild in this
+                   composition, and a modal dialog must declare it. */
+                aria-modal="true"
                 className="fixed inset-x-0 bottom-0 z-[310] will-change-transform"
                 initial={{ y: reduced ? 0 : '102%' }}
                 animate={{ y: 0 }}
@@ -236,7 +239,7 @@ export function BookingSheet() {
                             onChange={(event) => setDiscountCode(event.target.value)}
                             className={cn(
                               'py-btn-tab-y text-tab min-w-0 flex-auto border-0 bg-transparent',
-                              'text-cream placeholder:text-cream/70 outline-none',
+                              'text-cream placeholder:text-cream/80 outline-none',
                             )}
                           />
                         </div>
@@ -330,7 +333,7 @@ export function BookingSheet() {
                       <p
                         id={errorId}
                         role="alert"
-                        className="bg-paper text-body-sm text-accent-deep px-[clamp(16px,1.9vw,32px)] pb-[clamp(12px,1.2vw,20px)] font-bold"
+                        className="bg-paper text-body-sm text-accent-text px-[clamp(16px,1.9vw,32px)] pb-[clamp(12px,1.2vw,20px)] font-bold"
                       >
                         {firstError}
                       </p>

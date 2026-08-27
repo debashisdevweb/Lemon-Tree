@@ -62,9 +62,9 @@ export function Hero() {
           <div className="anim-hero-cta gap-gap-grid mt-[clamp(28px,3.4vw,56px)] flex flex-wrap items-center">
             <a
               href={HERO.promo.href}
-              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent inline-flex flex-wrap items-center gap-[clamp(10px,1.1vw,18px)] rounded-full transition-colors duration-[var(--dur-hover-bg)]"
+              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent-text inline-flex flex-wrap items-center gap-[clamp(10px,1.1vw,18px)] rounded-full transition-colors duration-[var(--dur-hover-bg)]"
             >
-              <span className="text-eyebrow-xs text-accent font-bold tracking-[0.1em] uppercase">
+              <span className="text-eyebrow-xs text-accent-text font-bold tracking-[0.1em] uppercase">
                 {HERO.promo.tag}
               </span>
               {HERO.promo.label}

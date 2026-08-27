@@ -94,7 +94,7 @@ export function EnquiryForm() {
 
   const Error = ({ id, message }: { id: string; message?: string }) =>
     message ? (
-      <p id={id} role="alert" className="text-body-sm text-accent-deep mt-[--spacing(1)] font-bold">
+      <p id={id} role="alert" className="text-body-sm text-accent-text mt-[--spacing(1)] font-bold">
         {message}
       </p>
     ) : null;

@@ -27,8 +27,23 @@
   --brand-cream-2: #efe7dc;
   --brand-accent: #c66a3c;
   --brand-accent-deep: #b25b2f;
+  /* Solid-button fill. Paper text on the brand terracotta is 3.58:1, which
+   * fails AA at button sizes; this is the smallest darkening (13%) that clears
+   * 4.5:1, so primary CTAs stay recognisably terracotta. --brand-accent itself
+   * is unchanged and still used wherever it carries no small light text. */
+  --brand-accent-cta: #ac5c34;
+  --brand-accent-cta-hover: #96502d;
   --brand-sage: #7a9260;
-  --brand-muted: #5c6560;
+  /* Text-safe variants. The brand sage and terracotta are 2.7:1 and 3.6:1 on
+   * cream — they fail WCAG AA as small text, and the reference uses both for
+   * 12px uppercase eyebrows throughout. These darkened pairs clear 4.5:1 on
+   * both cream and paper while reading as the same hue. The undarkened tokens
+   * stay in use for fills, rules, map strokes and large display type. */
+  --brand-sage-text: #586945;
+  --brand-accent-text: #96512e;
+  /* Nudged 3% darker than the artboard's #5c6560, which sits at 4.66:1 on
+   * cream — inside measurement noise of the 4.5 threshold. This holds 5.09:1. */
+  --brand-muted: #575f5a;
   --brand-ink: #333b37;
   --brand-ink-strong: #222924;
   --brand-curtain: #26402f;
@@ -47,8 +62,12 @@
   --brand-cream: #e8e4dc;
   --brand-cream-2: #ded9cf;
   --brand-accent: #3f7d74;
+  --brand-accent-cta: #2f6b62;
+  --brand-accent-cta-hover: #255952;
   --brand-accent-deep: #33665f;
   --brand-sage: #6f8a7f;
+  --brand-sage-text: #3f5850;
+  --brand-accent-text: #2b5a53;
   --brand-curtain: #1f3a35;
   --brand-hero-ground: #182b28;
   --brand-map-ground: #152622;
@@ -60,8 +79,12 @@
   --brand-cream: #ece5d8;
   --brand-cream-2: #e2d9c8;
   --brand-accent: #a8823f;
+  --brand-accent-cta: #8a6a2f;
+  --brand-accent-cta-hover: #725726;
   --brand-accent-deep: #8d6b31;
   --brand-sage: #8a8467;
+  --brand-sage-text: #5c583f;
+  --brand-accent-text: #74551f;
   --brand-curtain: #16201f;
   --brand-hero-ground: #131b1b;
   --brand-map-ground: #101817;
@@ -75,7 +98,11 @@
   --color-cream-2: var(--brand-cream-2);
   --color-accent: var(--brand-accent);
   --color-accent-deep: var(--brand-accent-deep);
+  --color-accent-cta: var(--brand-accent-cta);
+  --color-accent-cta-hover: var(--brand-accent-cta-hover);
   --color-sage: var(--brand-sage);
+  --color-sage-text: var(--brand-sage-text);
+  --color-accent-text: var(--brand-accent-text);
   --color-muted: var(--brand-muted);
   --color-ink: var(--brand-ink);
   --color-ink-strong: var(--brand-ink-strong);

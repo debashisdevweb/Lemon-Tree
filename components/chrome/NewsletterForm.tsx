@@ -80,9 +80,9 @@ export function NewsletterForm() {
           type="submit"
           disabled={isSubmitting}
           className={cn(
-            'bg-accent px-btn-submit-x py-btn-submit-y shrink-0 cursor-pointer rounded-sm border-0',
+            'bg-accent-cta px-btn-submit-x py-btn-submit-y shrink-0 cursor-pointer rounded-sm border-0',
             'text-btn-submit text-paper font-bold transition-colors duration-[var(--dur-hover-bg)]',
-            'hover:bg-accent-deep hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-60',
+            'hover:bg-accent-cta-hover hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-60',
           )}
         >
           {FOOTER.submitLabel}
@@ -104,7 +104,7 @@ export function NewsletterForm() {
           {FOOTER.consentPrefix}{' '}
           <a
             href="/contact"
-            className="hover:text-accent text-inherit underline underline-offset-[0.18em]"
+            className="hover:text-accent-text text-inherit underline underline-offset-[0.18em]"
           >
             {FOOTER.consentLinkLabel}
           </a>
@@ -115,7 +115,7 @@ export function NewsletterForm() {
         <p
           id={errorId}
           role="alert"
-          className="text-body-sm text-accent-deep mt-[--spacing(2)] font-bold"
+          className="text-body-sm text-accent-text mt-[--spacing(2)] font-bold"
         >
           {message}
         </p>
