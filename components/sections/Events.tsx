@@ -33,7 +33,11 @@ export function Events() {
           {EVENTS.cards.map((card, index) => (
             <Reveal key={card.slug} delay={CARD_DELAYS[index] ?? 0} as="article">
               <div className="min-h-event-min relative flex h-full overflow-hidden">
-                <CoverImage image={card.image} sizes="(max-width:768px) 100vw, 33vw" />
+                <CoverImage
+                  image={card.image}
+                  sizes="(max-width:768px) 100vw, 33vw"
+                  boxAspect={1.4}
+                />
                 <span
                   aria-hidden="true"
                   className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.1),rgb(var(--brand-card-scrim)/0.8))]"

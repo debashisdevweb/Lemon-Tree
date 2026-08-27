@@ -124,14 +124,63 @@ describe('the global size scale', () => {
   it.each([
     ['spacing-gutter', 24, 4, 64],
     ['spacing-nav', 64, 5.9, 96],
-    ['text-h1', 44, 7.625, 140],
-    ['text-h2', 34, 4.3, 76],
-    ['text-nav', 13, 1.15, 17],
   ])('--%s is the recovered triple x0.85', (name, min, vw, max) => {
     const [gotMin, gotVw, gotMax] = parseClamp(readVar(name));
     expect(gotMin).toBeCloseTo(shipped(min), 1);
     expect(gotVw).toBeCloseTo(vw * UI_SCALE, 2);
     expect(gotMax).toBeCloseTo(shipped(max), 1);
+  });
+
+  /**
+   * Type is different from spacing: the slope and maximum carry the 0.85
+   * reduction, but the minimum is a deliberate mobile floor rather than the
+   * maximum times a factor. Scaling all three linearly put body copy at 11px
+   * and inputs at 12.8px on a phone.
+   */
+  it.each([
+    ['text-h1', 7.625, 140],
+    ['text-h2', 4.3, 76],
+    ['text-nav', 1.15, 17],
+    ['text-body-sm', 1.05, 18],
+  ])('--%s keeps the reduced slope and maximum', (name, vw, max) => {
+    const [, gotVw, gotMax] = parseClamp(readVar(name));
+    expect(gotVw).toBeCloseTo(vw * UI_SCALE, 2);
+    expect(gotMax).toBeCloseTo(shipped(max), 1);
+  });
+
+  it.each([
+    ['text-body-sm', 15],
+    ['text-prose', 15],
+    ['text-body', 15],
+    ['text-link', 15],
+    ['text-nav', 14],
+    ['text-legal', 13],
+    ['text-meta', 12.5],
+    ['text-eyebrow', 12],
+  ])('--%s has a readable mobile floor of at least %spx', (name, floor) => {
+    const [gotMin] = parseClamp(readVar(name));
+    expect(gotMin).toBeGreaterThanOrEqual(floor);
+  });
+
+  /**
+   * iOS Safari zooms the whole page when a focused input renders below 16px.
+   * Every field the booking sheet and the forms use must clear it.
+   */
+  it.each([['text-input'], ['text-field-value'], ['text-tab'], ['text-btn']])(
+    '--%s is at least 16px so iOS does not zoom on focus',
+    (name) => {
+      const [gotMin] = parseClamp(readVar(name));
+      expect(gotMin).toBeGreaterThanOrEqual(16);
+    },
+  );
+
+  it('never lets a floor exceed its own maximum', () => {
+    const names = [...css.matchAll(/--(text-[a-z0-9-]+): clamp\(/g)].map((m) => m[1] as string);
+    expect(names.length).toBeGreaterThan(30);
+    for (const name of names) {
+      const [min, , max] = parseClamp(readVar(name));
+      expect(min, `--${name} floor is above its ceiling`).toBeLessThanOrEqual(max);
+    }
   });
 
   it.each([

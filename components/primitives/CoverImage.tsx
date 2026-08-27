@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { cn } from '@/lib/cn';
 import type { Img } from '@/lib/content/home';
+import { coverBoost, scaleSizes } from '@/lib/images';
 
 /**
  * A cover-cropped photograph.
@@ -26,12 +27,20 @@ export function CoverImage({
   image,
   priority = false,
   sizes,
+  boxAspect,
   zoom = false,
   className,
 }: {
   image: Img;
   priority?: boolean;
   sizes: string;
+  /**
+   * Aspect ratio of the box this fills, when it is fixed. Several source
+   * photographs are far wider than their card (offer-pool.jpg is 1100x176 in a
+   * 4/3 card), and a cover crop then scales by height — so `sizes` has to ask
+   * for more than the box's width or the browser upscales a tiny candidate.
+   */
+  boxAspect?: number;
   zoom?: boolean;
   className?: string;
 }) {
@@ -41,7 +50,7 @@ export function CoverImage({
       alt={image.alt}
       width={image.width}
       height={image.height}
-      sizes={sizes}
+      sizes={boxAspect ? scaleSizes(sizes, coverBoost(image, boxAspect)) : sizes}
       quality={IMAGE_QUALITY}
       priority={priority}
       loading={priority ? undefined : 'lazy'}

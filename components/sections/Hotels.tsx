@@ -49,6 +49,7 @@ export function Hotels() {
                   <CoverImage
                     image={card.image}
                     sizes="(max-width:640px) 100vw, (max-width:1280px) 50vw, 25vw"
+                    boxAspect={4 / 3}
                   />
                 </div>
                 <div className="p-card-pad-sm flex flex-auto flex-col">
@@ -97,7 +98,12 @@ export function Hotels() {
                 className="group relative block aspect-3/4 overflow-hidden"
                 aria-label={`${card.brand} ${card.city}, opening soon`}
               >
-                <CoverImage image={card.image} zoom sizes="(max-width:1280px) 50vw, 25vw" />
+                <CoverImage
+                  image={card.image}
+                  zoom
+                  sizes="(max-width:1280px) 50vw, 25vw"
+                  boxAspect={3 / 4}
+                />
                 <span
                   aria-hidden="true"
                   className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.08),rgb(var(--brand-card-scrim)/0.82))]"

@@ -3,9 +3,23 @@ import { settleHome, skipLoader } from './helpers';
 
 const sheet = (page: Page) => page.getByRole('dialog');
 
+/** True below the `sm` breakpoint, where the mobile chrome applies. */
+const isNarrow = (page: Page): boolean => (page.viewportSize()?.width ?? 0) < 640;
+
 async function openSheet(page: Page, name: RegExp): Promise<void> {
   await page.getByRole('button', { name }).first().click();
   await expect(sheet(page)).toBeVisible();
+}
+
+/**
+ * Opens the sheet by a route that exists at every width.
+ *
+ * The floating bar's primary action is the one constant: the header's "Book
+ * now" and the bar's "Day use" / "Offers" are hidden below `sm`, where three
+ * competing buttons left none of them clearly primary.
+ */
+async function openSheetAnywhere(page: Page): Promise<void> {
+  await openSheet(page, /check availability/i);
 }
 
 test.beforeEach(async ({ page }) => {
@@ -16,6 +30,7 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('booking sheet', () => {
   test('opens from the header as a real modal dialog', async ({ page }) => {
+    test.skip(isNarrow(page), 'The header CTA is hidden below sm; see the mobile chrome tests.');
     await openSheet(page, /^book now$/i);
 
     const dialog = sheet(page);
@@ -24,11 +39,12 @@ test.describe('booking sheet', () => {
   });
 
   test('lands focus on the destination field', async ({ page }) => {
-    await openSheet(page, /^book now$/i);
+    await openSheetAnywhere(page);
     await expect(page.getByRole('combobox', { name: /where to next/i })).toBeFocused();
   });
 
   test('the floating bar Day use button preselects the day-use toggle', async ({ page }) => {
+    test.skip(isNarrow(page), 'Hidden below sm; the stay toggle inside the sheet covers it.');
     await openSheet(page, /^day use$/i);
 
     const dayUse = page.getByRole('radio', { name: 'Day use' });
@@ -38,6 +54,10 @@ test.describe('booking sheet', () => {
   });
 
   test('the floating bar Offers button preselects the special offers tab', async ({ page }) => {
+    test.skip(
+      isNarrow(page),
+      'Hidden below sm; the Special offers tab inside the sheet covers it.',
+    );
     await openSheet(page, /^offers$/i);
     await expect(page.getByRole('tab', { name: 'Special offers' })).toHaveAttribute(
       'aria-selected',
@@ -73,7 +93,7 @@ test.describe('booking sheet', () => {
   });
 
   test('closes on Escape, and restores focus to the trigger', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: /^book now$/i }).first();
+    const trigger = page.getByRole('button', { name: /check availability/i }).first();
     await trigger.click();
     await expect(sheet(page)).toBeVisible();
 
@@ -224,13 +244,83 @@ test.describe('date selection', () => {
   });
 
   test('switching to day use collapses departure to the same day', async ({ page }) => {
-    await page
-      .getByRole('button', { name: /^day use$/i })
-      .first()
-      .click();
-    await expect(page.getByRole('dialog')).toBeVisible();
-
-    await page.getByRole('button', { name: /^Check-out time/ }).count();
+    // Via the stay toggle inside the sheet, which is the one route that exists
+    // at every width — the bar's Day use shortcut is desktop and tablet only.
+    await openSheetAnywhere(page);
+    await page.getByRole('radio', { name: 'Day use' }).click();
     await expect(page.getByRole('dialog').getByText('Same day')).toBeVisible();
+  });
+});
+
+test.describe('mobile chrome', () => {
+  test.skip(({ viewport }) => (viewport?.width ?? 0) >= 640, 'Mobile layout only.');
+
+  test('the floating bar offers exactly one action', async ({ page }) => {
+    const buttons = page.getByTestId('booking-bar').getByRole('button');
+    await expect(buttons).toHaveCount(1);
+    await expect(buttons.first()).toHaveText(/check availability/i);
+  });
+
+  test('the header is just the wordmark and the menu', async ({ page }) => {
+    const header = page.locator('header');
+    await expect(header.getByRole('button', { name: /^book now$/i })).toBeHidden();
+    await expect(header.getByRole('button', { name: /open menu/i })).toBeVisible();
+  });
+
+  test('the menu carries the actions the header drops', async ({ page }) => {
+    await page.getByRole('button', { name: /open menu/i }).click();
+    const menu = page.getByRole('dialog');
+    await expect(menu).toBeVisible();
+
+    // Investors and Sign in have no header slot at this width.
+    await expect(menu.getByRole('link', { name: 'Investors' })).toBeVisible();
+    await expect(menu.getByRole('link', { name: 'Sign in' })).toBeVisible();
+    await expect(menu.getByRole('button', { name: /^book now$/i })).toBeVisible();
+
+    // And every section link.
+    await expect(menu.getByRole('link', { name: 'Destinations' })).toBeVisible();
+  });
+
+  test('the menu opens the booking sheet and closes itself', async ({ page }) => {
+    await page.getByRole('button', { name: /open menu/i }).click();
+    await page
+      .getByRole('dialog')
+      .getByRole('button', { name: /^book now$/i })
+      .click();
+
+    // One dialog remains, and it is the booking sheet.
+    await expect(page.getByRole('dialog')).toHaveCount(1);
+    await expect(page.getByRole('combobox', { name: /where to next/i })).toBeVisible();
+  });
+
+  test('the menu is an inset card, not a full-height drawer', async ({ page }) => {
+    await page.getByRole('button', { name: /open menu/i }).click();
+    const box = await page.getByRole('dialog').boundingBox();
+    const viewport = page.viewportSize()!;
+
+    expect(box).not.toBeNull();
+    // Inset on every side the card does not need to fill.
+    expect(box!.y).toBeGreaterThan(0);
+    expect(box!.x).toBeGreaterThan(0);
+    expect(box!.height).toBeLessThan(viewport.height);
+  });
+
+  test('every form field is at least 16px, so iOS does not zoom on focus', async ({ page }) => {
+    await openSheetAnywhere(page);
+
+    const sizes = await page
+      .getByRole('dialog')
+      .locator('input')
+      .evaluateAll((nodes) =>
+        nodes.map((node) => ({
+          name: node.getAttribute('aria-label') ?? node.getAttribute('placeholder') ?? '?',
+          px: parseFloat(getComputedStyle(node).fontSize),
+        })),
+      );
+
+    expect(sizes.length).toBeGreaterThan(0);
+    for (const field of sizes) {
+      expect(field.px, `${field.name} is ${field.px}px`).toBeGreaterThanOrEqual(16);
+    }
   });
 });

@@ -76,7 +76,12 @@ export function ButtonLink({
   href,
   external = false,
   ...rest
-}: Common & { href: string; external?: boolean; 'aria-label'?: string }) {
+}: Common & {
+  href: string;
+  external?: boolean;
+  'aria-label'?: string;
+  onClick?: () => void;
+}) {
   const classes = cn(base, variants[variant], slots[slot], className);
 
   if (external) {

@@ -139,6 +139,17 @@
   }
 }
 
+@keyframes lt-menu {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes lt-zoom-out {
   from {
     transform: scale(var(--hero-zoom-from));

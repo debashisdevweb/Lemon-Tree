@@ -37,7 +37,7 @@ export function Closing() {
         </Reveal>
 
         <Reveal delay={260}>
-          <ul className="mt-gap-grid gap-gap-tight text-closing-link text-forest flex list-none flex-col p-0 pl-[clamp(0px,3.4vw,68px)] font-bold">
+          <ul className="mt-gap-grid gap-gap-tight text-closing-link text-forest flex list-none flex-col p-0 text-center font-bold lg:pl-[clamp(0px,3.4vw,68px)] lg:text-left">
             {CLOSING.links.map((link) => (
               <li key={link.label}>
                 {'intent' in link && link.intent === 'booking' ? (

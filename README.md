@@ -147,19 +147,72 @@ Every animation has a `prefers-reduced-motion` path. The reference has none.
 
 ## Responsive
 
-**The reference contains zero media queries.** Responsiveness is entirely
-`clamp()` on type and spacing, which means a 4-column grid stays 4 columns at
-320px. The design has mobile _sizing_, not a mobile _layout_. All collapse
-behaviour below is therefore authored, not transcribed:
+**The reference artboard contains zero media queries.** Responsiveness there is
+entirely `clamp()` on type and spacing, which means a 4-column grid stays 4
+columns at 320px. The artboard has mobile _sizing_, not a mobile _layout_.
 
-- 4-col → 2-col at `sm` → 1-col where the content needs it
-- 3-col → 1-col at `md`
+Mobile reference renders were supplied later, and the treatment below follows
+them. Everything here is authored, not transcribed.
+
+### Type has a mobile floor, not a scaled-down maximum
+
+Scaling all three parts of every `clamp()` by the global 0.85 put body copy at
+11px and form inputs at 12.8px on a phone — far below the reference's own mobile
+design. The **minimum** is now a deliberate floor while the slope and maximum
+keep the reduction, so desktop is unchanged and the small end is habitable.
+
+| Role                 | Before     | Floor now   |
+| -------------------- | ---------- | ----------- |
+| Body / prose         | 11.0px     | 15.0–15.5px |
+| Nav and footer links | 11.0px     | 14.4–15px   |
+| Eyebrow / meta       | 10.2px     | 12–12.5px   |
+| Section H2           | 28.9px     | 32px        |
+| Hero H1              | 37.4px     | 40px        |
+| **Form inputs**      | **12.8px** | **16px**    |
+
+That last row is a bug fix, not taste: **iOS Safari zooms the whole page when a
+focused input renders below 16px**. Every field in the booking sheet and both
+forms was under it. `tests/unit/tokens.test.ts` now asserts the 16px threshold
+and each floor.
+
+### Layout
+
+- 4-col → 2-col at `sm` → 1-col where the content needs it; 3-col → 1-col at `md`
 - Asymmetric 2-col splits → stacked at `lg`
 - Booking sheet field row: 6-col → 2-col at `sm` → stacked
-- Nav: seven links → hamburger sheet below `xl`, where they stop fitting
-- Footer: 4 link columns → 2 → 1
+- Footer: 4 link columns → 2; closing statement and its links centre below `lg`
+- Hero: the script line and bullet list sit side by side from `lg`; below that
+  they stack with the list right-aligned, as the reference does
 
-`tests/e2e/home.spec.ts` asserts zero horizontal overflow at 320, 768 and 1440.
+### Mobile chrome
+
+The header below `sm` is the wordmark and the menu button, nothing else. Three
+routes to the same booking sheet were competing in one screenful, so:
+
+- **Header "Book now"** is hidden below `sm` — it lives in the menu instead.
+- **The floating bar** keeps one obvious action. Its "Day use" and "Offers"
+  shortcuts are hidden below `sm`, where three buttons left each about 90px wide
+  and none of them primary. Both remain one tap away inside the sheet: Day use is
+  the stay toggle, Offers is a tab.
+- **The menu** is an inset rounded card, not a full-height drawer — matching the
+  reference, and keeping the page visible behind it so the overlay reads as
+  temporary. It carries Investors, Sign in and Book now, which have no header
+  slot at this width and were previously unreachable on a phone.
+
+### Cover-crop image sizing
+
+`object-fit: cover` fills whichever axis needs the most magnification. Where an
+image is proportionally wider than its box, that axis is the height — so
+`sizes="100vw"` under-requests badly. `offer-pool.jpg` is 1100×176 in a 4/3 card,
+which needs 1569px of intrinsic width at 375px; `100vw` asked for 375 and the
+browser upscaled it 4.2×, which read as a broken asset.
+
+`CoverImage` now takes a `boxAspect` and scales the slot widths in `sizes` by
+`imageAspect / boxAspect` (`lib/images.ts`, unit-tested). Media conditions are
+left alone — the widths inside `(max-width: …)` are breakpoints, not slots.
+
+`tests/e2e/home.spec.ts` asserts zero horizontal overflow at 320, 768 and 1440;
+measured overflow is 0 at 320, 375, 430, 768 and 1470.
 
 ## Booking
 

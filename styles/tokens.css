@@ -127,48 +127,55 @@
   /* --- Type scale ------------------------------------------------------
    * Named by role, because the source scale is role-driven, not numeric.
    * Every value is a fluid clamp(min, vw, max) - the artboard has no
-   * breakpoints for type at all. */
-  --text-micro: clamp(8.5px, 0.68vw, 11px); /* logo lockup "HOTELS" */
-  --text-eyebrow-xs: clamp(9.3px, 0.722vw, 11.9px); /* hero promo tag, scroll cue */
-  --text-eyebrow-sm: clamp(9.3px, 0.744vw, 11.9px); /* upcoming-card brand label */
-  --text-label: clamp(10.2px, 0.765vw, 12.8px); /* booking bar caption */
-  --text-eyebrow: clamp(10.2px, 0.807vw, 12.8px); /* section eyebrow - most used */
-  --text-meta: clamp(10.2px, 0.807vw, 13.6px); /* stat caption, card meta */
-  --text-field-label: clamp(10.2px, 0.85vw, 14.4px); /* sheet field labels */
-  --text-legal: clamp(11px, 0.85vw, 14.4px); /* footer legal row */
-  --text-body-sm: clamp(11px, 0.892vw, 15.3px); /* card body copy */
-  --text-btn-sm: clamp(11px, 0.935vw, 15.3px); /* outline buttons */
-  --text-nav: clamp(11px, 0.977vw, 14.4px); /* header nav links */
-  --text-btn-submit: clamp(11.9px, 0.892vw, 14.4px); /* newsletter submit */
-  --text-link: clamp(11.9px, 0.892vw, 15.3px); /* footer links */
-  --text-prose: clamp(11.9px, 0.935vw, 15.3px); /* section standfirst */
-  --text-body: clamp(11.9px, 0.977vw, 16.1px); /* rewards body, bar buttons */
-  --text-btn: clamp(11.9px, 1.02vw, 17px); /* sheet search button */
-  --text-tab: clamp(11.9px, 1.062vw, 17.8px); /* sheet tabs, discount input */
-  --text-input: clamp(12.8px, 0.977vw, 16.1px); /* newsletter input */
-  --text-prose-lg: clamp(12.8px, 1.02vw, 17px); /* brands prose */
-  --text-field-value: clamp(12.8px, 1.147vw, 19.6px); /* sheet field values */
-  --text-hero-list: clamp(12.8px, 1.232vw, 21.2px); /* hero bullet list */
-  --text-bar-title: clamp(13.6px, 1.105vw, 18.7px); /* "Find a hotel" */
-  --text-h4: clamp(15.3px, 1.36vw, 23.8px); /* benefit tile, brand name */
-  --text-closing-link: clamp(15.3px, 1.488vw, 26.3px); /* closing link list */
-  --text-h3-sm: clamp(16.1px, 1.445vw, 25.5px); /* upcoming card title */
-  --text-h3: clamp(16.1px, 1.53vw, 27.2px); /* destination card title */
-  --text-h3-offer: clamp(17px, 1.445vw, 25.5px); /* offer card title */
-  --text-h3-lg: clamp(18.7px, 1.7vw, 30.6px); /* event card title */
-  --text-wordmark: clamp(18.7px, 1.955vw, 30.6px); /* header wordmark */
-  --text-stat: clamp(20.4px, 1.955vw, 34px); /* presence stat figure */
-  --text-wordmark-lg: clamp(23.8px, 2.295vw, 37.4px); /* footer wordmark */
-  --text-infinity: clamp(23.8px, 2.38vw, 40.8px); /* "infinity" italic */
-  --text-h2-rewards: clamp(27.2px, 3.57vw, 61.2px);
-  --text-h2: clamp(28.9px, 3.655vw, 64.6px); /* section headline */
-  --text-figure: clamp(30.6px, 3.06vw, 54.4px); /* "2x" */
-  --text-loader-word: clamp(30.6px, 4.675vw, 74.8px);
-  --text-h1: clamp(37.4px, 6.481vw, 119px); /* hero headline */
-  --text-closing: clamp(37.4px, 7.14vw, 142.8px); /* "Come stay with us," */
-  --text-closing-script: clamp(42.5px, 5.95vw, 110.5px);
-  --text-hero-script: clamp(45.9px, 6.587vw, 119px);
-  --text-loader-script: clamp(46.8px, 7.013vw, 110.5px);
+   * breakpoints for type at all.
+   *
+   * The MINIMUM is a deliberate mobile floor, not the maximum times a factor.
+   * Scaling all three parts linearly put body copy at 11px and form inputs at
+   * 12.8px on a phone, which is well under the reference's own mobile design
+   * and, for the inputs, under the 16px at which iOS Safari zooms the page on
+   * focus. The slope and maximum still carry the global 0.85 reduction, so
+   * desktop is unchanged; only the small end is habitable. */
+  --text-micro: clamp(10px, 0.68vw, 11px); /* logo lockup "HOTELS" */
+  --text-eyebrow-xs: clamp(11px, 0.722vw, 11.9px); /* hero promo tag, scroll cue */
+  --text-eyebrow-sm: clamp(11px, 0.744vw, 11.9px); /* upcoming-card brand label */
+  --text-label: clamp(12px, 0.765vw, 12.8px); /* booking bar caption */
+  --text-eyebrow: clamp(12px, 0.807vw, 12.8px); /* section eyebrow - most used */
+  --text-meta: clamp(12.5px, 0.807vw, 13.6px); /* stat caption, card meta */
+  --text-field-label: clamp(12.5px, 0.85vw, 14.4px); /* sheet field labels */
+  --text-legal: clamp(13px, 0.85vw, 14.4px); /* footer legal row */
+  --text-body-sm: clamp(15px, 0.892vw, 15.3px); /* card body copy */
+  --text-btn-sm: clamp(14px, 0.935vw, 15.3px); /* outline buttons */
+  --text-nav: clamp(14.4px, 0.977vw, 14.4px); /* header nav links */
+  --text-btn-submit: clamp(14px, 0.892vw, 14.4px); /* newsletter submit */
+  --text-link: clamp(15px, 0.892vw, 15.3px); /* footer links */
+  --text-prose: clamp(15.3px, 0.935vw, 15.3px); /* section standfirst */
+  --text-body: clamp(15.5px, 0.977vw, 16.1px); /* rewards body, bar buttons */
+  --text-btn: clamp(16px, 1.02vw, 17px); /* sheet search button */
+  --text-tab: clamp(16px, 1.062vw, 17.8px); /* sheet tabs, discount input */
+  --text-input: clamp(16px, 0.977vw, 16.1px); /* newsletter input */
+  --text-prose-lg: clamp(16px, 1.02vw, 17px); /* brands prose */
+  --text-field-value: clamp(16px, 1.147vw, 19.6px); /* sheet field values */
+  --text-hero-list: clamp(15.5px, 1.232vw, 21.2px); /* hero bullet list */
+  --text-bar-title: clamp(15px, 1.105vw, 18.7px); /* "Find a hotel" */
+  --text-h4: clamp(19px, 1.36vw, 23.8px); /* benefit tile, brand name */
+  --text-closing-link: clamp(20px, 1.488vw, 26.3px); /* closing link list */
+  --text-h3-sm: clamp(21px, 1.445vw, 25.5px); /* upcoming card title */
+  --text-h3: clamp(21px, 1.53vw, 27.2px); /* destination card title */
+  --text-h3-offer: clamp(21px, 1.445vw, 25.5px); /* offer card title */
+  --text-h3-lg: clamp(24px, 1.7vw, 30.6px); /* event card title */
+  --text-wordmark: clamp(21px, 1.955vw, 30.6px); /* header wordmark */
+  --text-stat: clamp(26px, 1.955vw, 34px); /* presence stat figure */
+  --text-wordmark-lg: clamp(26px, 2.295vw, 37.4px); /* footer wordmark */
+  --text-infinity: clamp(26px, 2.38vw, 40.8px); /* "infinity" italic */
+  --text-h2-rewards: clamp(30px, 3.57vw, 61.2px);
+  --text-h2: clamp(32px, 3.655vw, 64.6px); /* section headline */
+  --text-figure: clamp(32px, 3.06vw, 54.4px); /* "2x" */
+  --text-loader-word: clamp(32px, 4.675vw, 74.8px);
+  --text-h1: clamp(40px, 6.481vw, 119px); /* hero headline */
+  --text-closing: clamp(40px, 7.14vw, 142.8px); /* "Come stay with us," */
+  --text-closing-script: clamp(44px, 5.95vw, 110.5px);
+  --text-hero-script: clamp(46px, 6.587vw, 119px);
+  --text-loader-script: clamp(47px, 7.013vw, 110.5px);
 
   /* --- Spacing base ----------------------------------------------------
    * Tailwind's default is 0.25rem. Every numeric spacing utility (p-4,

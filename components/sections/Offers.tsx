@@ -55,6 +55,7 @@ export function Offers() {
                       <CoverImage
                         image={card.image}
                         sizes="(max-width:640px) 100vw, (max-width:1280px) 50vw, 25vw"
+                        boxAspect={4 / 3}
                       />
                     </div>
                   )}

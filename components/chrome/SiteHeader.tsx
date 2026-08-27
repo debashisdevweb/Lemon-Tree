@@ -102,7 +102,17 @@ export function SiteHeader() {
           Sign in
         </ButtonLink>
 
-        <Button slot="nav" onClick={() => open({ tab: 'online-booking' })}>
+        {/*
+          Hidden below sm. The reference's mobile header is just the wordmark
+          and the menu button, and on a phone this competed with both the
+          floating bar's "Check availability" and the menu's own "Book now" —
+          three routes to the same sheet, in one screenful.
+        */}
+        <Button
+          slot="nav"
+          className="hidden sm:inline-flex"
+          onClick={() => open({ tab: 'online-booking' })}
+        >
           Book now
         </Button>
 
@@ -117,46 +127,105 @@ export function SiteHeader() {
             )}
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
-              <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="3" y1="7" x2="21" y2="7" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="17" x2="21" y2="17" />
+              {/* Two rules, as the reference draws it, on a 44px target. */}
+              <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="3" y1="15" x2="21" y2="15" />
               </g>
             </svg>
           </Dialog.Trigger>
           <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 z-[340] bg-[rgb(var(--brand-sheet-scrim)/0.52)] data-[state=open]:animate-[lt-fade_var(--dur-fade)_ease_both]" />
-            <Dialog.Content
+            <Dialog.Overlay
               className={cn(
-                'gap-gap-grid fixed inset-y-0 right-0 z-[350] flex w-[min(306px,86vw)] flex-col',
-                'bg-cream overflow-y-auto p-[clamp(17px,2.72vw,34px)]',
+                'fixed inset-0 z-[340] bg-[rgb(var(--brand-sheet-scrim)/0.52)] backdrop-blur-[3px]',
                 'data-[state=open]:animate-[lt-fade_var(--dur-fade)_ease_both]',
               )}
+            />
+            {/*
+              An inset card rather than a full-height drawer: it matches the
+              reference's mobile menu, keeps the page visible behind it so the
+              overlay reads as temporary, and puts every link within thumb
+              reach of the top of the screen instead of spreading them over
+              the full height.
+            */}
+            <Dialog.Content
+              aria-describedby={undefined}
+              className={cn(
+                'fixed top-[--spacing(3)] right-[--spacing(3)] left-[--spacing(3)] z-[350]',
+                'max-h-[calc(100svh-var(--spacing)*6)] overflow-y-auto',
+                'bg-cream shadow-bar rounded-lg p-[clamp(18px,4.5vw,28px)]',
+                'data-[state=open]:animate-[lt-menu_var(--dur-fade)_var(--ease-rise)_both]',
+                'sm:right-auto sm:w-[min(360px,calc(100vw-var(--spacing)*6))]',
+              )}
             >
-              <Dialog.Title className="font-display text-h4 text-forest font-normal">
-                Menu
-              </Dialog.Title>
-              <nav aria-label="Sections" className="gap-gap-tight flex flex-col">
+              <div className="gap-gap-grid flex items-start justify-between">
+                <Dialog.Title asChild>
+                  <p className="text-forest">
+                    <Wordmark />
+                  </p>
+                </Dialog.Title>
+                <Dialog.Close
+                  aria-label="Close menu"
+                  className={cn(
+                    'text-forest -mt-[--spacing(1)] -mr-[--spacing(1)] inline-flex size-11 shrink-0',
+                    'cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent',
+                    'hover:text-accent-text transition-colors duration-[var(--dur-hover-swap)]',
+                  )}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
+                    <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                      <line x1="5" y1="5" x2="19" y2="19" />
+                      <line x1="19" y1="5" x2="5" y2="19" />
+                    </g>
+                  </svg>
+                </Dialog.Close>
+              </div>
+
+              <nav
+                aria-label="Sections"
+                className="mt-[clamp(14px,3vw,22px)] flex flex-col gap-[clamp(9px,2vw,14px)]"
+              >
                 {PRIMARY_NAV.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="text-closing-link text-forest hover:text-accent-text font-bold transition-colors duration-[var(--dur-hover-swap)]"
+                    className="text-h4 text-forest hover:text-accent-text font-bold transition-colors duration-[var(--dur-hover-swap)]"
                   >
                     {link.label}
                   </a>
                 ))}
               </nav>
-              <div className="gap-gap-tight mt-auto flex flex-col">
-                <ButtonLink href="/contact" slot="section" variant="outline">
+
+              <hr className="border-forest/18 mt-[clamp(16px,3.5vw,24px)] border-0 border-t-[length:var(--border-hair)] border-solid" />
+
+              {/* Investors and Sign in are hidden in the header at this width,
+                  so without this they would be unreachable on a phone. */}
+              <div className="gap-gap-tight mt-[clamp(14px,3vw,20px)] flex flex-col">
+                <Link
+                  href="/contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-link text-forest hover:text-accent-text font-bold transition-colors duration-[var(--dur-hover-swap)]"
+                >
+                  Investors
+                </Link>
+                <ButtonLink
+                  href="/contact"
+                  slot="section"
+                  variant="outline"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Sign in
                 </ButtonLink>
-                <Dialog.Close asChild>
-                  <Button slot="section" variant="outline">
-                    Close
-                  </Button>
-                </Dialog.Close>
+                <Button
+                  slot="section"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    open({ tab: 'online-booking' });
+                  }}
+                >
+                  Book now
+                </Button>
               </div>
             </Dialog.Content>
           </Dialog.Portal>

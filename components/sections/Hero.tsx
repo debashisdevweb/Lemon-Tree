@@ -61,7 +61,10 @@ export function Hero() {
             >
               {HERO.script}
             </p>
-            <ul className="anim-hero-list text-hero-list text-cream mb-[clamp(4.1px,0.68vw,10.9px)] flex list-none flex-col gap-[--spacing(2.5)] p-0 font-medium">
+            {/* Right-aligned and right-hugging below the script on a phone,
+                which is how the reference stacks these two; from lg they sit
+                side by side and the alignment no longer matters. */}
+            <ul className="anim-hero-list text-hero-list text-cream mb-[clamp(4.1px,0.68vw,10.9px)] ml-auto flex list-none flex-col gap-[--spacing(2.5)] p-0 text-right font-medium lg:ml-0 lg:text-left">
               {HERO.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}
