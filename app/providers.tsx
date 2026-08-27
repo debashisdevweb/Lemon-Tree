@@ -19,7 +19,7 @@ import { BookingProvider, useBooking } from '@/components/booking/BookingProvide
  */
 const BookingSheet = dynamic(
   () => import('@/components/booking/BookingSheet').then((m) => m.BookingSheet),
-  { ssr: false }
+  { ssr: false },
 );
 
 const warmSheetChunk = (): void => {
@@ -101,7 +101,7 @@ export function QueryProvider({ children }: { children: ReactNode }) {
             refetchOnWindowFocus: false,
           },
         },
-      })
+      }),
   );
 
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>;

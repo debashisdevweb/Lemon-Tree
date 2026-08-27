@@ -184,8 +184,7 @@ export function ArrivalField({
                 // overnight departure equal to the arrival, which the schema
                 // correctly rejects — so a single-day selection becomes a
                 // one-night stay and the user adjusts the departure if needed.
-                const sameDay =
-                  next.to !== undefined && next.to.getTime() === next.from.getTime();
+                const sameDay = next.to !== undefined && next.to.getTime() === next.from.getTime();
                 const departure =
                   next.to && !sameDay ? next.to : new Date(next.from.getTime() + DAY);
 

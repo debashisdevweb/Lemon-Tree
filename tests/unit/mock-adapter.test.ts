@@ -42,9 +42,7 @@ describe('mock availability adapter', () => {
 
   it('prices day use below the overnight rate', async () => {
     const night = await adapter.search(request());
-    const day = await adapter.search(
-      request({ stay: 'day-use', checkOut: '2026-09-01' })
-    );
+    const day = await adapter.search(request({ stay: 'day-use', checkOut: '2026-09-01' }));
     const cheapestNight = night.rates[0]?.amountInr ?? 0;
     const cheapestDay = day.rates[0]?.amountInr ?? 0;
     expect(cheapestDay).toBeGreaterThan(0);
@@ -67,7 +65,7 @@ describe('mock availability adapter', () => {
 
   it('excludes rooms that cannot hold the party', async () => {
     const result = await adapter.search(
-      request({ occupancy: { adults: 4, children: 0, rooms: 1 } })
+      request({ occupancy: { adults: 4, children: 0, rooms: 1 } }),
     );
     expect(result.rates.every((r) => r.roomTypeSlug === 'suite')).toBe(true);
   });

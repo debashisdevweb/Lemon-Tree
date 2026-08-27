@@ -91,3 +91,27 @@ describe('declared image dimensions match the files', () => {
     expect(jpegSize(file)).toEqual(declared.get(file));
   });
 });
+
+describe('screenshot baselines are decodable', () => {
+  /**
+   * Five baselines were silently corrupt — truncated PNG writes from an
+   * interrupted --update-snapshots run. Playwright reports that as
+   * "Could not decode expected image as PNG" only when the test runs, and a
+   * corrupt baseline can never match, so the diff was permanently broken
+   * rather than merely stale.
+   */
+  const dir = join(process.cwd(), 'tests/e2e/visual.spec.ts-snapshots');
+  const shots = readdirSync(dir).filter((f) => f.endsWith('.png'));
+
+  it('has baselines to check', () => {
+    expect(shots.length).toBeGreaterThan(0);
+  });
+
+  it.each(shots)('%s is a complete PNG', (file) => {
+    const bytes = readFileSync(join(dir, file));
+    // PNG signature, then the 12-byte IEND chunk that terminates the stream:
+    // length (0x00000000) + type ("IEND") + CRC (0xAE426082).
+    expect(bytes.subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a');
+    expect(bytes.subarray(-12).toString('hex')).toBe('0000000049454e44ae426082');
+  });
+});

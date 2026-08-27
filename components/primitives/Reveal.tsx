@@ -63,7 +63,7 @@ export function Reveal({ children, delay = 0, fast = false, as, className }: Rev
         }
       },
       // -6% bottom margin reproduces the reference's `top < viewport * 0.94`.
-      { rootMargin: '0px 0px -6% 0px', threshold: 0 }
+      { rootMargin: '0px 0px -6% 0px', threshold: 0 },
     );
 
     observer.observe(node);
@@ -79,7 +79,7 @@ export function Reveal({ children, delay = 0, fast = false, as, className }: Rev
         'transition-[opacity,transform] ease-[var(--ease-reveal)]',
         fast ? 'duration-[var(--dur-reveal-fast)]' : 'duration-[var(--dur-reveal)]',
         shown && 'motion-safe:translate-y-0 motion-safe:opacity-100',
-        className
+        className,
       )}
       style={delay > 0 ? { transitionDelay: `${delay}ms` } : undefined}
     >

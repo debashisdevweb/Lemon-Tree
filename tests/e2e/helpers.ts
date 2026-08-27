@@ -7,8 +7,18 @@ export async function settleHome(page: Page): Promise<void> {
   if (await curtain.count()) {
     await curtain.waitFor({ state: 'detached', timeout: 8_000 }).catch(() => undefined);
   }
-  // Reveals are one-shot IntersectionObserver transitions; give them a frame.
-  await page.waitForTimeout(300);
+  // The hero entrance is CSS keyframes with delays, so "curtain gone" does not
+  // mean "hero visible". Waiting for it here is what stops a screenshot
+  // baseline being captured against an empty hero.
+  await page.waitForFunction(
+    () => {
+      const hero = document.querySelector('#hero h1');
+      return hero !== null && Number(getComputedStyle(hero).opacity) >= 0.999;
+    },
+    undefined,
+    { timeout: 10_000 },
+  );
+  await page.waitForTimeout(150);
 }
 
 /** Suppress the curtain so a test starts on a settled page. */
@@ -49,15 +59,14 @@ export async function imagesSettled(page: Page, budgetMs = 45_000): Promise<void
   while (Date.now() < deadline) {
     const pending = await page.evaluate(
       () =>
-        Array.from(document.images).filter((img) => !img.complete || img.naturalWidth === 0)
-          .length
+        Array.from(document.images).filter((img) => !img.complete || img.naturalWidth === 0).length,
     );
     if (pending === 0) return;
 
     // Nudge the remaining ones into view, then give the network a moment.
     await page.evaluate(() => {
       const next = Array.from(document.images).find(
-        (img) => !img.complete || img.naturalWidth === 0
+        (img) => !img.complete || img.naturalWidth === 0,
       );
       next?.scrollIntoView({ block: 'center' });
     });
@@ -67,14 +76,14 @@ export async function imagesSettled(page: Page, budgetMs = 45_000): Promise<void
   const stuck = await page.$$eval('img', (images) =>
     images
       .filter((img) => !img.complete || img.naturalWidth === 0)
-      .map((img) => img.getAttribute('src') ?? '(no src)')
+      .map((img) => img.getAttribute('src') ?? '(no src)'),
   );
   throw new Error(`Images never finished loading: ${stuck.join(', ')}`);
 }
 
 export async function horizontalOverflow(page: Page): Promise<number> {
   return page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
   );
 }
 
@@ -93,7 +102,7 @@ export async function revealsSettled(page: Page): Promise<void> {
         return Number(getComputedStyle(node).opacity) >= 0.999;
       }),
     undefined,
-    { timeout: 15_000 }
+    { timeout: 15_000 },
   );
 }
 
@@ -116,6 +125,6 @@ export async function animationsSettled(page: Page): Promise<void> {
         })
         .every((animation) => animation.playState !== 'running'),
     undefined,
-    { timeout: 10_000 }
+    { timeout: 10_000 },
   );
 }

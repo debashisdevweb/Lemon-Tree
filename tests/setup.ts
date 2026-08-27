@@ -17,7 +17,7 @@ class MockIntersectionObserver {
   observe(target: Element): void {
     this.callback(
       [{ isIntersecting: true, target } as unknown as IntersectionObserverEntry],
-      this as unknown as IntersectionObserver
+      this as unknown as IntersectionObserver,
     );
   }
 
@@ -43,6 +43,6 @@ if (!window.matchMedia) {
         addListener: () => {},
         removeListener: () => {},
         dispatchEvent: () => false,
-      }) as unknown as MediaQueryList
+      }) as unknown as MediaQueryList,
   );
 }

@@ -116,7 +116,7 @@ const graticulePath =
         [66, 5],
         [98, 38],
       ])
-      .step([5, 5])()
+      .step([5, 5])(),
   ) ?? '';
 
 const drawn = (features: NamedFeature[]): string[] =>

@@ -26,7 +26,7 @@ export default async function globalSetup(config: FullConfig): Promise<void> {
       .waitForFunction(
         () => Array.from(document.images).every((img) => img.complete && img.naturalWidth > 0),
         undefined,
-        { timeout: 90_000 }
+        { timeout: 90_000 },
       )
       .catch(() => undefined);
   } finally {

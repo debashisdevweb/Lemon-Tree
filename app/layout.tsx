@@ -95,7 +95,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-brand="lemon-tree"
       className={`${playfair.variable} ${playfairItalic.variable} ${jakarta.variable} ${sacramento.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {/*
+          Decides before first paint whether the loader curtain will play, so
+          the hero entrance can start immediately on a repeat visit rather than
+          waiting out delays meant to sit behind the curtain. Inline and
+          synchronous on purpose: doing this after hydration would change
+          animation-delay mid-flight and show a visible jump.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{document.documentElement.dataset.loader=' +
+              "sessionStorage.getItem('lt.loader.seen')==='1'?'skipped':'playing'}" +
+              "catch(e){document.documentElement.dataset.loader='playing'}",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

@@ -60,8 +60,9 @@ export function Offers() {
                   )}
 
                   <div className="p-card-pad flex flex-auto flex-col">
-                    {/* The member card is on forest, so sage would be 1.5:1 there. */}
-                    <Eyebrow tone={isMember ? 'onDarkSoft' : 'accent'}>{card.eyebrow}</Eyebrow>
+                    {/* The member card sits on forest, where the artboard's
+                        sage is 2.65:1 — this keeps the sage hue at 4.55:1. */}
+                    <Eyebrow tone={isMember ? 'sageOnDark' : 'accent'}>{card.eyebrow}</Eyebrow>
 
                     <h3
                       className={`mt-gap-tight font-display text-h3-offer leading-[1.1] font-medium ${

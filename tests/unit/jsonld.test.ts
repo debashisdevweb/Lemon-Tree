@@ -31,9 +31,7 @@ describe('home structured data', () => {
   });
 
   it('prices open hotels only', () => {
-    const openSlugs = new Set(
-      PROPERTIES.filter((p) => p.status === 'open').map((p) => p.name)
-    );
+    const openSlugs = new Set(PROPERTIES.filter((p) => p.status === 'open').map((p) => p.name));
     for (const hotel of typesOf('Hotel')) {
       const named = String(hotel['name']);
       if (openSlugs.has(named)) {
@@ -47,7 +45,9 @@ describe('home structured data', () => {
 
   it('links hotels back to the chain', () => {
     for (const hotel of typesOf('Hotel')) {
-      expect(hotel['parentOrganization']).toEqual({ '@id': expect.stringContaining('#organisation') });
+      expect(hotel['parentOrganization']).toEqual({
+        '@id': expect.stringContaining('#organisation'),
+      });
     }
   });
 

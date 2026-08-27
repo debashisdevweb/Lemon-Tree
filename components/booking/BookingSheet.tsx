@@ -54,7 +54,11 @@ type FieldErrors = Partial<Record<'destination' | 'checkIn' | 'checkOut' | 'disc
 
 function TicketIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[clamp(17px,1.445vw,22.9px)] shrink-0">
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="size-[clamp(17px,1.445vw,22.9px)] shrink-0"
+    >
       <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
       <line
         x1="8"

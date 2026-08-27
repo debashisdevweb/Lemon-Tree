@@ -37,22 +37,31 @@ export function Hero() {
             {HERO.eyebrow}
           </p>
 
+          {/*
+            The headline is one sentence split across two typefaces, and the
+            script half shares a row with the bullet list — so the two halves
+            cannot be nested in one element without losing that layout. The h1
+            carries the whole sentence as its accessible name and the script is
+            hidden from assistive tech, so it is announced once and completely
+            rather than as the fragment the reference would produce.
+          */}
           <h1
             id="hero-heading"
+            aria-label={`${HERO.headline} ${HERO.script}`}
             className="anim-hero-h1 mt-gap-tight font-display text-h1 text-cream leading-[0.98] font-normal tracking-[-0.022em]"
           >
-            {HERO.headline}{' '}
-            {/* The script line completes the sentence, so it stays inside the
-                h1 rather than sitting in a sibling div as the reference has it —
-                otherwise assistive tech reads a fragment. */}
-            <span className="anim-hero-script font-script text-hero-script mt-[--spacing(1)] block leading-none tracking-normal">
-              {HERO.script}
-            </span>
+            {HERO.headline}
           </h1>
 
-          <div className="gap-y-gap-grid flex flex-wrap items-end justify-between gap-x-[clamp(20.4px,4.25vw,85px)]">
-            <div className="min-w-0 flex-1" />
-            <ul className="anim-hero-list mb-gap-tight text-hero-list text-cream flex list-none flex-col gap-[--spacing(2.5)] p-0 font-medium">
+          <div className="gap-y-gap-grid flex flex-wrap items-end justify-between gap-x-[clamp(16.3px,3.4vw,68px)]">
+            <p
+              aria-hidden="true"
+              data-testid="hero-script"
+              className="anim-hero-script font-script text-hero-script text-cream m-0 leading-none"
+            >
+              {HERO.script}
+            </p>
+            <ul className="anim-hero-list text-hero-list text-cream mb-[clamp(4.1px,0.68vw,10.9px)] flex list-none flex-col gap-[--spacing(2.5)] p-0 font-medium">
               {HERO.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}

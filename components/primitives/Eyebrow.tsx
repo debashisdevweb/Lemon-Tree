@@ -5,7 +5,7 @@ import { cn } from '@/lib/cn';
  * Uppercase label above a headline. The reference uses six tracking values
  * (.08 to .22em) and four colours for this one element, always at weight 700.
  */
-export type EyebrowTone = 'sage' | 'accent' | 'forest' | 'onDark' | 'onDarkSoft';
+export type EyebrowTone = 'sage' | 'sageOnDark' | 'accent' | 'forest' | 'onDark' | 'onDarkSoft';
 
 /**
  * Eyebrows are small uppercase labels, so they use the text-safe sage and terracotta
@@ -14,6 +14,7 @@ export type EyebrowTone = 'sage' | 'accent' | 'forest' | 'onDark' | 'onDarkSoft'
  */
 const tones: Record<EyebrowTone, string> = {
   sage: 'text-sage-text',
+  sageOnDark: 'text-sage-on-dark',
   accent: 'text-accent-text',
   forest: 'text-forest',
   onDark: 'text-cream',

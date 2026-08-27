@@ -52,7 +52,10 @@ test('the booking sheet matches its baseline', async ({ page }) => {
   await page.goto('/');
   await settleHome(page);
 
-  await page.getByRole('button', { name: /check availability/i }).first().click();
+  await page
+    .getByRole('button', { name: /check availability/i })
+    .first()
+    .click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await page.waitForTimeout(700); // let the 600ms slide finish

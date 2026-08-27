@@ -1,12 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import {
-  animationsSettled,
-  revealAll,
-  revealsSettled,
-  settleHome,
-  skipLoader,
-} from './helpers';
+import { animationsSettled, revealAll, revealsSettled, settleHome, skipLoader } from './helpers';
 
 /**
  * WCAG 2.2 AA. The reference fails a number of these (no focus styles, no
@@ -33,7 +27,10 @@ test('the open booking sheet has no axe violations', async ({ page }) => {
   await page.goto('/');
   await settleHome(page);
 
-  await page.getByRole('button', { name: /check availability/i }).first().click();
+  await page
+    .getByRole('button', { name: /check availability/i })
+    .first()
+    .click();
   await expect(page.getByRole('dialog')).toBeVisible();
   await animationsSettled(page);
 
@@ -53,7 +50,7 @@ test('contact page has no axe violations', async ({ page }) => {
 test('search results have no axe violations', async ({ page }) => {
   await skipLoader(page);
   await page.goto(
-    '/book/search?destination=siliguri&checkIn=2026-09-01&checkOut=2026-09-03&stay=overnight&adults=2&children=0&rooms=1&tab=online-booking'
+    '/book/search?destination=siliguri&checkIn=2026-09-01&checkOut=2026-09-03&stay=overnight&adults=2&children=0&rooms=1&tab=online-booking',
   );
   await expect(page.getByRole('heading', { level: 1 })).toContainText(/rates/i);
 

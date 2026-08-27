@@ -27,16 +27,16 @@ describe('availability request validation', () => {
 
   it('rejects a missing destination', () => {
     expect(issuesFor({ ...base, destination: '' })).toContain(
-      'destination: Choose a city or hotel'
+      'destination: Choose a city or hotel',
     );
   });
 
   it('rejects a departure on or before arrival', () => {
     expect(issuesFor({ ...base, checkOut: '2026-09-01' })).toContain(
-      'checkOut: Departure must be after arrival'
+      'checkOut: Departure must be after arrival',
     );
     expect(issuesFor({ ...base, checkOut: '2026-08-31' })).toContain(
-      'checkOut: Departure must be after arrival'
+      'checkOut: Departure must be after arrival',
     );
   });
 
@@ -52,20 +52,20 @@ describe('availability request validation', () => {
         ...base,
         checkIn: '2026-09-01',
         checkOut: '2026-10-01',
-      }).success
+      }).success,
     ).toBe(true);
   });
 
   it('requires a day-use stay to check out the same day', () => {
     expect(issuesFor({ ...base, stay: 'day-use', checkOut: '2026-09-02' })).toContain(
-      'checkOut: A day-use stay checks out on the day it starts'
+      'checkOut: A day-use stay checks out on the day it starts',
     );
     expect(
       availabilityRequestSchema.safeParse({
         ...base,
         stay: 'day-use',
         checkOut: base.checkIn,
-      }).success
+      }).success,
     ).toBe(true);
   });
 
@@ -76,15 +76,17 @@ describe('availability request validation', () => {
 
   it('rejects a discount code with punctuation', () => {
     expect(issuesFor({ ...base, discountCode: 'SAVE!!' }).join(' ')).toMatch(
-      /letters, numbers and hyphens/
+      /letters, numbers and hyphens/,
     );
   });
 
   it('requires at least one adult and one room', () => {
-    expect(issuesFor({ ...base, occupancy: { adults: 0, children: 1, rooms: 1 } }).length)
-      .toBeGreaterThan(0);
-    expect(issuesFor({ ...base, occupancy: { adults: 1, children: 0, rooms: 0 } }).length)
-      .toBeGreaterThan(0);
+    expect(
+      issuesFor({ ...base, occupancy: { adults: 0, children: 1, rooms: 1 } }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      issuesFor({ ...base, occupancy: { adults: 1, children: 0, rooms: 0 } }).length,
+    ).toBeGreaterThan(0);
   });
 
   it('defaults the tab when it is absent', () => {

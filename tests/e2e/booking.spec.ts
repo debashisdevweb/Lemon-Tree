@@ -41,7 +41,7 @@ test.describe('booking sheet', () => {
     await openSheet(page, /^offers$/i);
     await expect(page.getByRole('tab', { name: 'Special offers' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -58,7 +58,7 @@ test.describe('booking sheet', () => {
     await page.keyboard.press('ArrowRight');
     await expect(page.getByRole('tab', { name: 'Last minute offers' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     );
   });
 
@@ -127,10 +127,10 @@ test.describe('booking sheet', () => {
     // Both dates now read as real dates rather than the em-dash placeholder.
     // A chosen date reads as a full long-form date, so it carries a year.
     await expect(page.getByRole('button', { name: /^Arrival/ })).toHaveAccessibleName(
-      /Arrival\s+\w+,\s+\d+\s+\w+\s+\d{4}/
+      /Arrival\s+\w+,\s+\d+\s+\w+\s+\d{4}/,
     );
     await expect(page.getByRole('button', { name: /^Departure/ })).toHaveAccessibleName(
-      /Departure\s+\w+,\s+\d+\s+\w+\s+\d{4}/
+      /Departure\s+\w+,\s+\d+\s+\w+\s+\d{4}/,
     );
 
     await page.getByRole('button', { name: /^search$/i }).click();
@@ -194,7 +194,10 @@ test.describe('availability API', () => {
     expect(response.status()).toBe(200);
     expect(response.headers()['cache-control']).toContain('no-store');
 
-    const body = (await response.json()) as { rates: { currency: string }[]; query: { nights: number } };
+    const body = (await response.json()) as {
+      rates: { currency: string }[];
+      query: { nights: number };
+    };
     expect(body.query.nights).toBe(2);
     expect(body.rates.length).toBeGreaterThan(0);
     expect(body.rates.every((rate) => rate.currency === 'INR')).toBe(true);
@@ -203,7 +206,10 @@ test.describe('availability API', () => {
 
 test.describe('date selection', () => {
   test('a single calendar click yields a one-night stay, not a same-day one', async ({ page }) => {
-    await page.getByRole('button', { name: /check availability/i }).first().click();
+    await page
+      .getByRole('button', { name: /check availability/i })
+      .first()
+      .click();
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByRole('button', { name: /^Arrival/ }).click();
@@ -218,7 +224,10 @@ test.describe('date selection', () => {
   });
 
   test('switching to day use collapses departure to the same day', async ({ page }) => {
-    await page.getByRole('button', { name: /^day use$/i }).first().click();
+    await page
+      .getByRole('button', { name: /^day use$/i })
+      .first()
+      .click();
     await expect(page.getByRole('dialog')).toBeVisible();
 
     await page.getByRole('button', { name: /^Check-out time/ }).count();
