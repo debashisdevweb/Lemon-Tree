@@ -28,7 +28,7 @@ export function Rewards() {
     >
       <div className="pt-stack-pt pb-stack-pb flex flex-col justify-center px-[clamp(24px,4vw,64px)] lg:pr-[clamp(24px,3vw,56px)]">
         <Reveal fast className="gap-gap-tight flex items-baseline">
-          <span className="font-display text-infinity text-cream leading-none font-normal italic">
+          <span className="font-display-italic text-infinity text-cream leading-none font-normal italic">
             {REWARDS.logoWord}
           </span>
           <span className="text-eyebrow-xs text-cream/80 font-bold tracking-[0.16em] uppercase">

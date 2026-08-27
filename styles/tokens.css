@@ -112,6 +112,7 @@
 
   /* --- Typeface -------------------------------------------------------- */
   --font-display: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-display-italic: var(--font-playfair-italic), 'Playfair Display', Georgia, serif;
   --font-body: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-script: var(--font-sacramento), 'Sacramento', cursive;
 

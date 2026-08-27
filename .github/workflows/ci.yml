@@ -63,5 +63,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      # Fails the build if LCP > 2.5s, CLS > 0.1 or TBT > 200ms.
+      # Desktop: LCP < 2.5s, CLS < 0.1, TBT < 200ms. Currently passing.
       - run: npx --yes @lhci/cli@0.14.x autorun --config=lighthouserc.json
+      # Mobile, simulated 4G: the brief's stated target. Currently FAILING at
+      # ~3.2s LCP against the 2.5s budget — see "Performance" in README.md.
+      # Left enforcing on purpose: this should go green, not be silenced.
+      - run: npx --yes @lhci/cli@0.14.x autorun --config=lighthouserc.mobile.json

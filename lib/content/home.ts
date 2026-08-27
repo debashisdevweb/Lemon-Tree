@@ -54,10 +54,18 @@ export const HERO = {
     href: '#offers',
   },
   scrollCue: 'Scroll',
+  /**
+   * 1500x1050 rather than the source's 1500x1344: the design project's copy of
+   * this file exceeds the 256 KiB the design API will return, so the import
+   * arrived truncated at 192 KiB with no EOI marker. Browsers tolerate that but
+   * sharp does not, which silently disabled image optimisation for the single
+   * largest asset on the page. The recoverable 78.5% has been re-encoded as a
+   * valid progressive JPEG. The full-resolution original is still needed.
+   */
   image: img(
     'hero-hills.jpg',
     1500,
-    1344,
+    1050,
     'Terraced tea slopes falling away into layered hills at dawn',
     'center 52%'
   ),

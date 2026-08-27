@@ -16,15 +16,31 @@ import { META_THEME_DARK, META_THEME_LIGHT } from '@/lib/tokens/meta-colors';
  */
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
+  // 600 is never used; the design uses 400 for headlines and 500 for card titles.
+  weight: ['400', '500'],
   variable: '--font-playfair',
   display: 'swap',
 });
 
+/**
+ * Playfair italic is a separate, non-preloaded face because it renders exactly
+ * one word — "infinity" in the Rewards lockup, below the fold. Preloading it put
+ * 38 KB on the critical path, competing with the hero for bandwidth on 4G.
+ */
+const playfairItalic = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['italic'],
+  variable: '--font-playfair-italic',
+  display: 'swap',
+  preload: false,
+});
+
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  // 600 dropped: its single use (the active sheet tab) now uses 700, which the
+  // rest of the UI already loads.
+  weight: ['400', '500', '700', '800'],
   variable: '--font-jakarta',
   display: 'swap',
 });
@@ -77,7 +93,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
          this attribute, so a brand-scoped route can set it to "keys-select" or
          "aurika" and the entire component set re-themes with no prop passing. */
       data-brand="lemon-tree"
-      className={`${playfair.variable} ${jakarta.variable} ${sacramento.variable}`}
+      className={`${playfair.variable} ${playfairItalic.variable} ${jakarta.variable} ${sacramento.variable}`}
     >
       <body>{children}</body>
     </html>

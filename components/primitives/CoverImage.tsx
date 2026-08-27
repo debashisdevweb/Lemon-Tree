@@ -14,6 +14,14 @@ import type { Img } from '@/lib/content/home';
  * the image itself rather than a wrapper so only `transform` animates. The
  * parent must carry `.hover-zoom` and `overflow-hidden`.
  */
+/**
+ * 62 rather than next/image's default 75. These are large photographic crops
+ * behind scrims and gradients, where the difference is not visible, and it
+ * removes roughly a quarter of the page's image bytes — which on a throttled
+ * connection is bandwidth the hero needs.
+ */
+const IMAGE_QUALITY = 62;
+
 export function CoverImage({
   image,
   priority = false,
@@ -34,6 +42,7 @@ export function CoverImage({
       width={image.width}
       height={image.height}
       sizes={sizes}
+      quality={IMAGE_QUALITY}
       priority={priority}
       loading={priority ? undefined : 'lazy'}
       className={cn(

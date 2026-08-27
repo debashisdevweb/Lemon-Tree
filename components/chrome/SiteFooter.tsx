@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Eyebrow } from '@/components/primitives/Eyebrow';
 import { FOOTER } from '@/lib/content/home';
 import { FOOTER_COLUMNS, SITE, SOCIAL_LINKS } from '@/lib/content/site';
-import { NewsletterForm } from './NewsletterForm';
+import { NewsletterFormLazy } from './NewsletterFormLazy';
 import { SocialIcon } from './SocialIcons';
 import { Wordmark } from './Wordmark';
 
@@ -27,7 +27,7 @@ export function SiteFooter() {
             {FOOTER.newsletterHeading}
           </Eyebrow>
           <div className="mt-gap-tight">
-            <NewsletterForm />
+            <NewsletterFormLazy />
           </div>
 
           <Eyebrow className="mt-[clamp(26px,3vw,48px)]" tone="sage">

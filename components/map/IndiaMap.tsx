@@ -73,13 +73,57 @@ const projection = geoMercator().fitExtent(
   { type: 'FeatureCollection', features: india } as FeatureCollection<Geometry>,
 );
 
-const path = geoPath(projection);
+/**
+ * Two size controls, because this SVG is inlined into the HTML document and so
+ * sits on the critical path.
+ *
+ * `digits(1)` rounds path coordinates to a tenth of a pixel — invisible at any
+ * display size, and it removes most of the bytes, since geoPath otherwise emits
+ * full float precision.
+ *
+ * `visible()` drops every country that does not intersect the drawn frame. The
+ * world-atlas topology carries 177 of them; at this projection only India and a
+ * handful of neighbours are on screen, and the rest were costing hundreds of
+ * kilobytes of path data for nothing.
+ */
+const path = geoPath(projection).digits(1);
 const project = (lon: number, lat: number): [number, number] => projection([lon, lat]) ?? [0, 0];
 
-const graticulePath = path(geoGraticule().step([5, 5])()) ?? '';
+/** Generous margin so coastlines running just off-frame still render. */
+const FRAME_MARGIN = 80;
+
+const visible = (feature: NamedFeature): boolean => {
+  const [[x0, y0], [x1, y1]] = path.bounds(feature);
+  if (!Number.isFinite(x0) || !Number.isFinite(y0)) return false;
+  return (
+    x1 >= -FRAME_MARGIN &&
+    x0 <= WIDTH + FRAME_MARGIN &&
+    y1 >= -FRAME_MARGIN &&
+    y0 <= HEIGHT + FRAME_MARGIN
+  );
+};
+
+/**
+ * The graticule is clipped to India's own bounding box. Left at its default
+ * extent it draws the entire globe — 80 KB of path data for grid lines that are
+ * thousands of pixels off-frame, and it appears twice in the response because
+ * the RSC payload carries a second copy.
+ */
+const graticulePath =
+  path(
+    geoGraticule()
+      .extent([
+        [66, 5],
+        [98, 38],
+      ])
+      .step([5, 5])()
+  ) ?? '';
 
 const drawn = (features: NamedFeature[]): string[] =>
-  features.map((f) => path(f) ?? '').filter((d) => d.length > 0);
+  features
+    .filter(visible)
+    .map((f) => path(f) ?? '')
+    .filter((d) => d.length > 0);
 
 const otherPaths = drawn(others);
 const indiaPaths = drawn(india);
@@ -153,7 +197,7 @@ export function IndiaMap() {
                   y={y}
                   textAnchor="middle"
                   fontSize={11}
-                  fontWeight={600}
+                  fontWeight={700}
                   letterSpacing="0.18em"
                   className="fill-cream/45"
                 >
@@ -186,7 +230,7 @@ export function IndiaMap() {
                     y={offset.dy}
                     textAnchor={offset.anchor}
                     fontSize={13}
-                    fontWeight={city.isOpen ? 600 : 500}
+                    fontWeight={city.isOpen ? 700 : 500}
                     className={city.isOpen ? 'fill-cream' : 'fill-cream/70'}
                   >
                     {city.name}

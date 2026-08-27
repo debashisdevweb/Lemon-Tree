@@ -217,7 +217,7 @@ export function BookingSheet() {
                                 'on-dark px-btn-tab-x py-btn-tab-y text-tab cursor-pointer border-0 whitespace-nowrap',
                                 'transition-colors duration-[var(--dur-hover-swap)]',
                                 'text-cream bg-transparent font-normal',
-                                'data-[state=active]:bg-cream data-[state=active]:font-semibold',
+                                'data-[state=active]:bg-cream data-[state=active]:font-bold',
                                 'data-[state=active]:text-ink',
                               )}
                             >
