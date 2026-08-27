@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sacramento&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#EAE1D6;color:#333B37;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+  a{color:#2F4F3E;text-decoration:none}
+  a:hover{color:#C66A3C}
+  input,button,textarea,select{font:inherit}
+  ::selection{background:#C66A3C;color:#EAE1D6}
+  @keyframes jhCurtain{0%,58%{transform:translateY(0)}100%{transform:translateY(-101%)}}
+  @keyframes jhWord{0%{opacity:0;transform:translateY(18px)}16%,100%{opacity:1;transform:none}}
+  @keyframes jhSig{0%{opacity:0;clip-path:inset(0 100% -20% 0)}18%{opacity:1}60%,100%{opacity:1;clip-path:inset(0 -6% -20% 0)}}
+  @keyframes jhBar{0%{transform:scaleX(0)}60%,100%{transform:scaleX(1)}}
+  @keyframes jhFadeUp{from{opacity:0;transform:translateY(27px)}to{opacity:1;transform:none}}
+  @keyframes jhFade{from{opacity:0}to{opacity:1}}
+  @keyframes jhZoomOut{from{transform:scale(1.14)}to{transform:scale(1)}}
+  @keyframes jhSheet{from{transform:translateY(102%)}to{transform:translateY(0)}}
+</style>
+</helmet>
+<div id="top" ref="{{ rootRef }}" style="position:relative;background:#EAE1D6;overflow-x:clip">
+
+  <sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed;inset:0;z-index:400;background:#26402F;display:grid;place-items:center;animation:jhCurtain 2.4s cubic-bezier(.76,0,.24,1) both;will-change:transform">
+      <div style="position:absolute;top:clamp(19.2px,3.4vh,41.6px);left:50%;transform:translateX(-50%);width:56px;height:2.4px;background:rgba(234,225,214,.22);border-radius:2px;overflow:hidden">
+        <div style="width:100%;height:100%;background:#EAE1D6;transform-origin:left center;animation:jhBar 2.4s cubic-bezier(.3,.7,.3,1) both"></div>
+      </div>
+      <div style="text-align:center;color:#EAE1D6">
+        <div style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(28.8px,4.4vw,70.4px);line-height:1;letter-spacing:-.01em;animation:jhWord 2.4s cubic-bezier(.4,.5,.2,1) both">Lemon Tree Hotel</div>
+        <div style="font-family:'Sacramento',cursive;font-size:clamp(48px,7.2vw,116px);line-height:1.05;margin-top:clamp(1.6px,0.4vw,6.4px);animation:jhSig 2.4s .12s cubic-bezier(.4,.5,.2,1) both">Siliguri.</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <header data-nav="1" style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;gap:16px;padding:0 clamp(16px,2.56vw,43.2px);height:clamp(51.2px,4.72vw,76.8px);background:rgba(234,225,214,0);color:#EAE1D6;transition:background .55s ease,color .55s ease,box-shadow .55s ease">
+    <a href="#top" style="color:inherit;flex:0 0 auto;display:flex;align-items:baseline;gap:8px">
+      <span style="font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(17.6px,1.84vw,28.8px);line-height:1.1;letter-spacing:-.01em">Lemon Tree</span>
+      <span style="font-size:clamp(8px,0.64vw,10.4px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.85">Siliguri</span>
+    </a>
+    <nav style="flex:1 1 auto;display:flex;justify-content:center;gap:clamp(11.2px,1.52vw,24px);font-weight:700;font-size:clamp(10.4px,0.92vw,13.6px)">
+      <a href="#rooms" style="color:inherit">Rooms</a>
+      <a href="#dining" style="color:inherit">Dining</a>
+      <a href="#events" style="color:inherit">Events</a>
+      <a href="#gallery" style="color:inherit">Gallery</a>
+      <a href="#explore" style="color:inherit">Explore</a>
+      <a href="#reviews" style="color:inherit">Reviews</a>
+    </nav>
+    <div style="flex:0 0 auto;display:flex;align-items:center;gap:clamp(9.6px,1.28vw,20.8px);font-weight:700;font-size:clamp(10.4px,0.92vw,13.6px)">
+      <a href="#faq" style="color:inherit">FAQ</a>
+      <a href="#signin" style="color:inherit;border:1.2px solid currentColor;border-radius:6.4px;padding:clamp(6.4px,0.6vw,9.6px) clamp(11.2px,1.04vw,16.8px)" style-hover="color:#C66A3C">Sign in</a>
+      <button type="button" onClick="{{ openBooking }}" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(10.4px,0.92vw,13.6px);padding:clamp(7.2px,0.68vw,11.2px) clamp(12.8px,1.28vw,20.8px);border-radius:6.4px;cursor:pointer;transition:background .35s" style-hover="background:#B25B2F">Book now</button>
+    </div>
+  </header>
+
+  <div style="position:relative;z-index:1">
+
+    <section id="hero" data-stack="1" data-screen-label="Hero" style="position:sticky;top:0;z-index:1;height:100vh;min-height:520px;overflow:hidden;background:#1E2A20">
+      <div style="position:absolute;inset:0;background:url('lt/exterior.jpg') center 46%/cover no-repeat;animation:jhZoomOut 15s 1.3s cubic-bezier(.2,.6,.2,1) both;will-change:transform"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,26,18,.62),rgba(16,26,18,.22) 38%,rgba(16,26,18,.72))"></div>
+      <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(60.8px,5.6vw,96px) clamp(19.2px,3.2vw,51.2px) clamp(76.8px,9.6vh,131.2px)">
+        <div style="max-width:1420px;width:100%;margin:0 auto">
+          <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#EAE1D6;opacity:.9;animation:jhFadeUp 1.3s 1.45s cubic-bezier(.2,.8,.2,1) both">Siliguri &middot; West Bengal</div>
+          <h1 style="margin:clamp(9.6px,1.2vw,19.2px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#EAE1D6;font-size:clamp(38.4px,6.4vw,118px);line-height:.96;letter-spacing:-.022em;animation:jhFadeUp 1.4s 1.55s cubic-bezier(.2,.8,.2,1) both">Lemon Tree Hotel,</h1>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(19.2px,4vw,80px);flex-wrap:wrap">
+            <div style="font-family:'Sacramento',cursive;color:#EAE1D6;font-size:clamp(43.2px,6.2vw,112px);line-height:1;animation:jhFadeUp 1.4s 1.75s cubic-bezier(.2,.8,.2,1) both">Siliguri.</div>
+            <ul style="list-style:none;margin:0 0 clamp(4.8px,0.8vw,12.8px);padding:0;display:flex;flex-direction:column;gap:clamp(4.8px,0.72vw,11.2px);color:#EAE1D6;font-weight:500;font-size:clamp(12px,1.16vw,20px);animation:jhFadeUp 1.4s 1.95s cubic-bezier(.2,.8,.2,1) both">
+              <li>17 km from Bagdogra Airport.</li>
+              <li>25 minutes from NJP Railway.</li>
+              <li>Two restaurants and a rooftop bar.</li>
+              <li>279 m&sup2; of event space.</li>
+            </ul>
+          </div>
+          <div style="display:flex;align-items:center;gap:clamp(12.8px,1.92vw,32px);flex-wrap:wrap;margin-top:clamp(22.4px,2.72vw,44.8px);animation:jhFadeUp 1.4s 2.15s cubic-bezier(.2,.8,.2,1) both">
+            <div style="display:flex;align-items:center;gap:clamp(8px,0.88vw,14.4px);background:rgba(250,248,245,.94);border-radius:8.8px;padding:clamp(8px,0.8vw,13.6px) clamp(12.8px,1.2vw,19.2px)">
+              <span style="font-size:clamp(12.8px,1.12vw,18.4px);letter-spacing:.1em;color:#C66A3C;line-height:1">★★★★★</span>
+              <span style="font-size:clamp(10.4px,0.84vw,14.4px);color:#333B37"><strong style="font-weight:700">3,206</strong> Google &middot; <strong style="font-weight:700">379</strong> Tripadvisor reviews</span>
+            </div>
+            <div style="color:#EAE1D6;font-size:clamp(11.2px,0.92vw,15.2px)">Rooms from <strong style="font-weight:700;font-size:clamp(14.4px,1.2vw,20px)">&#8377;5,109</strong> / night</div>
+            <div style="display:flex;gap:clamp(6.4px,0.72vw,11.2px)">
+              <button type="button" onClick="{{ openBooking }}" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(11.2px,0.92vw,15.2px);padding:clamp(10.4px,1.04vw,17.6px) clamp(16px,1.68vw,28px);border-radius:8.8px;cursor:pointer;transition:background .35s,transform .35s" style-hover="background:#B25B2F;transform:translateY(-2px)">Check availability</button>
+              <a href="#rooms" style="border:1.2px solid rgba(234,225,214,.6);color:#EAE1D6;font-weight:700;font-size:clamp(11.2px,0.92vw,15.2px);padding:clamp(10.4px,1.04vw,17.6px) clamp(16px,1.68vw,28px);border-radius:8.8px;transition:background .35s,color .35s" style-hover="background:#EAE1D6;color:#2F4F3E">See rooms</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;left:clamp(19.2px,3.2vw,51.2px);bottom:clamp(76px,7.6vh,102px);display:flex;align-items:center;gap:clamp(8px,0.8vw,12.8px);color:rgba(234,225,214,.75);font-size:clamp(8.8px,0.68vw,11.2px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;animation:jhFade 1s 2.4s ease both">Scroll
+        <span style="display:block;width:clamp(20.8px,2vw,32px);height:1.2px;background:rgba(234,225,214,.5)"></span>
+      </div>
+    </section>
+
+    <section id="gallery" data-stack="1" data-navtrigger="1" data-screen-label="Gallery" style="position:sticky;top:0;z-index:2;height:100vh;min-height:560px;overflow:hidden;background:#EAE1D6;display:flex;flex-direction:column;padding:clamp(60.8px,5.6vw,92.8px) clamp(19.2px,3.2vw,51.2px) clamp(76.8px,9.6vh,124.8px)">
+      <div style="max-width:1420px;width:100%;margin:0 auto;display:flex;flex-direction:column;flex:1 1 auto;min-height:0">
+        <div data-reveal="1" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;opacity:0;transform:translateY(27px);transition:opacity .9s cubic-bezier(.2,.75,.25,1),transform .9s cubic-bezier(.2,.75,.25,1)">
+          <div>
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">The property</div>
+            <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">A calm base on Sevoke Road</h2>
+          </div>
+          <button type="button" onClick="{{ openGallery }}" style="border:1.2px solid rgba(47,79,62,.4);background:transparent;color:#2F4F3E;font-weight:700;font-size:clamp(10.4px,0.88vw,14.4px);padding:clamp(9.6px,0.96vw,16px) clamp(14.4px,1.44vw,24px);border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:9.6px;transition:background .35s,color .35s" style-hover="background:#2F4F3E;color:#EAE1D6">
+            <svg viewBox="0 0 24 24" style="width:clamp(12.8px,1.04vw,16.8px);height:clamp(12.8px,1.04vw,16.8px)"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="13" height="11" rx="1.6"></rect><path d="M8 19h11a2 2 0 0 0 2-2V9"></path></g></svg>
+            Show all 12 photos
+          </button>
+        </div>
+        <div data-reveal="1" data-delay="120" style="flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.62fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(6.4px,0.72vw,11.2px);margin-top:clamp(19.2px,2.24vw,36.8px);opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <button type="button" onClick="{{ openGallery }}" style="grid-row:span 2;border:0;padding:0;cursor:pointer;background:url('lt/exterior.jpg') center 48%/cover;transition:filter .5s" style-hover="filter:brightness(1.06)"></button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(6.4px,0.72vw,11.2px)">
+            <button type="button" onClick="{{ openGallery }}" style="border:0;padding:0;cursor:pointer;background:url('lt/reception.jpg') center/cover;transition:filter .5s" style-hover="filter:brightness(1.06)"></button>
+            <button type="button" onClick="{{ openGallery }}" style="border:0;padding:0;cursor:pointer;background:url('lt/citrus-a.jpg') center/cover;transition:filter .5s" style-hover="filter:brightness(1.06)"></button>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(6.4px,0.72vw,11.2px)">
+            <button type="button" onClick="{{ openGallery }}" style="border:0;padding:0;cursor:pointer;background:url('lt/room-1.jpg') center/cover;transition:filter .5s" style-hover="filter:brightness(1.06)"></button>
+            <button type="button" onClick="{{ openGallery }}" style="border:0;padding:0;cursor:pointer;background:url('lt/banquet.jpg') center/cover;transition:filter .5s" style-hover="filter:brightness(1.06)"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-stack="1" data-screen-label="Why stay here" style="position:sticky;top:0;z-index:3;height:100vh;min-height:560px;overflow:hidden;background:#2F4F3E;display:flex;flex-direction:column;justify-content:center;padding:clamp(60.8px,5.6vw,92.8px) clamp(19.2px,3.2vw,51.2px) clamp(76.8px,9.6vh,124.8px)">
+      <div style="max-width:1420px;width:100%;margin:0 auto">
+        <div data-reveal="1" style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#EAE1D6;opacity:0;transform:translateY(27px);transition:opacity .9s cubic-bezier(.2,.75,.25,1),transform .9s cubic-bezier(.2,.75,.25,1)">Why guests choose this hotel</div>
+        <p data-reveal="1" data-delay="120" style="margin:clamp(16px,1.76vw,28.8px) 0 0;max-width:34ch;font-family:'Playfair Display',serif;font-weight:400;color:#EAE1D6;font-size:clamp(24px,3.36vw,60.8px);line-height:1.16;letter-spacing:-.01em;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">On the National Highway, minutes from the airport &mdash; and the last comfortable stop before the hills.</p>
+        <div data-reveal="1" data-delay="240" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(9.6px,1.12vw,17.6px);margin-top:clamp(28.8px,3.2vw,52.8px);opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="border-top:1.2px solid rgba(234,225,214,.34);padding-top:clamp(11.2px,1.28vw,20.8px)">
+            <div style="font-family:'Playfair Display',serif;color:#EAE1D6;font-size:clamp(25.6px,2.56vw,44.8px);line-height:1">17 km</div>
+            <div style="margin-top:clamp(4.8px,0.56vw,9.6px);color:rgba(234,225,214,.82);font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.5">Bagdogra Airport, a 30-minute drive</div>
+          </div>
+          <div style="border-top:1.2px solid rgba(234,225,214,.34);padding-top:clamp(11.2px,1.28vw,20.8px)">
+            <div style="font-family:'Playfair Display',serif;color:#EAE1D6;font-size:clamp(25.6px,2.56vw,44.8px);line-height:1">25 min</div>
+            <div style="margin-top:clamp(4.8px,0.56vw,9.6px);color:rgba(234,225,214,.82);font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.5">New Jalpaiguri railway station</div>
+          </div>
+          <div style="border-top:1.2px solid rgba(234,225,214,.34);padding-top:clamp(11.2px,1.28vw,20.8px)">
+            <div style="font-family:'Playfair Display',serif;color:#EAE1D6;font-size:clamp(25.6px,2.56vw,44.8px);line-height:1">70 km</div>
+            <div style="margin-top:clamp(4.8px,0.56vw,9.6px);color:rgba(234,225,214,.82);font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.5">Darjeeling and the Dooars, both</div>
+          </div>
+          <div style="border-top:1.2px solid rgba(234,225,214,.34);padding-top:clamp(11.2px,1.28vw,20.8px)">
+            <div style="font-family:'Playfair Display',serif;color:#EAE1D6;font-size:clamp(25.6px,2.56vw,44.8px);line-height:1">279 m&sup2;</div>
+            <div style="margin-top:clamp(4.8px,0.56vw,9.6px);color:rgba(234,225,214,.82);font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.5">Convention centre, up to 125 guests</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rooms" data-screen-label="Rooms" style="position:relative;z-index:20;background:#EAE1D6;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto">
+        <div data-reveal="1" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div>
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Rooms &amp; suites</div>
+            <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">Three ways to stay</h2>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:clamp(10.4px,0.84vw,14.4px);color:#5C6560">All rooms sleep 2 adults</div>
+            <div style="margin-top:clamp(3.2px,0.4vw,6.4px);font-size:clamp(12px,1vw,17.6px);color:#2F4F3E">from <strong style="font-weight:700">&#8377;5,109</strong> / night</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(11.2px,1.28vw,20.8px);margin-top:clamp(22.4px,2.56vw,41.6px)">
+          <article data-reveal="1" style="background:#FAF8F5;display:flex;flex-direction:column;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="aspect-ratio:4/3;background:url('lt/room-1.jpg') center 42%/cover"></div>
+            <div style="padding:clamp(14.4px,1.52vw,25.6px);display:flex;flex-direction:column;flex:1 1 auto">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                <h3 style="margin:0;font-family:'Playfair Display',serif;font-weight:500;color:#2F4F3E;font-size:clamp(16px,1.44vw,25.6px);line-height:1.1">Executive Room</h3>
+                <span style="font-size:clamp(10.4px,0.84vw,14.4px);color:#5C6560;white-space:nowrap">30 m&sup2;</span>
+              </div>
+              <p style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.6;color:#333B37">A bright, efficient room for a short work trip &mdash; full-sized desk, high-speed WiFi and a rain shower.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:6.4px;margin-top:clamp(11.2px,1.2vw,19.2px)">
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Working desk</span>
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">LED TV, DTH</span>
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Electronic safe</span>
+              </div>
+              <div style="margin-top:auto;padding-top:clamp(14.4px,1.44vw,24px);display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <button type="button" onClick="{{ openBooking }}" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(10.4px,0.84vw,14.4px);padding:clamp(9.6px,0.96vw,16px) clamp(14.4px,1.36vw,22.4px);border-radius:6.4px;cursor:pointer;transition:background .35s" style-hover="background:#B25B2F">Check rates</button>
+                <a href="#rooms" style="font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;text-decoration:underline;text-underline-offset:.2em">Room details</a>
+              </div>
+            </div>
+          </article>
+          <article data-reveal="1" data-delay="110" style="background:#FAF8F5;display:flex;flex-direction:column;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="aspect-ratio:4/3;background:url('lt/room-2.jpg') center 46%/cover"></div>
+            <div style="padding:clamp(14.4px,1.52vw,25.6px);display:flex;flex-direction:column;flex:1 1 auto">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                <h3 style="margin:0;font-family:'Playfair Display',serif;font-weight:500;color:#2F4F3E;font-size:clamp(16px,1.44vw,25.6px);line-height:1.1">Studio Suite</h3>
+                <span style="font-size:clamp(10.4px,0.84vw,14.4px);color:#5C6560;white-space:nowrap">36 m&sup2;</span>
+              </div>
+              <p style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.6;color:#333B37">Six extra square metres, arranged as a small sitting area &mdash; the pick for longer stays.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:6.4px;margin-top:clamp(11.2px,1.2vw,19.2px)">
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Sitting area</span>
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Minibar</span>
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Tea &amp; coffee</span>
+              </div>
+              <div style="margin-top:auto;padding-top:clamp(14.4px,1.44vw,24px);display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <button type="button" onClick="{{ openBooking }}" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(10.4px,0.84vw,14.4px);padding:clamp(9.6px,0.96vw,16px) clamp(14.4px,1.36vw,22.4px);border-radius:6.4px;cursor:pointer;transition:background .35s" style-hover="background:#B25B2F">Check rates</button>
+                <a href="#rooms" style="font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;text-decoration:underline;text-underline-offset:.2em">Room details</a>
+              </div>
+            </div>
+          </article>
+          <article data-reveal="1" data-delay="220" style="background:#FAF8F5;display:flex;flex-direction:column;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="aspect-ratio:4/3;background:url('lt/room-3.jpg') center 46%/cover"></div>
+            <div style="padding:clamp(14.4px,1.52vw,25.6px);display:flex;flex-direction:column;flex:1 1 auto">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                <h3 style="margin:0;font-family:'Playfair Display',serif;font-weight:500;color:#2F4F3E;font-size:clamp(16px,1.44vw,25.6px);line-height:1.1">Deluxe Suite</h3>
+                <span style="font-size:clamp(10.4px,0.84vw,14.4px);color:#5C6560;white-space:nowrap">42 m&sup2;</span>
+              </div>
+              <p style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.6;color:#333B37">The largest suite in the house, with a separate lounge for hosting a small meeting in private.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:6.4px;margin-top:clamp(11.2px,1.2vw,19.2px)">
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Separate lounge</span>
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Electronic safe</span>
+                <span style="font-size:clamp(9.6px,0.76vw,12.8px);color:#2F4F3E;border:1px solid rgba(47,79,62,.24);border-radius:99px;padding:4.8px 9.6px">Global dialling</span>
+              </div>
+              <div style="margin-top:auto;padding-top:clamp(14.4px,1.44vw,24px);display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <button type="button" onClick="{{ openBooking }}" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(10.4px,0.84vw,14.4px);padding:clamp(9.6px,0.96vw,16px) clamp(14.4px,1.36vw,22.4px);border-radius:6.4px;cursor:pointer;transition:background .35s" style-hover="background:#B25B2F">Check rates</button>
+                <a href="#rooms" style="font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;text-decoration:underline;text-underline-offset:.2em">Room details</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="dining" data-screen-label="Dining" style="position:relative;z-index:20;background:#FAF8F5;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto">
+        <div data-reveal="1" style="opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Dining</div>
+          <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">Breakfast at seven, rooftop after dark</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(11.2px,1.28vw,20.8px);margin-top:clamp(22.4px,2.56vw,41.6px)">
+          <article data-reveal="1" style="background:#EAE1D6;display:grid;grid-template-columns:1fr 1fr;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="background:url('lt/citrus-big.jpg') center 40%/cover;min-height:clamp(200px,24vw,384px)"></div>
+            <div style="padding:clamp(16px,1.68vw,28.8px);display:flex;flex-direction:column">
+              <h3 style="margin:0;font-family:'Playfair Display',serif;font-weight:500;color:#2F4F3E;font-size:clamp(19.2px,1.76vw,32px);line-height:1.06">Citrus Cafe</h3>
+              <p style="margin:clamp(9.6px,1.04vw,17.6px) 0 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.62;color:#333B37">A bright all-day coffee shop: Indian, European, American and Pan-Asian on one menu, and a breakfast buffet laid out every morning.</p>
+              <dl style="margin:clamp(14.4px,1.52vw,25.6px) 0 0;display:grid;grid-template-columns:auto 1fr;gap:clamp(6.4px,0.72vw,11.2px) clamp(11.2px,1.2vw,19.2px);font-size:clamp(10.4px,0.84vw,14.4px)">
+                <dt style="color:#5C6560">Cuisine</dt><dd style="margin:0;color:#333B37">Multi-cuisine</dd>
+                <dt style="color:#5C6560">Menu</dt><dd style="margin:0;color:#333B37">&Agrave; la carte and buffet</dd>
+                <dt style="color:#5C6560">Hours</dt><dd style="margin:0;color:#333B37">7:00 AM &ndash; 11:00 PM</dd>
+                <dt style="color:#5C6560">Breakfast</dt><dd style="margin:0;color:#333B37">7:00 &ndash; 11:00 AM daily</dd>
+              </dl>
+              <div style="margin-top:auto;padding-top:clamp(14.4px,1.44vw,24px)">
+                <a href="#dining" style="font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;text-decoration:underline;text-underline-offset:.2em">See the menu</a>
+              </div>
+            </div>
+          </article>
+          <article data-reveal="1" data-delay="120" style="position:relative;overflow:hidden;min-height:clamp(200px,24vw,384px);opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="position:absolute;inset:0;background:url('lt/premier.jpg') center/cover"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,28,20,.28),rgba(18,28,20,.82))"></div>
+            <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(16px,1.68vw,28.8px)">
+              <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(234,225,214,.86)">Rooftop bar</div>
+              <h3 style="margin:clamp(6.4px,0.72vw,11.2px) 0 0;font-family:'Playfair Display',serif;font-weight:500;color:#EAE1D6;font-size:clamp(19.2px,1.76vw,32px);line-height:1.06">Amilo</h3>
+              <p style="margin:clamp(8px,0.88vw,14.4px) 0 0;max-width:34ch;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.6;color:rgba(234,225,214,.9)">The one guests keep naming: an open-air gallery over the garden, a proper dance floor, and the best seat in the hotel at sunset.</p>
+              <div style="margin-top:clamp(12.8px,1.36vw,22.4px)">
+                <a href="#dining" style="color:#EAE1D6;font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;text-decoration:underline;text-underline-offset:.2em" style-hover="color:#C66A3C">Ask the front desk for hours</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" data-screen-label="Events" style="position:relative;z-index:20;background:#EAE1D6;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto;display:grid;grid-template-columns:1.12fr 1fr;gap:clamp(19.2px,3.2vw,64px);align-items:center">
+        <div data-reveal="1" style="position:relative;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="aspect-ratio:16/10;background:url('lt/conference.jpg') center/cover"></div>
+          <div data-parallax=".1" style="position:absolute;right:-4%;bottom:-14%;width:38%;aspect-ratio:4/3;background:url('lt/banquet.jpg') center/cover;box-shadow:0 24px 56px rgba(20,32,24,.28)"></div>
+        </div>
+        <div>
+          <div data-reveal="1" style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">Meetings &amp; events</div>
+          <h2 data-reveal="1" data-delay="110" style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">One room,<br />built for the agenda</h2>
+          <p data-reveal="1" data-delay="200" style="margin:clamp(16px,1.76vw,28.8px) 0 0;max-width:38ch;font-size:clamp(11.2px,0.92vw,15.2px);line-height:1.62;color:#333B37;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">A modern conference room for board meetings, training days and private celebrations, with the convention centre spread over 279 square metres and a single flexible venue that seats up to 125.</p>
+          <div data-reveal="1" data-delay="280" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(9.6px,1.12vw,17.6px);margin-top:clamp(19.2px,2.24vw,36.8px);opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="border-top:1.2px solid rgba(47,79,62,.28);padding-top:clamp(9.6px,1.04vw,16px)">
+              <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(19.2px,1.84vw,32px);line-height:1">Tangerine</div>
+              <div style="margin-top:4.8px;font-size:clamp(9.6px,0.76vw,12.8px);color:#5C6560">The venue</div>
+            </div>
+            <div style="border-top:1.2px solid rgba(47,79,62,.28);padding-top:clamp(9.6px,1.04vw,16px)">
+              <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(19.2px,1.84vw,32px);line-height:1">125</div>
+              <div style="margin-top:4.8px;font-size:clamp(9.6px,0.76vw,12.8px);color:#5C6560">Maximum guests</div>
+            </div>
+            <div style="border-top:1.2px solid rgba(47,79,62,.28);padding-top:clamp(9.6px,1.04vw,16px)">
+              <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(19.2px,1.84vw,32px);line-height:1">279 m&sup2;</div>
+              <div style="margin-top:4.8px;font-size:clamp(9.6px,0.76vw,12.8px);color:#5C6560">Convention centre</div>
+            </div>
+          </div>
+          <div data-reveal="1" data-delay="360" style="margin-top:clamp(22.4px,2.4vw,38.4px);display:flex;gap:clamp(6.4px,0.72vw,11.2px);flex-wrap:wrap;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <a href="#events" style="background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(11.2px,0.92vw,15.2px);padding:clamp(10.4px,1.04vw,17.6px) clamp(16px,1.68vw,28px);border-radius:8.8px;transition:background .35s,transform .35s" style-hover="background:#B25B2F;color:#FAF8F5;transform:translateY(-2px)">Send an enquiry</a>
+            <a href="#events" style="border:1.2px solid rgba(47,79,62,.4);color:#2F4F3E;font-weight:700;font-size:clamp(11.2px,0.92vw,15.2px);padding:clamp(10.4px,1.04vw,17.6px) clamp(16px,1.68vw,28px);border-radius:8.8px;transition:background .35s,color .35s" style-hover="background:#2F4F3E;color:#EAE1D6">Download floor plan</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="facilities" data-screen-label="Facilities" style="position:relative;z-index:20;background:#FAF8F5;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto">
+        <div data-reveal="1" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div>
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Facilities</div>
+            <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">Everything on site</h2>
+          </div>
+          <p style="margin:0;max-width:32ch;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.6;color:#5C6560">Free 24&times;7 WiFi throughout, a fitness centre, and transport we arrange for sightseeing or an early airport run.</p>
+        </div>
+        <div data-reveal="1" data-delay="120" style="display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:1.2px;background:rgba(47,79,62,.18);margin-top:clamp(22.4px,2.56vw,41.6px);opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 4v10a3 3 0 0 0 6 0V4"></path><path d="M12 14v14"></path><path d="M23 4v24"></path><path d="M20 4c0 5 6 5 6 0"></path></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">Restaurant</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 12v8M8 9v14M24 9v14M28 12v8M8 16h16"></path></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">Fitness centre</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 21v-4l3-7h18l3 7v4"></path><path d="M4 21h24"></path><circle cx="9" cy="22.5" r="2.2"></circle><circle cx="23" cy="22.5" r="2.2"></circle></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">Transport</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6h20l-10 11z"></path><path d="M16 17v9"></path><path d="M11 27h10"></path></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">Bar</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 12a19 19 0 0 1 26 0"></path><path d="M7.5 17.5a13 13 0 0 1 17 0"></path><path d="M12 23a7 7 0 0 1 8 0"></path><circle cx="16" cy="27" r="1.4" fill="currentColor" stroke="none"></circle></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">24&times;7 WiFi</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="7" width="22" height="18" rx="2"></rect><circle cx="15" cy="16" r="4.4"></circle><path d="M15 13.6v2.4l1.8 1.2"></path><path d="M23 12v8"></path></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">Electronic safe</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 11h16v9a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"></path><path d="M21 13.5h3.5a3 3 0 0 1 0 6H21"></path><path d="M9 7c0-1.5 1-1.8 1-3M14 7c0-1.5 1-1.8 1-3"></path></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">Tea &amp; coffee</span>
+          </div>
+          <div style="background:#EAE1D6;padding:clamp(18.4px,1.92vw,32px) clamp(8px,0.88vw,14.4px);display:flex;flex-direction:column;align-items:center;gap:clamp(10.4px,1.12vw,18.4px);text-align:center">
+            <svg viewBox="0 0 32 32" style="width:clamp(25.6px,2.16vw,36.8px);height:clamp(25.6px,2.16vw,36.8px);color:#2F4F3E"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="7" width="24" height="14" rx="1.8"></rect><path d="M11 25h10"></path><path d="M16 21v4"></path></g></svg>
+            <span style="font-size:clamp(10.4px,0.8vw,14.4px);font-weight:500;color:#2F4F3E;line-height:1.35">LED TV, DTH</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="explore" data-screen-label="Explore Siliguri" style="position:relative;z-index:20;background:#EAE1D6;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto">
+        <div data-reveal="1" style="opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Getting around</div>
+          <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">Siliguri, and the road up</h2>
+        </div>
+        <div data-reveal="1" data-delay="110" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(9.6px,1.12vw,17.6px);margin-top:clamp(22.4px,2.4vw,38.4px);opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="background:#FAF8F5;padding:clamp(12.8px,1.36vw,22.4px)">
+            <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(17.6px,1.6vw,28.8px);line-height:1">61 km</div>
+            <div style="margin-top:4.8px;font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">Kalimpong</div>
+          </div>
+          <div style="background:#FAF8F5;padding:clamp(12.8px,1.36vw,22.4px)">
+            <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(17.6px,1.6vw,28.8px);line-height:1">70 km</div>
+            <div style="margin-top:4.8px;font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">Darjeeling</div>
+          </div>
+          <div style="background:#FAF8F5;padding:clamp(12.8px,1.36vw,22.4px)">
+            <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(17.6px,1.6vw,28.8px);line-height:1">70 km</div>
+            <div style="margin-top:4.8px;font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">The Dooars</div>
+          </div>
+          <div style="background:#FAF8F5;padding:clamp(12.8px,1.36vw,22.4px)">
+            <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(17.6px,1.6vw,28.8px);line-height:1">108 km</div>
+            <div style="margin-top:4.8px;font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">Gangtok</div>
+          </div>
+        </div>
+        <div data-reveal="1" style="margin-top:clamp(22.4px,2.4vw,38.4px);background:#1A2A1E;aspect-ratio:2.6/1;min-height:clamp(320px,32vw,540px);overflow:hidden;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <iframe src="map-siliguri.html" title="Map of the Siliguri corridor showing the hotel, the airport and the hill destinations" loading="lazy" style="width:100%;height:100%;border:0;display:block"></iframe>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(19.2px,2.56vw,44.8px);margin-top:clamp(22.4px,2.4vw,38.4px);align-items:start">
+          <div data-reveal="1" data-delay="140" style="display:flex;flex-direction:column;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Getting here</div>
+            <ul style="list-style:none;margin:clamp(11.2px,1.2vw,19.2px) 0 0;padding:0">
+              <li style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:clamp(11.2px,1.12vw,18.4px) 0;border-bottom:1px solid rgba(47,79,62,.18)">
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#333B37">Bagdogra Airport</span>
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#2F4F3E;font-weight:700;white-space:nowrap">17 km</span>
+              </li>
+              <li style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:clamp(11.2px,1.12vw,18.4px) 0;border-bottom:1px solid rgba(47,79,62,.18)">
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#333B37">New Jalpaiguri railway station</span>
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#2F4F3E;font-weight:700;white-space:nowrap">25 min</span>
+              </li>
+            </ul>
+          </div>
+          <div data-reveal="1" data-delay="240" style="display:flex;flex-direction:column;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Within five kilometres</div>
+            <ul style="list-style:none;margin:clamp(11.2px,1.2vw,19.2px) 0 0;padding:0">
+              <li style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:clamp(11.2px,1.12vw,18.4px) 0;border-bottom:1px solid rgba(47,79,62,.18)">
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#333B37">Salugara Monastery</span>
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#2F4F3E;font-weight:700;white-space:nowrap">1.5 km</span>
+              </li>
+              <li style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:clamp(11.2px,1.12vw,18.4px) 0;border-bottom:1px solid rgba(47,79,62,.18)">
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#333B37">Bengal Safari</span>
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#2F4F3E;font-weight:700;white-space:nowrap">4.3 km</span>
+              </li>
+              <li style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:clamp(11.2px,1.12vw,18.4px) 0;border-bottom:1px solid rgba(47,79,62,.18)">
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#333B37">Hong Kong Market</span>
+                <span style="font-size:clamp(11.2px,0.96vw,16px);color:#2F4F3E;font-weight:700;white-space:nowrap">4.6 km</span>
+              </li>
+            </ul>
+            <p style="margin:clamp(14.4px,1.44vw,24px) 0 0;font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.6;color:#5C6560">On the National Highway, and well connected to Asansol, Durgapur, Kharagpur and Kolkata by road and rail.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" data-screen-label="Reviews" style="position:relative;z-index:20;background:#FAF8F5;padding:clamp(60.8px,6.4vw,108.8px) 0;overflow:hidden">
+      <div style="max-width:1420px;margin:0 auto;padding:0 clamp(19.2px,3.2vw,51.2px)">
+        <div data-reveal="1" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(19.2px,3.2vw,56px);align-items:end;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div>
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Guest reviews</div>
+            <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">3,585 guests,<br />in their words</h2>
+          </div>
+          <div style="border:1.2px solid rgba(47,79,62,.2);background:#EAE1D6;padding:clamp(14.4px,1.44vw,24px) clamp(16px,1.6vw,27.2px);display:flex;flex-direction:column;gap:clamp(12.8px,1.28vw,20.8px)">
+            <div style="display:flex;align-items:center;gap:clamp(8px,0.88vw,14.4px)">
+              <span style="font-size:clamp(13.6px,1.12vw,18.4px);letter-spacing:.12em;line-height:1;color:#C66A3C">★★★★★</span>
+              <span style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5C6560">Rated on two sites</span>
+            </div>
+            <div style="display:flex;gap:clamp(16px,1.76vw,30.4px)">
+              <div style="border-left:2.4px solid #C66A3C;padding-left:clamp(9.6px,1.04vw,16px)">
+                <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(20.8px,2.08vw,36px);line-height:1">3,206</div>
+                <div style="margin-top:4.8px;font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">Google</div>
+              </div>
+              <div style="border-left:2.4px solid #7A9260;padding-left:clamp(9.6px,1.04vw,16px)">
+                <div style="font-family:'Playfair Display',serif;color:#2F4F3E;font-size:clamp(20.8px,2.08vw,36px);line-height:1">379</div>
+                <div style="margin-top:4.8px;font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">Tripadvisor</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1420px;margin:clamp(19.2px,2.24vw,36.8px) auto clamp(8px,0.88vw,14.4px);padding:0 clamp(19.2px,3.2vw,51.2px);display:flex;justify-content:flex-end">
+        <span style="font-size:clamp(10.4px,0.8vw,13.6px);color:#5C6560">Drag to read more &rarr;</span>
+      </div>
+      <div data-rail="1" style="position:relative;overflow:hidden;cursor:grab">
+        <div data-rail-track="1" style="display:flex;gap:clamp(9.6px,1.12vw,17.6px);padding:0 clamp(19.2px,3.2vw,51.2px);will-change:transform;transition:transform .6s cubic-bezier(.2,.8,.2,1)">
+          <article style="flex:0 0 clamp(220px,24vw,352px);background:#2F4F3E;color:#EAE1D6;padding:clamp(17.6px,1.84vw,30.4px);min-height:clamp(220px,25vh,300px);display:flex;flex-direction:column">
+            <div style="font-size:clamp(14.4px,1.2vw,20.8px);letter-spacing:.16em;line-height:1;color:#EAE1D6">★★★★★</div>
+            <p style="margin:clamp(14.4px,1.6vw,27.2px) 0 0;font-size:clamp(11.2px,0.88vw,15.2px);line-height:1.55">The hotel is neat and clean. The restaurant has relaxed sitting, and the outdoor gallery has a garden view. The bar has a dance floor.</p>
+            <div style="margin-top:auto;padding-top:clamp(11.2px,1.2vw,19.2px);font-size:clamp(9.6px,0.76vw,12.8px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Google review</div>
+          </article>
+          <article style="flex:0 0 clamp(220px,24vw,352px);background:#2F4F3E;color:#EAE1D6;padding:clamp(17.6px,1.84vw,30.4px);min-height:clamp(220px,25vh,300px);display:flex;flex-direction:column">
+            <div style="font-size:clamp(14.4px,1.2vw,20.8px);letter-spacing:.16em;line-height:1;color:#EAE1D6">★★★★★</div>
+            <p style="margin:clamp(14.4px,1.6vw,27.2px) 0 0;font-size:clamp(11.2px,0.88vw,15.2px);line-height:1.55">Lemon Tree Siliguri is a unique place in this area, with two restaurant options and a bar. I personally always prefer Amilo, the rooftop.</p>
+            <div style="margin-top:auto;padding-top:clamp(11.2px,1.2vw,19.2px);font-size:clamp(9.6px,0.76vw,12.8px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Google review</div>
+          </article>
+          <article style="flex:0 0 clamp(220px,24vw,352px);background:#2F4F3E;color:#EAE1D6;padding:clamp(17.6px,1.84vw,30.4px);min-height:clamp(220px,25vh,300px);display:flex;flex-direction:column">
+            <div style="font-size:clamp(14.4px,1.2vw,20.8px);letter-spacing:.16em;line-height:1;color:#EAE1D6">★★★★★</div>
+            <p style="margin:clamp(14.4px,1.6vw,27.2px) 0 0;font-size:clamp(11.2px,0.88vw,15.2px);line-height:1.55">Very good rooms and food. Service at Citrus Cafe was very good &mdash; Ms Yanki especially served us well.</p>
+            <div style="margin-top:auto;padding-top:clamp(11.2px,1.2vw,19.2px);font-size:clamp(9.6px,0.76vw,12.8px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Google review</div>
+          </article>
+          <article style="flex:0 0 clamp(220px,24vw,352px);background:#2F4F3E;color:#EAE1D6;padding:clamp(17.6px,1.84vw,30.4px);min-height:clamp(220px,25vh,300px);display:flex;flex-direction:column">
+            <div style="font-size:clamp(14.4px,1.2vw,20.8px);letter-spacing:.16em;line-height:1;color:#EAE1D6">★★★★★</div>
+            <p style="margin:clamp(14.4px,1.6vw,27.2px) 0 0;font-size:clamp(11.2px,0.88vw,15.2px);line-height:1.55">The front office team were co-operative and helpful. I would especially like to mention Mr Ravish, who made a solo stay feel like good company.</p>
+            <div style="margin-top:auto;padding-top:clamp(11.2px,1.2vw,19.2px);font-size:clamp(9.6px,0.76vw,12.8px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Tripadvisor review</div>
+          </article>
+          <article style="flex:0 0 clamp(220px,24vw,352px);background:#2F4F3E;color:#EAE1D6;padding:clamp(17.6px,1.84vw,30.4px);min-height:clamp(220px,25vh,300px);display:flex;flex-direction:column">
+            <div style="font-size:clamp(14.4px,1.2vw,20.8px);letter-spacing:.16em;line-height:1;color:#EAE1D6">★★★★★</div>
+            <p style="margin:clamp(14.4px,1.6vw,27.2px) 0 0;font-size:clamp(11.2px,0.88vw,15.2px);line-height:1.55">Lemon Tree maintain their amenities and food quality throughout pan India, and this property is no exception.</p>
+            <div style="margin-top:auto;padding-top:clamp(11.2px,1.2vw,19.2px);font-size:clamp(9.6px,0.76vw,12.8px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Google review</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="offers" data-screen-label="Offers" style="position:relative;z-index:20;background:#EAE1D6;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto">
+        <div data-reveal="1" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div>
+            <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Offers</div>
+            <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">Worth booking direct</h2>
+          </div>
+          <button type="button" onClick="{{ openSpecial }}" style="border:1.2px solid rgba(47,79,62,.4);background:transparent;color:#2F4F3E;font-weight:700;font-size:clamp(10.4px,0.88vw,14.4px);padding:clamp(9.6px,0.96vw,16px) clamp(14.4px,1.44vw,24px);border-radius:8px;cursor:pointer;transition:background .35s,color .35s" style-hover="background:#2F4F3E;color:#EAE1D6">See all offers</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(11.2px,1.28vw,20.8px);margin-top:clamp(22.4px,2.56vw,41.6px)">
+          <article data-reveal="1" style="background:#FAF8F5;display:grid;grid-template-columns:1fr 1.05fr;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="background:url('lt/offer-resort.jpg') center/cover;min-height:clamp(170px,17vw,272px)"></div>
+            <div style="padding:clamp(14.4px,1.52vw,25.6px);display:flex;flex-direction:column">
+              <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C66A3C">Members only</div>
+              <h3 style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-family:'Playfair Display',serif;font-weight:500;color:#2F4F3E;font-size:clamp(16px,1.36vw,24px);line-height:1.1">Double reward points, every stay</h3>
+              <p style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.6;color:#333B37">Book direct as an Infinity Rewards member and earn twice the points on the same room.</p>
+              <div style="margin-top:auto;padding-top:clamp(12.8px,1.28vw,20.8px)">
+                <a href="#offers" style="font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;text-decoration:underline;text-underline-offset:.2em">Read the offer</a>
+              </div>
+            </div>
+          </article>
+          <article data-reveal="1" data-delay="120" style="background:#FAF8F5;display:grid;grid-template-columns:1fr 1.05fr;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <div style="background:url('lt/rewards.jpg') center/cover;min-height:clamp(170px,17vw,272px)"></div>
+            <div style="padding:clamp(14.4px,1.52vw,25.6px);display:flex;flex-direction:column">
+              <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C66A3C">Free to join</div>
+              <h3 style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-family:'Playfair Display',serif;font-weight:500;color:#2F4F3E;font-size:clamp(16px,1.36vw,24px);line-height:1.1">Infinity Rewards, earn and burn</h3>
+              <p style="margin:clamp(8px,0.88vw,14.4px) 0 0;font-size:clamp(10.4px,0.84vw,14.4px);line-height:1.6;color:#333B37">Reward coins you can spend as easily as you collect them, plus deals that never reach the booking sites.</p>
+              <div style="margin-top:auto;padding-top:clamp(12.8px,1.28vw,20.8px);display:flex;gap:clamp(6.4px,0.72vw,11.2px);flex-wrap:wrap">
+                <a href="#offers" style="background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(10.4px,0.84vw,14.4px);padding:clamp(8.8px,0.88vw,14.4px) clamp(14.4px,1.36vw,22.4px);border-radius:6.4px;transition:background .35s" style-hover="background:#B25B2F;color:#FAF8F5">Join us</a>
+                <a href="#offers" style="border:1.2px solid rgba(47,79,62,.4);color:#2F4F3E;font-weight:700;font-size:clamp(10.4px,0.84vw,14.4px);padding:clamp(8.8px,0.88vw,14.4px) clamp(14.4px,1.36vw,22.4px);border-radius:6.4px;transition:background .35s,color .35s" style-hover="background:#2F4F3E;color:#EAE1D6">Explore</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" data-screen-label="FAQ" style="position:relative;z-index:20;background:#FAF8F5;padding:clamp(60.8px,6.4vw,108.8px) clamp(19.2px,3.2vw,51.2px)">
+      <div style="max-width:1420px;margin:0 auto;display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(19.2px,3.2vw,64px);align-items:start">
+        <div data-reveal="1" style="opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A9260">Good to know</div>
+          <h2 style="margin:clamp(8px,0.96vw,16px) 0 0;font-family:'Playfair Display',serif;font-weight:400;color:#2F4F3E;font-size:clamp(27.2px,3.44vw,60.8px);line-height:1.04;letter-spacing:-.018em">Before you book</h2>
+          <p style="margin:clamp(16px,1.6vw,27.2px) 0 0;max-width:30ch;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.6;color:#5C6560">Anything else, the front desk answers on the phone in a minute.</p>
+          <a href="tel:+913532510500" style="display:inline-block;margin-top:clamp(11.2px,1.2vw,19.2px);font-size:clamp(11.2px,0.96vw,16px);font-weight:700;text-decoration:underline;text-underline-offset:.2em">Call the hotel</a>
+        </div>
+        <div data-reveal="1" data-delay="120" data-faq-group="1" style="opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+          <div data-faq="1" style="border-bottom:1px solid rgba(47,79,62,.2)">
+            <button type="button" data-faq-btn="1" style="width:100%;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:clamp(14.4px,1.44vw,24px) 0;color:#2F4F3E;font-size:clamp(12.8px,1.08vw,18.4px);font-weight:600;transition:color .3s" style-hover="color:#C66A3C">What amenities are in the rooms?
+              <span data-faq-icon="1" style="flex:0 0 auto;font-size:clamp(16px,1.2vw,20.8px);line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)">+</span>
+            </button>
+            <div data-faq-body="1" style="overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.2,.8,.2,1)">
+              <p style="margin:0;padding:0 clamp(24px,2.4vw,44.8px) clamp(16px,1.6vw,27.2px) 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.62;color:#333B37">High-speed WiFi, a full-sized working desk, tea and coffee maker, LED TV with DTH, electronic safe, minibar, air conditioning, and a telephone with global dialling and voicemail &mdash; in every room.</p>
+            </div>
+          </div>
+          <div data-faq="1" style="border-bottom:1px solid rgba(47,79,62,.2)">
+            <button type="button" data-faq-btn="1" style="width:100%;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:clamp(14.4px,1.44vw,24px) 0;color:#2F4F3E;font-size:clamp(12.8px,1.08vw,18.4px);font-weight:600;transition:color .3s" style-hover="color:#C66A3C">Where can I eat and drink?
+              <span data-faq-icon="1" style="flex:0 0 auto;font-size:clamp(16px,1.2vw,20.8px);line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)">+</span>
+            </button>
+            <div data-faq-body="1" style="overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.2,.8,.2,1)">
+              <p style="margin:0;padding:0 clamp(24px,2.4vw,44.8px) clamp(16px,1.6vw,27.2px) 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.62;color:#333B37">Citrus Cafe serves multi-cuisine all day from 7:00 AM to 11:00 PM, with a breakfast buffet until 11:00 AM. Amilo, the rooftop bar, has an open-air gallery over the garden — the front desk has current hours. Room service runs alongside both.</p>
+            </div>
+          </div>
+          <div data-faq="1" style="border-bottom:1px solid rgba(47,79,62,.2)">
+            <button type="button" data-faq-btn="1" style="width:100%;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:clamp(14.4px,1.44vw,24px) 0;color:#2F4F3E;font-size:clamp(12.8px,1.08vw,18.4px);font-weight:600;transition:color .3s" style-hover="color:#C66A3C">What is worth visiting nearby?
+              <span data-faq-icon="1" style="flex:0 0 auto;font-size:clamp(16px,1.2vw,20.8px);line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)">+</span>
+            </button>
+            <div data-faq-body="1" style="overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.2,.8,.2,1)">
+              <p style="margin:0;padding:0 clamp(24px,2.4vw,44.8px) clamp(16px,1.6vw,27.2px) 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.62;color:#333B37">Salugara Monastery is 1.5 km away, Bengal Safari 4.3 km and Hong Kong Market 4.6 km. Further out: Kalimpong at 61 km, Darjeeling and the Dooars at 70 km, and Gangtok at 108 km.</p>
+            </div>
+          </div>
+          <div data-faq="1" style="border-bottom:1px solid rgba(47,79,62,.2)">
+            <button type="button" data-faq-btn="1" style="width:100%;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:clamp(14.4px,1.44vw,24px) 0;color:#2F4F3E;font-size:clamp(12.8px,1.08vw,18.4px);font-weight:600;transition:color .3s" style-hover="color:#C66A3C">Which room types are available?
+              <span data-faq-icon="1" style="flex:0 0 auto;font-size:clamp(16px,1.2vw,20.8px);line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)">+</span>
+            </button>
+            <div data-faq-body="1" style="overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.2,.8,.2,1)">
+              <p style="margin:0;padding:0 clamp(24px,2.4vw,44.8px) clamp(16px,1.6vw,27.2px) 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.62;color:#333B37">Three: the Executive Room at 30 m&sup2;, the Studio Suite at 36 m&sup2;, and the Deluxe Suite at 42 m&sup2;. All sleep two adults, with rates from &#8377;5,109 per night.</p>
+            </div>
+          </div>
+          <div data-faq="1">
+            <button type="button" data-faq-btn="1" style="width:100%;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:clamp(14.4px,1.44vw,24px) 0;color:#2F4F3E;font-size:clamp(12.8px,1.08vw,18.4px);font-weight:600;transition:color .3s" style-hover="color:#C66A3C">Can I book a room for the day only?
+              <span data-faq-icon="1" style="flex:0 0 auto;font-size:clamp(16px,1.2vw,20.8px);line-height:1;transition:transform .4s cubic-bezier(.2,.8,.2,1)">+</span>
+            </button>
+            <div data-faq-body="1" style="overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.2,.8,.2,1)">
+              <p style="margin:0;padding:0 clamp(24px,2.4vw,44.8px) clamp(16px,1.6vw,27.2px) 0;font-size:clamp(11.2px,0.88vw,14.4px);line-height:1.62;color:#333B37">Yes. Switch to Day Use in the availability panel &mdash; useful if you are between a Bagdogra flight and the drive up to the hills.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" data-screen-label="Closing and footer" style="position:relative;z-index:20;background:#EAE1D6;padding-top:clamp(76.8px,8.8vw,136px)">
+      <div style="max-width:1420px;margin:0 auto;padding:0 clamp(19.2px,3.2vw,51.2px)">
+        <h2 data-reveal="1" style="margin:0;text-align:center;color:#2F4F3E;font-size:clamp(35.2px,6.72vw,134.4px);line-height:1;letter-spacing:-.02em;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)"><span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;letter-spacing:-.035em">Come stay</span> <span style="font-family:'Playfair Display',serif;font-weight:400">with us,</span></h2>
+        <div style="display:grid;grid-template-columns:1.1fr 1fr;align-items:start;gap:clamp(8px,1.6vw,32px)">
+          <div data-reveal="1" data-delay="140" style="font-family:'Sacramento',cursive;color:#2F4F3E;font-size:clamp(43.2px,6.08vw,112px);line-height:1;text-align:center;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">in Siliguri.</div>
+          <ul data-reveal="1" data-delay="260" style="list-style:none;margin:clamp(12.8px,2.08vw,41.6px) 0 0;padding-left:clamp(0px,3.2vw,64px);display:flex;flex-direction:column;gap:clamp(8px,0.96vw,16px);font-weight:700;font-size:clamp(14.4px,1.4vw,24.8px);color:#2F4F3E;opacity:0;transform:translateY(27px);transition:opacity 1s cubic-bezier(.2,.75,.25,1),transform 1s cubic-bezier(.2,.75,.25,1)">
+            <li><a href="#book" onClick="{{ openBooking }}" style="color:inherit" style-hover="color:#C66A3C">Check availability.</a></li>
+            <li><a href="#explore" style="color:inherit" style-hover="color:#C66A3C">Get directions.</a></li>
+            <li><a href="tel:+913532510500" style="color:inherit" style-hover="color:#C66A3C">Call the front desk.</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="height:clamp(64px,12vh,176px)"></div>
+
+      <footer style="position:relative;overflow:hidden;padding:clamp(24px,3.2vw,48px) clamp(19.2px,3.2vw,51.2px) clamp(14.4px,1.6vw,24px)">
+        <div style="position:relative;max-width:1420px;margin:0 auto;display:grid;grid-template-columns:1.1fr 2fr;gap:clamp(22.4px,3.2vw,56px)">
+          <div>
+            <div style="display:flex;align-items:baseline;gap:9.6px;color:#2F4F3E">
+              <span style="font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(22.4px,2.16vw,35.2px);line-height:1.1;letter-spacing:-.01em">Lemon Tree</span>
+              <span style="font-size:clamp(8.8px,0.68vw,11.2px);font-weight:700;letter-spacing:.22em;text-transform:uppercase">Siliguri</span>
+            </div>
+            <form onSubmit="{{ onSignUp }}" style="display:flex;align-items:stretch;background:#FAF8F5;border-radius:8.8px;padding:5.6px;max-width:432px;margin-top:clamp(19.2px,2.4vw,38.4px)">
+              <input type="email" placeholder="Email address" aria-label="Email address" style="flex:1 1 auto;min-width:0;border:0;background:transparent;outline:none;padding:0 clamp(8px,0.96vw,14.4px);font-size:clamp(12px,0.92vw,15.2px);color:#333B37" />
+              <button type="submit" style="flex:0 0 auto;border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(11.2px,0.84vw,13.6px);padding:clamp(10.4px,0.92vw,14.4px) clamp(16px,1.52vw,24px);border-radius:6.4px;cursor:pointer;transition:background .35s" style-hover="background:#B25B2F">Sign up</button>
+            </form>
+            <label style="display:flex;align-items:center;gap:9.6px;margin-top:clamp(11.2px,1.28vw,19.2px);font-size:clamp(11.2px,0.84vw,14.4px);color:#2F4F3E;cursor:pointer">
+              <input type="checkbox" style="width:17.6px;height:17.6px;accent-color:#2F4F3E;margin:0;cursor:pointer" />
+              <span>I accept the <a href="#privacy" style="color:inherit;text-decoration:underline;text-underline-offset:.18em">privacy policy</a></span>
+            </label>
+            <div style="display:flex;gap:12.8px;margin-top:clamp(20.8px,2.88vw,46.4px);color:#2F4F3E">
+              <a href="#facebook" aria-label="Facebook" style="color:inherit;display:inline-flex" style-hover="color:#C66A3C">
+                <svg viewBox="0 0 24 24" style="width:clamp(17.6px,1.44vw,22.4px);height:clamp(17.6px,1.44vw,22.4px)"><circle cx="12" cy="12" r="11" fill="currentColor"></circle><path d="M13.6 12.2h2l.3-2.4h-2.3V8.5c0-.7.2-1.1 1.2-1.1h1.1V5.2c-.2 0-1-.1-1.8-.1-1.9 0-3.1 1.1-3.1 3.2v1.5H9v2.4h2v6.6h2.6z" fill="#EAE1D6"></path></svg>
+              </a>
+              <a href="#instagram" aria-label="Instagram" style="color:inherit;display:inline-flex" style-hover="color:#C66A3C">
+                <svg viewBox="0 0 24 24" style="width:clamp(17.6px,1.44vw,22.4px);height:clamp(17.6px,1.44vw,22.4px)"><rect x="1" y="1" width="22" height="22" rx="6.5" fill="currentColor"></rect><circle cx="12" cy="12" r="4.6" fill="none" stroke="#EAE1D6" stroke-width="1.9"></circle><circle cx="17.4" cy="6.6" r="1.3" fill="#EAE1D6"></circle></svg>
+              </a>
+            </div>
+          </div>
+          <div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(11.2px,1.6vw,25.6px)">
+              <div>
+                <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2F4F3E">This hotel</div>
+                <ul style="list-style:none;margin:clamp(14.4px,1.92vw,30.4px) 0 0;padding:0;display:flex;flex-direction:column;gap:clamp(8px,0.96vw,15.2px);font-size:clamp(11.2px,0.84vw,14.4px)">
+                  <li><a href="#rooms">Rooms &amp; suites</a></li>
+                  <li><a href="#dining">Dining</a></li>
+                  <li><a href="#events">Meetings &amp; events</a></li>
+                  <li><a href="#facilities">Facilities</a></li>
+                  <li><a href="#gallery">Gallery</a></li>
+                </ul>
+              </div>
+              <div>
+                <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2F4F3E">Company</div>
+                <ul style="list-style:none;margin:clamp(14.4px,1.92vw,30.4px) 0 0;padding:0;display:flex;flex-direction:column;gap:clamp(8px,0.96vw,15.2px);font-size:clamp(11.2px,0.84vw,14.4px)">
+                  <li><a href="#about">About us</a></li>
+                  <li><a href="#awards">Awards</a></li>
+                  <li><a href="#careers">Careers</a></li>
+                  <li><a href="#media">Media</a></li>
+                  <li><a href="#sustainability">Sustainability</a></li>
+                </ul>
+              </div>
+              <div>
+                <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2F4F3E">Stay &amp; earn</div>
+                <ul style="list-style:none;margin:clamp(14.4px,1.92vw,30.4px) 0 0;padding:0;display:flex;flex-direction:column;gap:clamp(8px,0.96vw,15.2px);font-size:clamp(11.2px,0.84vw,14.4px)">
+                  <li><a href="#offers">Loyalty programme</a></li>
+                  <li><a href="#offers">Day use</a></li>
+                  <li><a href="#blogs">Blogs</a></li>
+                  <li><a href="#guidelines">Travel guidelines</a></li>
+                  <li><a href="#presence">Our presence</a></li>
+                </ul>
+              </div>
+              <div>
+                <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#2F4F3E">Contact</div>
+                <ul style="list-style:none;margin:clamp(14.4px,1.92vw,30.4px) 0 0;padding:0;display:flex;flex-direction:column;gap:clamp(8px,0.96vw,15.2px);font-size:clamp(11.2px,0.84vw,14.4px)">
+                  <li><a href="#book" onClick="{{ openBooking }}">Book a room</a></li>
+                  <li><a href="#explore">Show route</a></li>
+                  <li><a href="#contact">Get in touch</a></li>
+                  <li><a href="tel:+913532510500">+91 353 251 0500</a></li>
+                  <li><a href="#contact">Siliguri, West Bengal</a></li>
+                </ul>
+              </div>
+            </div>
+            <hr style="border:0;border-top:1px solid rgba(47,79,62,.22);margin:clamp(24px,3.2vw,51.2px) 0 clamp(19.2px,2.4vw,35.2px)" />
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:clamp(11.2px,1.92vw,35.2px);flex-wrap:wrap;font-size:clamp(10.4px,0.8vw,13.6px);color:#2F4F3E">
+              <span>Legal notice</span>
+              <span>Privacy policy</span>
+              <span>Terms &amp; conditions</span>
+              <span>Cookie preferences</span>
+              <span>Non affiliation</span>
+              <span>Site map</span>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;max-width:1420px;margin:clamp(27.2px,4vw,64px) auto 0;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:clamp(10.4px,0.8vw,13.6px);color:#2F4F3E">
+          <span>&copy;2026 &mdash; All rights reserved.</span>
+          <span style="opacity:.85">Redesign concept</span>
+        </div>
+      </footer>
+    </section>
+  </div>
+
+  <div style="position:fixed;left:50%;bottom:clamp(9.6px,1.44vw,20.8px);transform:translateX(-50%);z-index:55;display:flex;align-items:center;gap:clamp(6.4px,0.8vw,12.8px);padding:clamp(5.6px,0.56vw,8.8px);background:#FAF8F5;border-radius:12.8px;box-shadow:0 16px 35.2px rgba(24,38,28,.2)">
+    <div style="padding:0 clamp(6.4px,0.8vw,12.8px);line-height:1.25">
+      <div style="font-size:clamp(9.6px,0.72vw,12px);color:#5C6560">Rooms from</div>
+      <div style="font-size:clamp(12.8px,1.04vw,17.6px);font-weight:700;color:#2F4F3E">&#8377;5,109</div>
+    </div>
+    <button type="button" onClick="{{ openDayUse }}" style="border:0;background:transparent;color:#333B37;font-size:clamp(11.2px,0.92vw,15.2px);padding:clamp(10.4px,1vw,16px) clamp(11.2px,1.1vw,17.6px);border-radius:8.8px;cursor:pointer;transition:background .3s ease,color .3s ease" style-hover="background:#EFE7DC;color:#2F4F3E">Day use</button>
+    <button type="button" onClick="{{ openSpecial }}" style="border:0;background:transparent;color:#333B37;font-size:clamp(11.2px,0.92vw,15.2px);padding:clamp(10.4px,1vw,16px) clamp(11.2px,1.1vw,17.6px);border-radius:8.8px;cursor:pointer;transition:background .3s ease,color .3s ease" style-hover="background:#EFE7DC;color:#2F4F3E">Offers</button>
+    <button type="button" onClick="{{ openBooking }}" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(11.2px,0.88vw,14.4px);padding:clamp(10.4px,1vw,16px) clamp(16px,1.6vw,25.6px);border-radius:8.8px;cursor:pointer;transition:background .35s" style-hover="background:#B25B2F">Check availability</button>
+  </div>
+
+  <sc-if value="{{ booking }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:300">
+      <div onClick="{{ closeBooking }}" style="position:absolute;inset:0;background:rgba(18,30,22,.52);animation:jhFade .45s ease both"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;animation:jhSheet .6s cubic-bezier(.2,.85,.2,1) both;will-change:transform">
+        <div style="max-width:1180px;margin:0 auto;padding:0 clamp(9.6px,1.6vw,25.6px) clamp(9.6px,1.44vw,20.8px)">
+          <div style="border-radius:12.8px;overflow:hidden;box-shadow:0 -12px 48px rgba(18,30,22,.32)">
+            <div style="display:grid;grid-template-columns:2.1fr .9fr;gap:1px;background:#2F4F3E">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+                <button type="button" onClick="{{ pickOnline }}" style="border:0;background:{{ bgOnline }};color:{{ fgOnline }};font-size:clamp(11.2px,1vw,16.8px);font-weight:{{ fwOnline }};padding:clamp(12.8px,1.36vw,21.6px) clamp(8px,1.1vw,14.4px);cursor:pointer;transition:background .3s ease,color .3s ease;white-space:nowrap">Online booking</button>
+                <button type="button" onClick="{{ pickLast }}" style="border:0;background:{{ bgLast }};color:{{ fgLast }};font-size:clamp(11.2px,1vw,16.8px);font-weight:{{ fwLast }};padding:clamp(12.8px,1.36vw,21.6px) clamp(8px,1.1vw,14.4px);cursor:pointer;transition:background .3s ease,color .3s ease;white-space:nowrap">Last minute offers</button>
+                <button type="button" onClick="{{ pickSpecial }}" style="border:0;background:{{ bgSpecial }};color:{{ fgSpecial }};font-size:clamp(11.2px,1vw,16.8px);font-weight:{{ fwSpecial }};padding:clamp(12.8px,1.36vw,21.6px) clamp(8px,1.1vw,14.4px);cursor:pointer;transition:background .3s ease,color .3s ease;white-space:nowrap">Special offers</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:9.6px;padding:0 clamp(11.2px,1.12vw,17.6px);background:#2F4F3E">
+                <svg viewBox="0 0 24 24" style="width:clamp(16px,1.36vw,21.6px);height:clamp(16px,1.36vw,21.6px);flex:0 0 auto"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#EAE1D6" stroke-width="1.4"></circle><line x1="8" y1="16" x2="16" y2="8" stroke="#EAE1D6" stroke-width="1.4" stroke-linecap="round"></line><circle cx="9" cy="9" r="1.6" fill="#EAE1D6"></circle><circle cx="15" cy="15" r="1.6" fill="#EAE1D6"></circle></svg>
+                <input placeholder="Discount code" aria-label="Discount code" style="flex:1 1 auto;min-width:0;border:0;background:transparent;outline:none;color:#EAE1D6;font-size:clamp(11.2px,1vw,16.8px);padding:clamp(12.8px,1.36vw,21.6px) 0" />
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:auto 1.25fr 1fr 1fr auto;gap:clamp(8px,1.28vw,22.4px);align-items:center;background:#FAF8F5;padding:clamp(12.8px,1.28vw,20.8px) clamp(12.8px,1.52vw,25.6px)">
+              <div>
+                <div style="font-size:clamp(9.6px,0.8vw,13.6px);color:#5C6560">Stay type</div>
+                <div style="display:flex;gap:4px;margin-top:clamp(4.8px,0.56vw,8px);background:#EFE7DC;border-radius:6.4px;padding:3.2px">
+                  <button type="button" onClick="{{ pickOvernight }}" style="border:0;border-radius:4.8px;cursor:pointer;font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;padding:clamp(5.6px,0.56vw,9.6px) clamp(9.6px,0.96vw,16px);transition:background .3s ease,color .3s ease;background:{{ bgNight }};color:{{ fgNight }}">Overnight</button>
+                  <button type="button" onClick="{{ pickDayUse }}" style="border:0;border-radius:4.8px;cursor:pointer;font-size:clamp(10.4px,0.84vw,14.4px);font-weight:700;padding:clamp(5.6px,0.56vw,9.6px) clamp(9.6px,0.96vw,16px);transition:background .3s ease,color .3s ease;background:{{ bgDay }};color:{{ fgDay }}">Day use</button>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:clamp(9.6px,0.8vw,13.6px);color:#5C6560">Select an occupancy</div>
+                <div style="font-size:clamp(12px,1.08vw,18.4px);font-weight:700;color:#222924;margin-top:clamp(3.2px,0.4vw,6.4px)">1 room for 2 adults</div>
+              </div>
+              <div>
+                <div style="font-size:clamp(9.6px,0.8vw,13.6px);color:#5C6560">Arrival</div>
+                <div style="font-size:clamp(12px,1.08vw,18.4px);font-weight:700;color:#222924;margin-top:clamp(3.2px,0.4vw,6.4px)">&mdash;</div>
+              </div>
+              <div>
+                <div style="font-size:clamp(9.6px,0.8vw,13.6px);color:#5C6560">{{ outLabel }}</div>
+                <div style="font-size:clamp(12px,1.08vw,18.4px);font-weight:700;color:#222924;margin-top:clamp(3.2px,0.4vw,6.4px)">&mdash;</div>
+              </div>
+              <button type="button" style="border:0;background:#C66A3C;color:#FAF8F5;font-weight:700;font-size:clamp(11.2px,0.96vw,16px);padding:clamp(11.2px,1.08vw,17.6px) clamp(12.8px,1.28vw,20.8px);border-radius:6.4px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9.6px;transition:background .35s" style-hover="background:#B25B2F">Search
+                <svg viewBox="0 0 24 24" style="width:clamp(12.8px,0.96vw,16px);height:clamp(12.8px,0.96vw,16px)"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle><line x1="15.6" y1="15.6" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" onClick="{{ closeBooking }}" aria-label="Close" style="position:absolute;right:clamp(12.8px,1.6vw,27.2px);top:clamp(41.6px,4vw,64px);width:clamp(35.2px,2.72vw,44.8px);height:clamp(35.2px,2.72vw,44.8px);border:0;border-radius:50%;background:rgba(250,248,245,.9);color:#2F4F3E;display:grid;place-items:center;cursor:pointer;transition:background .3s;animation:jhFade .45s .15s ease both" style-hover="background:#FAF8F5">
+        <svg viewBox="0 0 24 24" style="width:44%;height:44%"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></g></svg>
+      </button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ gallery }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:320;background:#1A2A1E;animation:jhFade .4s ease both;overflow:auto">
+      <div style="position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(14.4px,1.6vw,25.6px) clamp(16px,2.4vw,38.4px);background:linear-gradient(180deg,rgba(26,42,30,.96),rgba(26,42,30,0))">
+        <div style="color:#EAE1D6">
+          <div style="font-size:clamp(9.6px,0.76vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.8">Gallery</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(17.6px,1.68vw,28.8px);line-height:1.15;margin-top:4.8px">Lemon Tree Hotel, Siliguri</div>
+        </div>
+        <button type="button" onClick="{{ closeGallery }}" aria-label="Close gallery" style="width:clamp(35.2px,2.72vw,44.8px);height:clamp(35.2px,2.72vw,44.8px);border:0;border-radius:50%;background:rgba(250,248,245,.92);color:#2F4F3E;display:grid;place-items:center;cursor:pointer;transition:background .3s" style-hover="background:#FAF8F5">
+          <svg viewBox="0 0 24 24" style="width:44%;height:44%"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></g></svg>
+        </button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(6.4px,0.72vw,11.2px);padding:0 clamp(16px,2.4vw,38.4px) clamp(24px,3.2vw,51.2px)">
+        <div style="grid-column:span 2;aspect-ratio:4/3;background:url('lt/exterior.jpg') center 48%/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/reception.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/citrus-a.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/room-1.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/room-2.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/room-3.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/banquet.jpg') center/cover"></div>
+        <div style="grid-column:span 2;aspect-ratio:16/9;background:url('lt/citrus-big.jpg') center/cover"></div>
+        <div style="grid-column:span 2;aspect-ratio:16/9;background:url('lt/conference.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/premier.jpg') center/cover"></div>
+        <div style="aspect-ratio:1/1;background:url('lt/offer-resort.jpg') center/cover"></div>
+        <div style="grid-column:span 2;aspect-ratio:16/9;background:url('lt/map.jpg') center/cover"></div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;stackedSections&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;defaultStay&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Overnight&quot;,&quot;Day use&quot;],&quot;default&quot;:&quot;Overnight&quot;,&quot;tsType&quot;:&quot;'Overnight' | 'Day use'&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  state = {
+    tab: 'Online booking',
+    stay: this.props.defaultStay === 'Day use' ? 'Day use' : 'Overnight',
+    booking: false,
+    gallery: false
+  };
+
+  componentDidMount() {
+    this.last = 0;
+    this.onScroll = () => {
+      const t = Date.now();
+      if (t - this.last < 30) return;
+      this.last = t;
+      this.frame();
+    };
+    this.tick = setInterval(() => this.frame(), 180);
+    if (document.hidden) setTimeout(() => { if (document.hidden) this.revealAll(); }, 60);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll);
+    this.onKey = (e) => { if (e.key === 'Escape') this.setState({ booking: false, gallery: false }); };
+    window.addEventListener('keydown', this.onKey);
+
+    this.scan();
+    const root = this.rootRef.current;
+    if (root && window.MutationObserver) {
+      this.mo = new MutationObserver(() => {
+        clearTimeout(this.mt);
+        this.mt = setTimeout(() => this.scan(), 140);
+      });
+      this.mo.observe(root, { childList: true, subtree: true });
+      setTimeout(() => { if (this.mo) { this.mo.disconnect(); this.mo = null; } }, 15000);
+    }
+    this.frame();
+  }
+
+  componentDidUpdate() { this.scan(); }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+    window.removeEventListener('keydown', this.onKey);
+    clearInterval(this.tick);
+    if (this.mo) this.mo.disconnect();
+  }
+
+  scan() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    const stacked = this.props.stackedSections !== false;
+    root.querySelectorAll('[data-stack]').forEach((s) => {
+      s.style.position = stacked ? 'sticky' : 'relative';
+    });
+    this.parallax = Array.prototype.slice.call(root.querySelectorAll('[data-parallax]'));
+    this.reveals = Array.prototype.slice.call(root.querySelectorAll('[data-reveal]'));
+    this.nav = root.querySelector('[data-nav]');
+    this.trigger = root.querySelector('[data-navtrigger]');
+    this.wireFaq(root);
+    this.wireRail(root);
+  }
+
+  revealAll() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    root.querySelectorAll('[data-reveal]').forEach((n) => {
+      n.style.transition = 'none';
+      n.style.opacity = '1';
+      n.style.transform = 'none';
+    });
+  }
+
+  wireFaq(root) {
+    const group = root.querySelector('[data-faq-group]');
+    if (!group || group.getAttribute('data-wired')) return;
+    group.setAttribute('data-wired', '1');
+    const items = Array.prototype.slice.call(group.querySelectorAll('[data-faq]'));
+    const setOpen = (item, open) => {
+      const body = item.querySelector('[data-faq-body]');
+      const icon = item.querySelector('[data-faq-icon]');
+      if (body) body.style.maxHeight = open ? body.scrollHeight + 40 + 'px' : '0px';
+      if (icon) icon.style.transform = open ? 'rotate(45deg)' : 'none';
+      item.__open = open;
+    };
+    items.forEach((item) => {
+      const btn = item.querySelector('[data-faq-btn]');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const willOpen = !item.__open;
+        items.forEach((o) => setOpen(o, false));
+        setOpen(item, willOpen);
+      });
+    });
+    if (items[0]) setOpen(items[0], true);
+  }
+
+  wireRail(root) {
+    const rail = root.querySelector('[data-rail]');
+    if (!rail || rail.getAttribute('data-wired')) return;
+    const track = rail.querySelector('[data-rail-track]');
+    if (!track) return;
+    rail.setAttribute('data-wired', '1');
+    let x = 0, down = false, sx = 0, start = 0, moved = 0;
+    const max = () => Math.max(0, track.scrollWidth - rail.clientWidth);
+    const set = (v) => {
+      x = Math.min(0, Math.max(-max(), v));
+      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+    };
+    rail.addEventListener('pointerdown', (e) => {
+      down = true; moved = 0; sx = e.clientX; start = x;
+      rail.style.cursor = 'grabbing';
+      track.style.transition = 'none';
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      moved = Math.max(moved, Math.abs(e.clientX - sx));
+      set(start + (e.clientX - sx));
+    });
+    window.addEventListener('pointerup', () => {
+      if (!down) return;
+      down = false;
+      rail.style.cursor = 'grab';
+      track.style.transition = 'transform .6s cubic-bezier(.2,.8,.2,1)';
+    });
+    rail.addEventListener('click', (e) => { if (moved > 6) e.preventDefault(); }, true);
+    rail.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); set(x - e.deltaX); }
+    }, { passive: false });
+  }
+
+  frame() {
+    const vh = window.innerHeight || 800;
+    if (this.nav) {
+      const navH = this.nav.offsetHeight || 76;
+      const top = this.trigger ? this.trigger.getBoundingClientRect().top : vh;
+      const past = top < navH * 0.9;
+      this.nav.style.background = past ? '#EAE1D6' : 'rgba(234,225,214,0)';
+      this.nav.style.color = past ? '#2F4F3E' : '#EAE1D6';
+      this.nav.style.boxShadow = past ? '0 1px 0 rgba(47,79,62,.14)' : 'none';
+    }
+    if (this.parallax) {
+      this.parallax.forEach((n) => {
+        const host = n.parentElement || n;
+        const r = host.getBoundingClientRect();
+        const p = (r.top + r.height / 2 - vh / 2) / vh;
+        const f = parseFloat(n.getAttribute('data-parallax')) || 0.1;
+        n.style.transform = 'translate3d(0,' + (-p * f * 100).toFixed(2) + 'px,0)';
+      });
+    }
+    if (this.reveals) {
+      for (let i = 0; i < this.reveals.length; i++) {
+        const n = this.reveals[i];
+        if (n.style.opacity === '1') continue;
+        const r = n.getBoundingClientRect();
+        if (!r.height && !r.width) continue;
+        if (r.top < vh * 0.94 && r.bottom > 0) {
+          n.style.transitionDelay = (parseInt(n.getAttribute('data-delay') || '0', 10)) + 'ms';
+          n.style.opacity = '1';
+          n.style.transform = 'none';
+        }
+      }
+    }
+  }
+
+  renderVals() {
+    const t = this.state.tab;
+    const on = (k) => t === k;
+    const night = this.state.stay === 'Overnight';
+    const open = (tab, stay) => (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState((s) => ({ booking: true, tab: tab || s.tab, stay: stay || s.stay }));
+    };
+    return {
+      rootRef: this.rootRef,
+      showLoader: this.props.showLoader !== false,
+      booking: this.state.booking,
+      gallery: this.state.gallery,
+      bgOnline: on('Online booking') ? '#EAE1D6' : 'transparent',
+      fgOnline: on('Online booking') ? '#333B37' : '#EAE1D6',
+      fwOnline: on('Online booking') ? 600 : 400,
+      bgLast: on('Last minute offers') ? '#EAE1D6' : 'transparent',
+      fgLast: on('Last minute offers') ? '#333B37' : '#EAE1D6',
+      fwLast: on('Last minute offers') ? 600 : 400,
+      bgSpecial: on('Special offers') ? '#EAE1D6' : 'transparent',
+      fgSpecial: on('Special offers') ? '#333B37' : '#EAE1D6',
+      fwSpecial: on('Special offers') ? 600 : 400,
+      bgNight: night ? '#2F4F3E' : 'transparent',
+      fgNight: night ? '#FAF8F5' : '#2F4F3E',
+      bgDay: night ? 'transparent' : '#2F4F3E',
+      fgDay: night ? '#2F4F3E' : '#FAF8F5',
+      outLabel: night ? 'Departure' : 'Check-out time',
+      pickOnline: () => this.setState({ tab: 'Online booking' }),
+      pickLast: () => this.setState({ tab: 'Last minute offers' }),
+      pickSpecial: () => this.setState({ tab: 'Special offers' }),
+      pickOvernight: () => this.setState({ stay: 'Overnight' }),
+      pickDayUse: () => this.setState({ stay: 'Day use' }),
+      openBooking: open('Online booking', null),
+      openSpecial: open('Special offers', null),
+      openDayUse: open('Online booking', 'Day use'),
+      closeBooking: () => this.setState({ booking: false }),
+      openGallery: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ gallery: true }); },
+      closeGallery: () => this.setState({ gallery: false }),
+      onSignUp: (e) => { if (e && e.preventDefault) e.preventDefault(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

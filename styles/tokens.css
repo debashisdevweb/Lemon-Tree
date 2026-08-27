@@ -1,0 +1,216 @@
+/* ============================================================================
+ * DESIGN TOKENS — single source of truth
+ * ----------------------------------------------------------------------------
+ * Derived from design/dc/Lemon Tree Home.dc.html.
+ *
+ * SCALE NOTE: every px and vw value in the source artboard is exactly 0.8x an
+ * underlying clean value (the artboard was authored at 80%). All sizes below
+ * are the recovered 1.0x values (authored / 0.8), which land on an 8px grid.
+ * Example: authored gutter clamp(19.2px,3.2vw,51.2px) -> clamp(24px,4vw,64px).
+ *
+ * Durations and easing curves are NOT scaled - they are reproduced exactly as
+ * authored, and are mirrored in lib/tokens/motion.ts (asserted equal by test).
+ * ========================================================================== */
+
+/* --- Brand palettes -------------------------------------------------------
+ * One component set, brand tokens swapped via [data-brand] on <html>.
+ * The reference artboards define exactly one palette; `lemon-tree` below is
+ * that palette, verbatim. Sibling brands inherit every token they do not
+ * override, so adding a brand is additive and cannot break the base.
+ * ------------------------------------------------------------------------ */
+
+:root,
+[data-brand='lemon-tree'] {
+  --brand-forest: #2f4f3e;
+  --brand-cream: #eae1d6;
+  --brand-paper: #faf8f5;
+  --brand-cream-2: #efe7dc;
+  --brand-accent: #c66a3c;
+  --brand-accent-deep: #b25b2f;
+  --brand-sage: #7a9260;
+  --brand-muted: #5c6560;
+  --brand-ink: #333b37;
+  --brand-ink-strong: #222924;
+  --brand-curtain: #26402f;
+  --brand-hero-ground: #1e2a20;
+  --brand-map-ground: #1a2a1e;
+  --brand-scrim: 16 26 18;
+  --brand-card-scrim: 18 28 20;
+  --brand-sheet-scrim: 18 30 22;
+  --brand-bar-shadow: 24 38 28;
+}
+
+/* Keys Select — smart-value tier. Cooler, flatter, less terracotta.
+ * Only the tokens that genuinely differ are declared. */
+[data-brand='keys-select'] {
+  --brand-forest: #24413c;
+  --brand-cream: #e8e4dc;
+  --brand-cream-2: #ded9cf;
+  --brand-accent: #3f7d74;
+  --brand-accent-deep: #33665f;
+  --brand-sage: #6f8a7f;
+  --brand-curtain: #1f3a35;
+  --brand-hero-ground: #182b28;
+  --brand-map-ground: #152622;
+}
+
+/* Aurika — upscale tier. Deeper ground, brass accent. */
+[data-brand='aurika'] {
+  --brand-forest: #1f2a2b;
+  --brand-cream: #ece5d8;
+  --brand-cream-2: #e2d9c8;
+  --brand-accent: #a8823f;
+  --brand-accent-deep: #8d6b31;
+  --brand-sage: #8a8467;
+  --brand-curtain: #16201f;
+  --brand-hero-ground: #131b1b;
+  --brand-map-ground: #101817;
+}
+
+@theme {
+  /* --- Color ----------------------------------------------------------- */
+  --color-forest: var(--brand-forest);
+  --color-cream: var(--brand-cream);
+  --color-paper: var(--brand-paper);
+  --color-cream-2: var(--brand-cream-2);
+  --color-accent: var(--brand-accent);
+  --color-accent-deep: var(--brand-accent-deep);
+  --color-sage: var(--brand-sage);
+  --color-muted: var(--brand-muted);
+  --color-ink: var(--brand-ink);
+  --color-ink-strong: var(--brand-ink-strong);
+  --color-curtain: var(--brand-curtain);
+  --color-hero-ground: var(--brand-hero-ground);
+  --color-map-ground: var(--brand-map-ground);
+
+  /* --- Typeface -------------------------------------------------------- */
+  --font-display: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-body: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-script: var(--font-sacramento), 'Sacramento', cursive;
+
+  /* --- Type scale ------------------------------------------------------
+   * Named by role, because the source scale is role-driven, not numeric.
+   * Every value is a fluid clamp(min, vw, max) - the artboard has no
+   * breakpoints for type at all. */
+  --text-micro: clamp(10px, 0.8vw, 13px); /* logo lockup "HOTELS" */
+  --text-eyebrow-xs: clamp(11px, 0.85vw, 14px); /* hero promo tag, scroll cue */
+  --text-eyebrow-sm: clamp(11px, 0.875vw, 14px); /* upcoming-card brand label */
+  --text-label: clamp(12px, 0.9vw, 15px); /* booking bar caption */
+  --text-eyebrow: clamp(12px, 0.95vw, 15px); /* section eyebrow - most used */
+  --text-meta: clamp(12px, 0.95vw, 16px); /* stat caption, card meta */
+  --text-field-label: clamp(12px, 1vw, 17px); /* sheet field labels */
+  --text-legal: clamp(13px, 1vw, 17px); /* footer legal row */
+  --text-body-sm: clamp(13px, 1.05vw, 18px); /* card body copy */
+  --text-btn-sm: clamp(13px, 1.1vw, 18px); /* outline buttons */
+  --text-nav: clamp(13px, 1.15vw, 17px); /* header nav links */
+  --text-btn-submit: clamp(14px, 1.05vw, 17px); /* newsletter submit */
+  --text-link: clamp(14px, 1.05vw, 18px); /* footer links */
+  --text-prose: clamp(14px, 1.1vw, 18px); /* section standfirst */
+  --text-body: clamp(14px, 1.15vw, 19px); /* rewards body, bar buttons */
+  --text-btn: clamp(14px, 1.2vw, 20px); /* sheet search button */
+  --text-tab: clamp(14px, 1.25vw, 21px); /* sheet tabs, discount input */
+  --text-input: clamp(15px, 1.15vw, 19px); /* newsletter input */
+  --text-prose-lg: clamp(15px, 1.2vw, 20px); /* brands prose */
+  --text-field-value: clamp(15px, 1.35vw, 23px); /* sheet field values */
+  --text-hero-list: clamp(15px, 1.45vw, 25px); /* hero bullet list */
+  --text-bar-title: clamp(16px, 1.3vw, 22px); /* "Find a hotel" */
+  --text-h4: clamp(18px, 1.6vw, 28px); /* benefit tile, brand name */
+  --text-closing-link: clamp(18px, 1.75vw, 31px); /* closing link list */
+  --text-h3-sm: clamp(19px, 1.7vw, 30px); /* upcoming card title */
+  --text-h3: clamp(19px, 1.8vw, 32px); /* destination card title */
+  --text-h3-offer: clamp(20px, 1.7vw, 30px); /* offer card title */
+  --text-h3-lg: clamp(22px, 2vw, 36px); /* event card title */
+  --text-wordmark: clamp(22px, 2.3vw, 36px); /* header wordmark */
+  --text-stat: clamp(24px, 2.3vw, 40px); /* presence stat figure */
+  --text-wordmark-lg: clamp(28px, 2.7vw, 44px); /* footer wordmark */
+  --text-infinity: clamp(28px, 2.8vw, 48px); /* "infinity" italic */
+  --text-h2-rewards: clamp(32px, 4.2vw, 72px);
+  --text-h2: clamp(34px, 4.3vw, 76px); /* section headline */
+  --text-figure: clamp(36px, 3.6vw, 64px); /* "2x" */
+  --text-loader-word: clamp(36px, 5.5vw, 88px);
+  --text-h1: clamp(44px, 7.625vw, 140px); /* hero headline */
+  --text-closing: clamp(44px, 8.4vw, 168px); /* "Come stay with us," */
+  --text-closing-script: clamp(50px, 7vw, 130px);
+  --text-hero-script: clamp(54px, 7.75vw, 140px);
+  --text-loader-script: clamp(55px, 8.25vw, 130px);
+
+  /* --- Layout ---------------------------------------------------------- */
+  --spacing-shell: 1420px; /* content max-width (unscaled in source) */
+  --spacing-gutter: clamp(24px, 4vw, 64px);
+  --spacing-nav: clamp(64px, 5.9vw, 96px);
+  --spacing-section-y: clamp(76px, 8vw, 136px);
+  --spacing-stack-pt: clamp(76px, 7vw, 116px);
+  --spacing-stack-pb: clamp(96px, 12vh, 156px);
+  --spacing-hero-pt: clamp(76px, 7vw, 120px);
+  --spacing-hero-pb: clamp(105px, 13vh, 175px);
+  --spacing-closing-pt: clamp(96px, 11vw, 170px);
+  --spacing-gap-grid: clamp(14px, 1.6vw, 26px);
+  --spacing-gap-tight: clamp(10px, 1.1vw, 18px);
+  --spacing-gap-cards: clamp(10px, 1.1vw, 18px);
+  --spacing-card-pad: clamp(18px, 1.9vw, 32px);
+  --spacing-card-pad-sm: clamp(16px, 1.7vw, 28px);
+  --spacing-tile-pad-y: clamp(14px, 1.5vw, 24px);
+  --spacing-tile-pad-x: clamp(12px, 1.3vw, 20px);
+  --spacing-stack-min: 675px; /* 540 / 0.8 - hero min-height */
+  --spacing-stack-min-lg: 750px; /* 600 / 0.8 */
+  --spacing-event-min: clamp(288px, 32.5vw, 520px);
+
+  /* --- Radius ---------------------------------------------------------- */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 16px;
+
+  /* --- Shadow ---------------------------------------------------------- */
+  --shadow-bar: 0 20px 44px rgb(var(--brand-bar-shadow) / 0.2);
+  --shadow-sheet: 0 -15px 60px rgb(var(--brand-sheet-scrim) / 0.32);
+  --shadow-nav: 0 1px 0 color-mix(in srgb, var(--brand-forest) 14%, transparent);
+
+  /* --- Easing (verbatim from artboard) --------------------------------- */
+  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-bar: cubic-bezier(0.3, 0.7, 0.3, 1);
+  --ease-word: cubic-bezier(0.4, 0.5, 0.2, 1);
+  --ease-rise: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-reveal: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --ease-sheet: cubic-bezier(0.2, 0.85, 0.2, 1);
+  --ease-zoom: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+/* --- Non-namespaced tokens ------------------------------------------------
+ * Tailwind v4 has no --duration-* or --border-* theme namespace, so these are
+ * plain custom properties consumed via var() in components and in
+ * lib/tokens/motion.ts. Values in ms. */
+:root {
+  --border-hair: 1.5px;
+
+  --dur-curtain: 2400ms;
+  --dur-zoom: 15000ms;
+  --dur-hero-rise: 1400ms;
+  --dur-hero-rise-first: 1300ms;
+  --dur-reveal: 1000ms;
+  --dur-reveal-fast: 900ms;
+  --dur-scroll-cue: 1000ms;
+  --dur-sheet: 600ms;
+  --dur-nav: 550ms;
+  --dur-fade: 450ms;
+  --dur-hover-img: 1100ms;
+  --dur-hover-bg: 350ms;
+  --dur-hover-swap: 300ms;
+
+  --delay-hero-eyebrow: 1450ms;
+  --delay-hero-h1: 1550ms;
+  --delay-hero-script: 1750ms;
+  --delay-hero-list: 1950ms;
+  --delay-hero-cta: 2150ms;
+  --delay-scroll-cue: 2400ms;
+  --delay-zoom: 1300ms;
+  --delay-loader-script: 120ms;
+  --delay-sheet-close: 150ms;
+
+  /* reveal travel: authored 27px -> 27 / 0.8 = 34px */
+  --reveal-y: 34px;
+  /* loader word travel: authored 18px -> 22px */
+  --loader-y: 22px;
+  --hero-zoom-from: 1.14;
+  --card-zoom-to: 1.05;
+}

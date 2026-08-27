@@ -1,0 +1,220 @@
+@import 'tailwindcss';
+@import '../styles/tokens.css';
+
+/* ============================================================================
+ * BASE
+ * ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* The fixed header would otherwise cover anchor targets. */
+    scroll-padding-top: var(--spacing-nav);
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-forest);
+    text-decoration: none;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-cream);
+  }
+
+  /* The reference has no focus styles at all. WCAG 2.2 AA requires them. */
+  :focus-visible {
+    outline: var(--border-hair) solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* Dark-on-dark surfaces need the ring in cream to stay visible. */
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-cream);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+}
+
+/* ============================================================================
+ * LOAD SEQUENCE — CSS keyframes
+ * ----------------------------------------------------------------------------
+ * These run off the main thread with no JS on the critical path, which is how
+ * the LCP budget is met. Every timing reads a token; nothing is inlined.
+ * Names match the reference artboard's own keyframes so the motion inventory
+ * maps 1:1.
+ * ========================================================================== */
+
+@keyframes lt-curtain {
+  0%,
+  58% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-101%);
+  }
+}
+
+@keyframes lt-word {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--loader-y));
+  }
+  16%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lt-signature {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% -20% 0);
+  }
+  18% {
+    opacity: 1;
+  }
+  60%,
+  100% {
+    opacity: 1;
+    clip-path: inset(0 -6% -20% 0);
+  }
+}
+
+@keyframes lt-bar {
+  0% {
+    transform: scaleX(0);
+  }
+  60%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes lt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lt-zoom-out {
+  from {
+    transform: scale(var(--hero-zoom-from));
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@layer components {
+  .anim-curtain {
+    animation: lt-curtain var(--dur-curtain) var(--ease-curtain) both;
+    will-change: transform;
+  }
+
+  .anim-loader-bar {
+    animation: lt-bar var(--dur-curtain) var(--ease-bar) both;
+    transform-origin: left center;
+  }
+
+  .anim-loader-word {
+    animation: lt-word var(--dur-curtain) var(--ease-word) both;
+  }
+
+  .anim-loader-script {
+    animation: lt-signature var(--dur-curtain) var(--delay-loader-script) var(--ease-word) both;
+  }
+
+  .anim-hero-zoom {
+    animation: lt-zoom-out var(--dur-zoom) var(--delay-zoom) var(--ease-zoom) both;
+    will-change: transform;
+  }
+
+  /* Hero stagger: a clean 200ms step from 1550ms, per the motion inventory. */
+  .anim-hero-eyebrow {
+    animation: lt-fade-up var(--dur-hero-rise-first) var(--delay-hero-eyebrow) var(--ease-rise) both;
+  }
+  .anim-hero-h1 {
+    animation: lt-fade-up var(--dur-hero-rise) var(--delay-hero-h1) var(--ease-rise) both;
+  }
+  .anim-hero-script {
+    animation: lt-fade-up var(--dur-hero-rise) var(--delay-hero-script) var(--ease-rise) both;
+  }
+  .anim-hero-list {
+    animation: lt-fade-up var(--dur-hero-rise) var(--delay-hero-list) var(--ease-rise) both;
+  }
+  .anim-hero-cta {
+    animation: lt-fade-up var(--dur-hero-rise) var(--delay-hero-cta) var(--ease-rise) both;
+  }
+  .anim-scroll-cue {
+    animation: lt-fade var(--dur-scroll-cue) var(--delay-scroll-cue) ease both;
+  }
+}
+
+/* ============================================================================
+ * REDUCED MOTION
+ * ----------------------------------------------------------------------------
+ * The reference has no reduced-motion path whatsoever. Every animation gets
+ * one here: content lands in its final state immediately, and the loader
+ * curtain is removed from flow rather than animated away.
+ * ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  /* Ken Burns and hover zooms are pure decoration — drop them entirely. */
+  .anim-hero-zoom,
+  .hover-zoom > * {
+    animation: none !important;
+    transform: none !important;
+  }
+}
