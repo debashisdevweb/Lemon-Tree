@@ -28,20 +28,20 @@ export function Hotels() {
     <section
       id="hotels"
       aria-labelledby="hotels-heading"
-      className="bg-cream py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
+      className="bg-cream py-section px-gutter relative z-20"
     >
       <div className="max-w-shell mx-auto">
         <Reveal>
           <Eyebrow tone="sage">{NEW_HOTELS.eyebrow}</Eyebrow>
           <h2
             id="hotels-heading"
-            className="mt-gap-tight font-display text-h2 text-forest leading-[1.04] font-normal tracking-[-0.018em]"
+            className="mt-gap-eyebrow font-display text-h2 text-forest leading-[1.04] font-normal tracking-[-0.018em]"
           >
             {NEW_HOTELS.headline}
           </h2>
         </Reveal>
 
-        <div className="mt-gap-grid gap-gap-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-gap-heading gap-cards grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
           {NEW_HOTELS.cards.map((card, index) => (
             <Reveal key={`${card.brand}-${card.city}`} delay={CARD_DELAYS[index] ?? 0} as="article">
               <div className="bg-paper flex h-full flex-col">
@@ -52,14 +52,14 @@ export function Hotels() {
                     boxAspect={4 / 3}
                   />
                 </div>
-                <div className="p-card-pad-sm flex flex-auto flex-col">
+                <div className="p-pad-card-sm flex flex-auto flex-col">
                   <Eyebrow tone="sage" track="tight">
                     {card.brand}
                   </Eyebrow>
-                  <h3 className="font-display text-h4 text-forest mt-[--spacing(2)] leading-[1.12] font-medium">
+                  <h3 className="font-display text-h4 text-forest mt-label leading-[1.12] font-medium">
                     {card.city}
                   </h3>
-                  <div className="pt-gap-grid mt-auto flex flex-wrap gap-[--spacing(2.5)]">
+                  <div className="pt-gap-heading gap-items mt-auto flex flex-wrap">
                     <Button
                       slot="card"
                       onClick={() => open({ tab: 'online-booking' })}
@@ -83,14 +83,14 @@ export function Hotels() {
         </div>
 
         <SectionHeader
-          className="mt-[clamp(47.6px,5.95vw,102px)]"
+          className="mt-2xl"
           eyebrow={UPCOMING.eyebrow}
           headline={UPCOMING.headline}
           headingId="upcoming-heading"
           standfirst={UPCOMING.standfirst}
         />
 
-        <div className="mt-gap-grid gap-gap-grid grid grid-cols-2 xl:grid-cols-4">
+        <div className="mt-gap-heading gap-cards grid grid-cols-2 xl:grid-cols-4">
           {UPCOMING.cards.map((card, index) => (
             <Reveal key={`${card.brand}-${card.city}-${index}`} delay={CARD_DELAYS[index] ?? 0}>
               <Link
@@ -108,11 +108,11 @@ export function Hotels() {
                   aria-hidden="true"
                   className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.08),rgb(var(--brand-card-scrim)/0.82))]"
                 />
-                <span className="p-card-pad-sm relative flex h-full flex-col justify-end">
+                <span className="p-pad-card-sm relative flex h-full flex-col justify-end">
                   <span className="text-eyebrow-sm text-cream/80 font-bold tracking-[0.12em] uppercase">
                     {card.brand}
                   </span>
-                  <span className="font-display text-h3-sm text-cream mt-[--spacing(2)] leading-[1.1] font-medium">
+                  <span className="font-display text-h3-sm text-cream mt-label leading-[1.1] font-medium">
                     {card.city}
                   </span>
                 </span>

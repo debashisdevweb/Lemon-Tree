@@ -27,7 +27,7 @@ export function Offers() {
     <section
       id="offers"
       aria-labelledby="offers-heading"
-      className="bg-cream py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
+      className="bg-cream py-section px-gutter relative z-20"
     >
       <div className="max-w-shell mx-auto">
         <SectionHeader
@@ -41,7 +41,7 @@ export function Offers() {
           }
         />
 
-        <div className="mt-gap-grid gap-gap-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-gap-heading gap-cards grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
           {OFFERS.cards.map((card, index) => {
             const isMember = card.image === null;
 
@@ -60,13 +60,13 @@ export function Offers() {
                     </div>
                   )}
 
-                  <div className="p-card-pad flex flex-auto flex-col">
+                  <div className="p-pad-card flex flex-auto flex-col">
                     {/* The member card sits on forest, where the artboard's
                         sage is 2.65:1 — this keeps the sage hue at 4.55:1. */}
                     <Eyebrow tone={isMember ? 'sageOnDark' : 'accent'}>{card.eyebrow}</Eyebrow>
 
                     <h3
-                      className={`mt-gap-tight font-display text-h3-offer leading-[1.1] font-medium ${
+                      className={`mt-gap-eyebrow font-display text-h3-offer leading-[1.1] font-medium ${
                         isMember ? 'text-cream' : 'text-forest'
                       }`}
                     >
@@ -74,14 +74,14 @@ export function Offers() {
                     </h3>
 
                     <p
-                      className={`mt-gap-tight text-body-sm leading-[1.6] ${
+                      className={`mt-gap-eyebrow text-body-sm leading-[1.6] ${
                         isMember ? 'text-cream/82' : 'text-ink'
                       }`}
                     >
                       {card.body}
                     </p>
 
-                    <div className="gap-gap-tight pt-gap-grid mt-auto flex flex-col">
+                    <div className="gap-items pt-gap-heading mt-auto flex flex-col">
                       {card.figure && (
                         <span className="font-display text-figure text-cream leading-none">
                           {card.figure}

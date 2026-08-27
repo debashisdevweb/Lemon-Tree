@@ -51,7 +51,7 @@ export default function HomePage() {
           <section
             id="contact"
             aria-labelledby="closing-heading"
-            className="bg-cream pt-closing-pt relative z-20"
+            className="bg-cream pt-3xl relative z-20"
           >
             <Closing />
             <div aria-hidden="true" className="h-[clamp(68px,12.75vh,187px)]" />

@@ -121,14 +121,25 @@ describe('the global size scale', () => {
     return [Number(m[1]), Number(m[2]), Number(m[3])];
   };
 
-  it.each([
-    ['spacing-gutter', 24, 4, 64],
-    ['spacing-nav', 64, 5.9, 96],
-  ])('--%s is the recovered triple x0.85', (name, min, vw, max) => {
-    const [gotMin, gotVw, gotMax] = parseClamp(readVar(name));
-    expect(gotMin).toBeCloseTo(shipped(min), 1);
-    expect(gotVw).toBeCloseTo(vw * UI_SCALE, 2);
-    expect(gotMax).toBeCloseTo(shipped(max), 1);
+  it('--spacing-nav is the recovered triple x0.85', () => {
+    const [gotMin, gotVw, gotMax] = parseClamp(readVar('spacing-nav'));
+    expect(gotMin).toBeCloseTo(shipped(64), 1);
+    expect(gotVw).toBeCloseTo(5.9 * UI_SCALE, 2);
+    expect(gotMax).toBeCloseTo(shipped(96), 1);
+  });
+
+  /**
+   * The gutter moved onto the shared spacing anchors, so it no longer has the
+   * `clamp(min, vw, max)` shape the rest of this block parses. Its endpoints
+   * still land where the 0.85 reduction put them (20.4 -> 20, 54.4 -> 54); the
+   * point of moving it was to make it compress in step with every other gap.
+   */
+  it('--spacing-gutter keeps its endpoints on the shared anchors', () => {
+    const raw = readVar('spacing-gutter');
+    const m = /clamp\(\s*([\d.]+)px,\s*([\d.]+)px \+ ([\d.]+)vw,\s*([\d.]+)px\s*\)/.exec(raw);
+    expect(m, `gutter is not a fluid clamp: ${raw}`).not.toBeNull();
+    expect(Number(m![1])).toBeCloseTo(20, 0);
+    expect(Number(m![4])).toBeCloseTo(54, 0);
   });
 
   /**
@@ -215,5 +226,95 @@ describe('the global size scale', () => {
     // These are ratios, not lengths.
     expect(readVar('hero-zoom-from')).toBe('1.14');
     expect(readVar('card-zoom-to')).toBe('1.05');
+  });
+});
+
+describe('the spacing scale shares one set of viewport anchors', () => {
+  /**
+   * This is the property that makes it a scale rather than a pile of values.
+   *
+   * Spacing used to be 37 independent clamps, each with its own floor and its
+   * own slope, so they crossed their floors at different viewport widths and
+   * the ratios between gaps drifted as the screen narrowed. Every step here
+   * interpolates 360px -> 1440px, so the rhythm stays proportional at every
+   * width. If someone adds a step by hand with a different slope, this fails.
+   */
+  const MIN_VP = 360;
+  const MAX_VP = 1440;
+
+  const STEPS = ['4xs', '3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const;
+
+  const parse = (raw: string) => {
+    const m = /clamp\(\s*([\d.]+)px,\s*(-?[\d.]+)px \+ ([\d.]+)vw,\s*([\d.]+)px\s*\)/.exec(raw);
+    if (!m) throw new Error(`not a fluid clamp: ${raw}`);
+    return {
+      min: Number(m[1]),
+      intercept: Number(m[2]),
+      slope: Number(m[3]),
+      max: Number(m[4]),
+    };
+  };
+
+  it.each([...STEPS])('--spacing-%s reaches its floor and ceiling at the anchors', (step) => {
+    const { min, intercept, slope, max } = parse(readVar(`spacing-${step}`));
+
+    // At the lower anchor the fluid term equals the minimum, and at the upper
+    // anchor it equals the maximum — that is what "shares the anchors" means.
+    const atMin = intercept + (slope / 100) * MIN_VP;
+    const atMax = intercept + (slope / 100) * MAX_VP;
+
+    expect(atMin).toBeCloseTo(min, 1);
+    expect(atMax).toBeCloseTo(max, 1);
+  });
+
+  it('increases monotonically', () => {
+    const mins = STEPS.map((s) => parse(readVar(`spacing-${s}`)).min);
+    const maxes = STEPS.map((s) => parse(readVar(`spacing-${s}`)).max);
+    expect(mins).toEqual([...mins].sort((a, b) => a - b));
+    expect(maxes).toEqual([...maxes].sort((a, b) => a - b));
+  });
+
+  it('keeps the ratio between any two steps stable across the range', () => {
+    const at = (step: string, vp: number) => {
+      const { min, intercept, slope, max } = parse(readVar(`spacing-${step}`));
+      return Math.min(max, Math.max(min, intercept + (slope / 100) * vp));
+    };
+    // A gap that is 2.4x another on desktop must stay near that on mobile.
+    for (const [a, b] of [
+      ['md', '2xs'],
+      ['lg', 'xs'],
+      ['3xl', 'sm'],
+    ] as const) {
+      const wide = at(a, MAX_VP) / at(b, MAX_VP);
+      const narrow = at(a, MIN_VP) / at(b, MIN_VP);
+      // Steps are not linear multiples of each other, so allow some drift —
+      // but nothing like the 3x swings the old independent clamps produced.
+      expect(narrow / wide, `${a}:${b} ratio drifts too far`).toBeGreaterThan(0.6);
+      expect(narrow / wide, `${a}:${b} ratio drifts too far`).toBeLessThan(1.4);
+    }
+  });
+
+  /**
+   * The semantic aliases repeat their step's clamp rather than referencing it,
+   * because the extra var() hop cost about 350ms of style recalculation on a
+   * throttled mobile profile. This is what keeps that duplication honest: every
+   * alias must still equal the step it is named after.
+   */
+  it.each([
+    ['gap-eyebrow', '2xs'],
+    ['gap-heading', 'md'],
+    ['gap-body', 'md'],
+    ['items', '2xs'],
+    ['inline', '3xs'],
+    ['cards', 'xs'],
+    ['columns', 'xl'],
+    ['field', 'md'],
+    ['label', '4xs'],
+    ['pad-card', 'sm'],
+    ['pad-card-sm', 'xs'],
+    ['pad-tile', 'xs'],
+    ['pad-sheet', 'sm'],
+  ])('--spacing-%s still equals --spacing-%s exactly', (alias, step) => {
+    expect(readVar(`spacing-${alias}`)).toBe(readVar(`spacing-${step}`));
   });
 });

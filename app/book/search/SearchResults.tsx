@@ -91,20 +91,20 @@ export function SearchResults() {
     enabled: request !== null,
   });
 
-  const shell = 'mx-auto max-w-shell px-[clamp(20.4px,3.4vw,54.4px)] py-section-y';
+  const shell = 'mx-auto max-w-shell px-gutter py-section';
 
   if (!parsed.success || !request) {
     return (
       <div className={shell}>
         <Eyebrow tone="accent">Nothing to search yet</Eyebrow>
-        <h1 className="mt-gap-tight font-display text-h2 text-forest leading-[1.04] font-normal">
+        <h1 className="mt-gap-eyebrow font-display text-h2 text-forest leading-[1.04] font-normal">
           Tell us where you’re going
         </h1>
-        <p className="mt-gap-tight text-prose text-muted max-w-[46ch] leading-[1.6]">
+        <p className="mt-gap-eyebrow text-prose text-muted max-w-[46ch] leading-[1.6]">
           {(parsed.success ? undefined : parsed.error.issues[0]?.message) ??
             'Choose a city or hotel and a pair of dates, and we’ll show live rates.'}
         </p>
-        <Button slot="prominent" className="mt-gap-grid" onClick={() => open()}>
+        <Button slot="prominent" className="mt-gap-heading" onClick={() => open()}>
           Check availability
         </Button>
       </div>
@@ -119,11 +119,11 @@ export function SearchResults() {
         {request.occupancy.adults + request.occupancy.children} guests
       </Eyebrow>
 
-      <h1 className="mt-gap-tight font-display text-h2 text-forest leading-[1.04] font-normal tracking-[-0.018em]">
+      <h1 className="mt-gap-eyebrow font-display text-h2 text-forest leading-[1.04] font-normal tracking-[-0.018em]">
         {data ? `${data.rates.length} rates` : 'Finding rates'}
       </h1>
 
-      <div className="mt-gap-grid gap-gap-tight flex flex-wrap items-center">
+      <div className="mt-gap-heading gap-items flex flex-wrap items-center">
         <Button slot="section" variant="outline" onClick={() => open({ stay: request.stay })}>
           Change search
         </Button>
@@ -132,14 +132,14 @@ export function SearchResults() {
       {data?.discountNotice && (
         <p
           role="status"
-          className="mt-gap-grid bg-paper p-card-pad-sm text-body-sm text-ink max-w-[60ch]"
+          className="mt-gap-heading bg-paper p-pad-card-sm text-body-sm text-ink max-w-[60ch]"
         >
           {data.discountNotice}
         </p>
       )}
 
       {isPending && (
-        <ul className="mt-gap-grid gap-gap-cards grid list-none p-0" aria-hidden="true">
+        <ul className="mt-gap-heading gap-cards grid list-none p-0" aria-hidden="true">
           {[0, 1, 2].map((row) => (
             <li key={row} className="bg-paper h-[88px] animate-pulse rounded-sm" />
           ))}
@@ -150,14 +150,14 @@ export function SearchResults() {
       </span>
 
       {isError && (
-        <div className="mt-gap-grid bg-paper p-card-pad max-w-[60ch]">
+        <div className="mt-gap-heading bg-paper p-pad-card max-w-[60ch]">
           <p className="text-body text-accent-text font-bold">
             {error instanceof Error ? error.message : 'We could not load rates.'}
           </p>
           <Button
             slot="section"
             variant="outline"
-            className="mt-gap-tight"
+            className="mt-gap-eyebrow"
             onClick={() => refetch()}
           >
             Try again
@@ -166,7 +166,7 @@ export function SearchResults() {
       )}
 
       {data && data.rates.length === 0 && (
-        <div className="mt-gap-grid bg-paper p-card-pad max-w-[60ch]">
+        <div className="mt-gap-heading bg-paper p-pad-card max-w-[60ch]">
           <p className="text-body text-ink">
             Nothing available for those dates at {request.destination}. Try different dates, or
             search a nearby city.
@@ -175,20 +175,20 @@ export function SearchResults() {
       )}
 
       {data && data.rates.length > 0 && (
-        <ul className="mt-gap-grid gap-gap-cards grid list-none p-0">
+        <ul className="mt-gap-heading gap-cards grid list-none p-0">
           {data.rates.map((rate) => (
             <li
               key={`${rate.propertySlug}-${rate.roomTypeSlug}`}
-              className="gap-gap-grid bg-paper p-card-pad-sm flex flex-wrap items-center justify-between"
+              className="gap-cards bg-paper p-pad-card-sm flex flex-wrap items-center justify-between"
             >
               <div className="min-w-0">
                 <Eyebrow tone="sage" track="tight">
                   {rate.brandName} · {rate.cityName}
                 </Eyebrow>
-                <h2 className="font-display text-h4 text-forest mt-[--spacing(1)] leading-[1.12] font-medium">
+                <h2 className="font-display text-h4 text-forest mt-label leading-[1.12] font-medium">
                   {rate.propertyName}
                 </h2>
-                <p className="text-body-sm text-muted mt-[--spacing(1)]">
+                <p className="text-body-sm text-muted mt-label">
                   {rate.roomTypeName} · {rate.refundable ? 'Free cancellation' : 'Non-refundable'} ·{' '}
                   {rate.roomsLeft} left
                 </p>
@@ -197,7 +197,7 @@ export function SearchResults() {
                 <p className="font-display text-stat text-forest leading-none tabular-nums">
                   {money.format(rate.amountInr)}
                 </p>
-                <p className="text-meta text-muted mt-[--spacing(1)]">
+                <p className="text-meta text-muted mt-label">
                   Members {money.format(rate.memberAmountInr)}
                   {request.stay === 'overnight' ? ' per night' : ' per slot'}
                 </p>

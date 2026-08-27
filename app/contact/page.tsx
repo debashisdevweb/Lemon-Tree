@@ -36,16 +36,16 @@ export default function ContactPage() {
       <SkipLink />
       <SiteHeader />
       <main id="main" className="bg-cream pt-nav">
-        <div className="max-w-shell py-section-y mx-auto px-[clamp(20.4px,3.4vw,54.4px)]">
+        <div className="max-w-shell py-section mx-auto px-gutter">
           <Eyebrow tone="sage">Get in touch</Eyebrow>
-          <h1 className="mt-gap-tight font-display text-h2 text-forest max-w-[24ch] leading-[1.04] font-normal tracking-[-0.018em]">
+          <h1 className="mt-gap-eyebrow font-display text-h2 text-forest max-w-[24ch] leading-[1.04] font-normal tracking-[-0.018em]">
             Send one brief, hear from the closest hotels
           </h1>
-          <p className="mt-gap-tight text-prose-lg text-ink max-w-[52ch] leading-[1.66]">
+          <p className="mt-gap-eyebrow text-prose-lg text-ink max-w-[52ch] leading-[1.66]">
             Tell us the shape of the thing — a stay, an offsite, a wedding — and the hotels that fit
             come back with dates, capacities and a quote.
           </p>
-          <div className="mt-gap-grid max-w-[544px]">
+          <div className="mt-gap-heading max-w-[544px]">
             {/* EnquiryForm reads ?enquiry= to preselect the subject, so it needs
                 a boundary to bail out to during prerender. */}
             <Suspense fallback={<div className="min-h-[442px]" />}>

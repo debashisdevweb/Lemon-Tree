@@ -61,7 +61,7 @@ export function SiteHeader() {
       ref={headerRef}
       data-solid={isSolid || undefined}
       className={cn(
-        'h-nav gap-gap-grid fixed inset-x-0 top-0 z-60 flex items-center px-[clamp(17px,2.72vw,45.9px)]',
+        'h-nav gap-cards px-md fixed inset-x-0 top-0 z-60 flex items-center',
         'transition-[background-color,color,box-shadow] duration-[var(--dur-nav)] ease-in-out',
         isSolid ? 'bg-cream text-forest shadow-nav' : 'on-dark text-cream bg-transparent',
       )}
@@ -72,7 +72,7 @@ export function SiteHeader() {
 
       <nav
         aria-label="Sections"
-        className="text-nav hidden flex-auto justify-center gap-[clamp(11.9px,1.615vw,25.5px)] font-bold xl:flex"
+        className="text-nav gap-sm hidden flex-auto justify-center font-bold xl:flex"
       >
         {PRIMARY_NAV.map((link) => (
           <a
@@ -85,7 +85,7 @@ export function SiteHeader() {
         ))}
       </nav>
 
-      <div className="text-nav ml-auto flex shrink-0 items-center gap-[clamp(10.2px,1.36vw,22.1px)] font-bold">
+      <div className="text-nav gap-xs ml-auto flex shrink-0 items-center font-bold">
         <Link
           href="/contact"
           className="hover:text-accent-text hidden text-inherit transition-colors duration-[var(--dur-hover-swap)] lg:inline"
@@ -127,10 +127,14 @@ export function SiteHeader() {
             )}
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
-              {/* Two rules, as the reference draws it, on a 44px target. */}
-              <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                <line x1="3" y1="9" x2="21" y2="9" />
-                <line x1="3" y1="15" x2="21" y2="15" />
+              {/*
+                Two rules, as the reference draws it. At 6 units apart in a 24
+                viewBox they merged into a single thick line once scaled to
+                17px; 9 apart reads as two at every size.
+              */}
+              <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                <line x1="3.5" y1="7.5" x2="20.5" y2="7.5" />
+                <line x1="3.5" y1="16.5" x2="20.5" y2="16.5" />
               </g>
             </svg>
           </Dialog.Trigger>
@@ -153,12 +157,12 @@ export function SiteHeader() {
               className={cn(
                 'fixed top-[--spacing(3)] right-[--spacing(3)] left-[--spacing(3)] z-[350]',
                 'max-h-[calc(100svh-var(--spacing)*6)] overflow-y-auto',
-                'bg-cream shadow-bar rounded-lg p-[clamp(18px,4.5vw,28px)]',
+                'bg-cream shadow-bar p-pad-card rounded-lg',
                 'data-[state=open]:animate-[lt-menu_var(--dur-fade)_var(--ease-rise)_both]',
                 'sm:right-auto sm:w-[min(360px,calc(100vw-var(--spacing)*6))]',
               )}
             >
-              <div className="gap-gap-grid flex items-start justify-between">
+              <div className="gap-cards flex items-start justify-between">
                 <Dialog.Title asChild>
                   <p className="text-forest">
                     <Wordmark />
@@ -167,7 +171,7 @@ export function SiteHeader() {
                 <Dialog.Close
                   aria-label="Close menu"
                   className={cn(
-                    'text-forest -mt-[--spacing(1)] -mr-[--spacing(1)] inline-flex size-11 shrink-0',
+                    'text-forest -mt-label -mr-[--spacing(1)] inline-flex size-11 shrink-0',
                     'cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent',
                     'hover:text-accent-text transition-colors duration-[var(--dur-hover-swap)]',
                   )}
@@ -181,10 +185,7 @@ export function SiteHeader() {
                 </Dialog.Close>
               </div>
 
-              <nav
-                aria-label="Sections"
-                className="mt-[clamp(14px,3vw,22px)] flex flex-col gap-[clamp(9px,2vw,14px)]"
-              >
+              <nav aria-label="Sections" className="mt-gap-heading gap-items flex flex-col">
                 {PRIMARY_NAV.map((link) => (
                   <a
                     key={link.href}
@@ -197,11 +198,11 @@ export function SiteHeader() {
                 ))}
               </nav>
 
-              <hr className="border-forest/18 mt-[clamp(16px,3.5vw,24px)] border-0 border-t-[length:var(--border-hair)] border-solid" />
+              <hr className="border-forest/18 mt-gap-heading border-0 border-t-[length:var(--border-hair)] border-solid" />
 
               {/* Investors and Sign in are hidden in the header at this width,
                   so without this they would be unreachable on a phone. */}
-              <div className="gap-gap-tight mt-[clamp(14px,3vw,20px)] flex flex-col">
+              <div className="gap-items mt-xs flex flex-col">
                 <Link
                   href="/contact"
                   onClick={() => setMenuOpen(false)}

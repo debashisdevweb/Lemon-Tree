@@ -35,14 +35,14 @@ function Stepper({
 }) {
   const id = `${label.toLowerCase()}-count`;
   return (
-    <div className="gap-gap-grid flex items-center justify-between">
+    <div className="gap-cards flex items-center justify-between">
       <span>
         <span id={id} className="text-body-sm text-forest block font-bold">
           {label}
         </span>
         {hint && <span className="text-meta text-muted block">{hint}</span>}
       </span>
-      <span className="flex items-center gap-[--spacing(2)]">
+      <span className="gap-inline flex items-center">
         <button
           type="button"
           aria-label={`One fewer ${label.toLowerCase()}`}
@@ -97,7 +97,7 @@ export function GuestsField({
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger className="min-w-0 cursor-pointer rounded-xs bg-transparent p-0 text-left">
         <span className="text-field-label text-muted block">Guests</span>
-        <span className="text-field-value text-ink-strong mt-[--spacing(1)] block truncate font-bold">
+        <span className="text-field-value text-ink-strong mt-label block truncate font-bold">
           {summarise(occupancy)}
         </span>
       </Popover.Trigger>
@@ -108,8 +108,8 @@ export function GuestsField({
           /* Escape closes the stepper only, never the sheet behind it. */
           onEscapeKeyDown={(event) => event.stopPropagation()}
           className={cn(
-            'bg-paper p-card-pad-sm shadow-bar z-[320] w-[min(272px,84vw)] rounded-md',
-            'gap-gap-tight flex flex-col',
+            'bg-paper p-pad-card-sm shadow-bar z-[320] w-[min(272px,84vw)] rounded-md',
+            'gap-items flex flex-col',
           )}
         >
           <Stepper

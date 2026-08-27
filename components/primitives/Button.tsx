@@ -36,15 +36,15 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const slots: Record<ButtonSlot, string> = {
-  card: 'text-meta py-btn-card-y px-btn-card-x gap-gap-tight',
-  nav: 'text-nav py-btn-nav-y px-btn-nav-x gap-gap-tight',
-  navline: 'text-nav py-btn-navline-y px-btn-navline-x gap-gap-tight',
-  section: 'text-btn-sm py-btn-section-y px-btn-section-x gap-gap-tight',
-  prominent: 'text-body py-btn-prominent-y px-btn-prominent-x gap-gap-tight rounded-md',
-  bar: 'text-body py-btn-bar-y px-btn-bar-x gap-gap-tight rounded-md',
-  barCta: 'text-body py-btn-bar-y px-btn-barcta-x gap-gap-tight rounded-md',
-  sheet: 'text-btn py-btn-sheet-y px-btn-sheet-x gap-gap-tight',
-  submit: 'text-btn-submit py-btn-submit-y px-btn-submit-x gap-gap-tight',
+  card: 'text-meta py-btn-card-y px-btn-card-x gap-items',
+  nav: 'text-nav py-btn-nav-y px-btn-nav-x gap-items',
+  navline: 'text-nav py-btn-navline-y px-btn-navline-x gap-items',
+  section: 'text-btn-sm py-btn-section-y px-btn-section-x gap-items',
+  prominent: 'text-body py-btn-prominent-y px-btn-prominent-x gap-items rounded-md',
+  bar: 'text-body py-btn-bar-y px-btn-bar-x gap-items rounded-md',
+  barCta: 'text-body py-btn-bar-y px-btn-barcta-x gap-items rounded-md',
+  sheet: 'text-btn py-btn-sheet-y px-btn-sheet-x gap-items',
+  submit: 'text-btn-submit py-btn-submit-y px-btn-submit-x gap-items',
 };
 
 type Common = {

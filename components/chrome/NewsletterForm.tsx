@@ -58,7 +58,7 @@ export function NewsletterForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate>
-      <div className="max-w-newsletter-max bg-paper flex items-stretch rounded-md p-[--spacing(2)]">
+      <div className="max-w-newsletter-max bg-paper p-3xs flex items-stretch rounded-md">
         <label htmlFor={emailId} className="sr-only">
           {FOOTER.emailPlaceholder}
         </label>
@@ -71,7 +71,7 @@ export function NewsletterForm() {
           aria-invalid={errors.email ? true : undefined}
           aria-describedby={message ? errorId : undefined}
           className={cn(
-            'min-w-0 flex-auto border-0 bg-transparent px-[clamp(8.5px,1.02vw,15.3px)]',
+            'px-2xs min-w-0 flex-auto border-0 bg-transparent',
             'text-input text-ink placeholder:text-muted outline-none',
           )}
           {...register('email')}
@@ -91,7 +91,7 @@ export function NewsletterForm() {
 
       <label
         htmlFor={consentId}
-        className="mt-gap-tight text-link text-forest flex cursor-pointer items-center gap-[--spacing(2)]"
+        className="mt-gap-eyebrow text-link text-forest gap-inline flex cursor-pointer items-center"
       >
         <input
           id={consentId}
@@ -112,16 +112,12 @@ export function NewsletterForm() {
       </label>
 
       {message && (
-        <p
-          id={errorId}
-          role="alert"
-          className="text-body-sm text-accent-text mt-[--spacing(2)] font-bold"
-        >
+        <p id={errorId} role="alert" className="text-body-sm text-accent-text mt-label font-bold">
           {message}
         </p>
       )}
 
-      <p aria-live="polite" className="text-body-sm text-muted mt-[--spacing(2)]">
+      <p aria-live="polite" className="text-body-sm text-muted mt-label">
         {status === 'done'
           ? 'Thanks — your address is saved on this device. Newsletter delivery is not connected yet.'
           : ''}

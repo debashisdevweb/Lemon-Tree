@@ -71,14 +71,84 @@ much of the screen", not "how big": `100vw` inside `calc()`, the `vw` caps in
 `styles/tokens.css` is the single source of truth. Components reference tokens
 only; ESLint fails the build on a raw hex literal anywhere else.
 
-- **Colour** — the artboard's 13 colours, unchanged, plus three accessibility
+- **Colour** — the artboard's 13 colours, unchanged, plus four accessibility
   pairs (below).
 - **Type** — 41 fluid `clamp()` steps, named by role (`--text-h2`,
-  `--text-eyebrow`) because the source scale is role-driven, not numeric. The
-  artboard has no breakpoints for type at all.
+  `--text-eyebrow`) because the source scale is role-driven, not numeric, with a
+  deliberate mobile floor (see Responsive).
+- **Spacing** — one fluid scale on shared anchors (below).
 - **Motion** — durations, delays and easings, mirrored in
   `lib/tokens/motion.ts`. `tests/unit/tokens.test.ts` parses the CSS and asserts
   every value matches, so the two cannot drift.
+
+### The spacing scale
+
+The first pass transcribed the artboard's spacing literally: **37 independent
+`clamp()` values** scattered through the components, most used once, each with
+its own floor and its own slope. Every individual value was right, and the
+system was still wrong — because they crossed their floors at different viewport
+widths, so the _ratios_ between gaps drifted as the screen narrowed. A gap that
+was 2.4× another on desktop might be 1.1× on a phone. That is what made the
+mobile rhythm read as arbitrary.
+
+Ten steps now interpolate between the **same two anchors, 360px and 1440px**, so
+everything compresses in lockstep and the rhythm stays proportional at every
+width:
+
+| Step  | 360px | 1440px |     | Step  | 360px | 1440px |
+| ----- | ----- | ------ | --- | ----- | ----- | ------ |
+| `4xs` | 4     | 8      |     | `md`  | 24    | 40     |
+| `3xs` | 6     | 10     |     | `lg`  | 30    | 56     |
+| `2xs` | 10    | 16     |     | `xl`  | 40    | 72     |
+| `xs`  | 14    | 22     |     | `2xl` | 52    | 104    |
+| `sm`  | 18    | 28     |     | `3xl` | 64    | 116    |
+
+Maxima are the previous desktop values, so the approved desktop appearance did
+not move. Components reference **semantic names**, not steps — naming the
+relationship is what stops a one-off clamp reappearing:
+
+```
+--spacing-gap-eyebrow   eyebrow → heading      2xs
+--spacing-gap-heading   heading → body         md
+--spacing-items         between list items     2xs
+--spacing-cards         grid gap between cards xs
+--spacing-columns       major column gap       xl
+--spacing-field         between form fields    md
+--spacing-pad-card      card padding           sm
+```
+
+Three things this pays for:
+
+- **`tests/unit/tokens.test.ts`** asserts every step hits its floor and ceiling
+  exactly at the two anchors, that the scale is monotonic, and that the ratio
+  between any two steps stays within ±40% across the range. A hand-added step
+  with a different slope fails.
+- The semantic aliases **repeat their step's clamp rather than referencing it**.
+  With the indirection, ~90 utilities each resolved two `var()` hops during style
+  recalculation; on a 4×-throttled mobile profile that measured as ~350ms of
+  extra Style & Layout and pushed LCP from 3.35s to 3.71s. A test asserts each
+  alias still equals its step exactly, so the duplication cannot drift.
+- **`tests/unit/utilities.test.ts`** reads the compiled CSS and asserts every
+  token-based spacing class was actually emitted. Tailwind derives the utility
+  from the token name, so `--spacing-gap-items` produces `gap-gap-items` and not
+  `gap-items` — writing the latter compiles, typechecks, lints, and silently
+  applies nothing. That is how the footer wordmark ended up rendering
+  "Lemon TreeHOTELS" with its gap collapsed to zero.
+
+### Hero rhythm
+
+The hero is the one place the gaps are stated explicitly, because the
+relationships carry meaning:
+
+| From → to            | Step  | 375px | Why                                |
+| -------------------- | ----- | ----- | ---------------------------------- |
+| eyebrow → headline   | `2xs` | 10px  | label attached to its heading      |
+| headline → script    | `4xs` | 4px   | two halves of one sentence         |
+| script → bullet list | `md`  | 25px  | different content, real separation |
+| list → promo pill    | `lg`  | 34px  | a new idea                         |
+
+Below `lg` the script and list stack with the list right-aligned; from `lg` they
+sit side by side, bottom-aligned, as the artboard has them.
 
 ### Multi-brand theming
 
@@ -329,10 +399,10 @@ Measured on the production build with Lighthouse, median of three runs.
 
 | Metric | Measured | Budget  | Status |
 | ------ | -------- | ------- | ------ |
-| LCP    | ~3250 ms | 2500 ms | ✗ fail |
+| LCP    | ~3200 ms | 2500 ms | ✗ fail |
 | CLS    | 0.000    | 0.1     | ✓      |
 | TBT    | 6 ms     | 200 ms  | ✓      |
-| FCP    | 1092 ms  | —       | —      |
+| FCP    | ~1100 ms | —       | —      |
 
 Conditions: 1638 kbps down, 150 ms RTT, 562 ms simulated per-request latency,
 4× CPU slowdown.

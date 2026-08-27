@@ -254,7 +254,7 @@ export function IndiaMap() {
         </svg>
       </div>
 
-      <aside className="on-dark gap-gap-tight border-cream/16 flex shrink-0 flex-col border-t-[length:var(--border-hair)] border-solid p-[clamp(15.3px,2.04vw,27.2px)] md:w-[clamp(216px,26%,320px)] md:border-t-0 md:border-l-[length:var(--border-hair)]">
+      <aside className="on-dark gap-items border-cream/16 p-sm flex shrink-0 flex-col border-t-[length:var(--border-hair)] border-solid md:w-[clamp(216px,26%,320px)] md:border-t-0 md:border-l-[length:var(--border-hair)]">
         <p className="text-eyebrow-xs text-cream/80 font-bold tracking-[0.18em] uppercase">
           Our presence
         </p>
@@ -263,23 +263,23 @@ export function IndiaMap() {
           <br />
           coast to hills
         </p>
-        <dl className="flex gap-[clamp(15.3px,1.53vw,23.8px)]">
-          <div className="border-accent border-l-2 border-solid pl-[--spacing(3)]">
+        <dl className="gap-xs flex">
+          <div className="border-accent pl-3xs border-l-2 border-solid">
             <dd className="font-display text-h4 text-cream leading-none">{CITIES.length}</dd>
-            <dt className="text-meta text-cream/80 mt-[--spacing(1)]">Cities</dt>
+            <dt className="text-meta text-cream/80 mt-label">Cities</dt>
           </div>
-          <div className="border-accent border-l-2 border-solid pl-[--spacing(3)]">
+          <div className="border-accent pl-3xs border-l-2 border-solid">
             <dd className="font-display text-h4 text-cream leading-none">{stateCount}</dd>
-            <dt className="text-meta text-cream/80 mt-[--spacing(1)]">States</dt>
+            <dt className="text-meta text-cream/80 mt-label">States</dt>
           </div>
         </dl>
         <hr className="border-cream/16 border-0 border-t-[length:var(--border-hair)] border-solid" />
-        <ul className="text-body-sm flex list-none flex-col gap-[--spacing(2.5)] p-0">
-          <li className="flex items-center gap-[--spacing(2.5)]">
+        <ul className="text-body-sm gap-items flex list-none flex-col p-0">
+          <li className="gap-items flex items-center">
             <span className="bg-accent size-3 shrink-0 rounded-full" />
             <span className="text-cream">Open now</span>
           </li>
-          <li className="flex items-center gap-[--spacing(2.5)]">
+          <li className="gap-items flex items-center">
             <span className="border-cream/75 size-3 shrink-0 rounded-full border-[length:var(--border-hair)] border-solid" />
             <span className="text-cream/80">Opening soon</span>
           </li>

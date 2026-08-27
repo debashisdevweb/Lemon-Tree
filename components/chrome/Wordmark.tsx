@@ -18,7 +18,7 @@ export function Wordmark({
   const suffixSize = size === 'header' ? 'text-micro' : 'text-eyebrow-xs';
 
   return (
-    <span className={cn('flex items-baseline gap-[--spacing(2)]', className)}>
+    <span className={cn('gap-inline flex items-baseline', className)}>
       <span className={cn('font-display leading-[1.1] font-medium tracking-[-0.01em]', nameSize)}>
         {SITE.wordmark}
       </span>

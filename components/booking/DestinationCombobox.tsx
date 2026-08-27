@@ -109,7 +109,7 @@ export function DestinationCombobox({
         }}
         onKeyDown={onKeyDown}
         className={cn(
-          'text-field-value mt-[--spacing(1)] w-full border-0 bg-transparent p-0 font-bold',
+          'text-field-value mt-label w-full border-0 bg-transparent p-0 font-bold',
           'text-ink-strong placeholder:text-muted outline-none placeholder:font-normal',
         )}
       />
@@ -125,8 +125,8 @@ export function DestinationCombobox({
           role="listbox"
           aria-label="Cities and hotels"
           className={cn(
-            'absolute top-full left-0 z-10 mt-[--spacing(2)] max-h-[238px] w-[min(306px,80vw)]',
-            'bg-paper shadow-bar list-none overflow-y-auto rounded-sm p-[--spacing(1)]',
+            'mt-label absolute top-full left-0 z-10 max-h-[238px] w-[min(306px,80vw)]',
+            'bg-paper shadow-bar p-4xs list-none overflow-y-auto rounded-sm',
           )}
           onMouseDown={(event) => {
             // Prevent the input's blur from firing before onClick.

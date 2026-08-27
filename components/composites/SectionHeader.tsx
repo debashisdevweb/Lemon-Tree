@@ -39,17 +39,14 @@ export function SectionHeader({
     <Reveal
       fast={fast}
       delay={delay}
-      className={cn(
-        'gap-x-gap-grid gap-y-gap-tight flex flex-wrap items-end justify-between',
-        className,
-      )}
+      className={cn('gap-x-cards gap-y-items flex flex-wrap items-end justify-between', className)}
     >
       <div>
         <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
         <h2
           id={headingId}
           className={cn(
-            'mt-gap-tight font-display text-h2 text-forest leading-[1.04] font-normal tracking-[-0.018em]',
+            'mt-gap-eyebrow font-display text-h2 text-forest leading-[1.04] font-normal tracking-[-0.018em]',
             headlineClassName,
           )}
         >
@@ -57,7 +54,7 @@ export function SectionHeader({
         </h2>
       </div>
       {(standfirst || action) && (
-        <div className="gap-gap-grid flex flex-wrap items-end">
+        <div className="gap-cards flex flex-wrap items-end">
           {standfirst && (
             <p className="text-prose text-muted max-w-[32ch] leading-[1.6]">{standfirst}</p>
           )}

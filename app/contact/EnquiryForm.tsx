@@ -47,8 +47,8 @@ const enquirySchema = z.object({
 type EnquiryValues = z.infer<typeof enquirySchema>;
 
 const fieldClass =
-  'mt-[--spacing(2)] w-full rounded-sm border-[length:var(--border-hair)] border-solid ' +
-  'border-forest/28 bg-paper px-[clamp(10.2px,1.02vw,15.3px)] py-[clamp(8.5px,0.85vw,12.8px)] ' +
+  'mt-label w-full rounded-sm border-[length:var(--border-hair)] border-solid ' +
+  'border-forest/28 bg-paper px-2xs py-3xs ' +
   'text-input text-ink outline-none placeholder:text-muted';
 
 const labelClass = 'block text-field-label font-bold text-forest';
@@ -94,14 +94,14 @@ export function EnquiryForm() {
 
   const Error = ({ id, message }: { id: string; message?: string }) =>
     message ? (
-      <p id={id} role="alert" className="text-body-sm text-accent-text mt-[--spacing(1)] font-bold">
+      <p id={id} role="alert" className="text-body-sm text-accent-text mt-label font-bold">
         {message}
       </p>
     ) : null;
 
   return (
-    <form onSubmit={onSubmit} noValidate className="gap-gap-grid flex flex-col">
-      <div className="gap-gap-grid grid sm:grid-cols-2">
+    <form onSubmit={onSubmit} noValidate className="gap-cards flex flex-col">
+      <div className="gap-cards grid sm:grid-cols-2">
         <div>
           <label htmlFor={ids.name} className={labelClass}>
             Your name
@@ -196,7 +196,7 @@ export function EnquiryForm() {
         <Error id={`${ids.message}-error`} message={errors.message?.message} />
       </div>
 
-      <div className="gap-gap-grid flex flex-wrap items-center">
+      <div className="gap-cards flex flex-wrap items-center">
         <Button type="submit" slot="prominent" disabled={isSubmitting}>
           Send the brief
         </Button>

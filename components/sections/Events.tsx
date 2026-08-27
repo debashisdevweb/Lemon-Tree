@@ -19,7 +19,7 @@ export function Events() {
     <section
       id="events"
       aria-labelledby="events-heading"
-      className="bg-paper py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
+      className="bg-paper py-section px-gutter relative z-20"
     >
       <div className="max-w-shell mx-auto">
         <SectionHeader
@@ -29,7 +29,7 @@ export function Events() {
           standfirst={EVENTS.standfirst}
         />
 
-        <div className="mt-gap-grid gap-gap-grid grid grid-cols-1 md:grid-cols-3">
+        <div className="mt-gap-heading gap-cards grid grid-cols-1 md:grid-cols-3">
           {EVENTS.cards.map((card, index) => (
             <Reveal key={card.slug} delay={CARD_DELAYS[index] ?? 0} as="article">
               <div className="min-h-event-min relative flex h-full overflow-hidden">
@@ -42,14 +42,14 @@ export function Events() {
                   aria-hidden="true"
                   className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.1),rgb(var(--brand-card-scrim)/0.8))]"
                 />
-                <div className="on-dark p-card-pad relative flex w-full flex-col justify-end">
+                <div className="on-dark p-pad-card relative flex w-full flex-col justify-end">
                   <h3 className="font-display text-h3-lg text-cream leading-[1.08] font-medium">
                     {card.title}
                   </h3>
-                  <p className="mt-gap-tight text-body-sm text-cream/86 max-w-[30ch] leading-[1.55]">
+                  <p className="mt-gap-eyebrow text-body-sm text-cream/86 max-w-[30ch] leading-[1.55]">
                     {card.body}
                   </p>
-                  <div className="mt-gap-grid">
+                  <div className="mt-gap-heading">
                     <Link
                       href={`/contact?enquiry=${card.slug}`}
                       className="text-meta text-cream hover:text-accent-text font-bold tracking-[0.1em] uppercase transition-colors duration-[var(--dur-hover-swap)]"

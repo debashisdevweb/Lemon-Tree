@@ -183,6 +183,59 @@
    * global 0.85 factor is applied here once rather than at each use. */
   --spacing: 0.2125rem;
 
+  /* --- Fluid spacing scale ---------------------------------------------
+   * Every step interpolates between the same two viewport anchors, 360px and
+   * 1440px. That is the whole point of it: the spacing here used to be 37
+   * independent clamps, each with its own floor and its own slope, so they
+   * compressed at different rates and the ratios between gaps drifted as the
+   * viewport narrowed - which is why the mobile rhythm read as wrong even
+   * though every individual value was "correct".
+   *
+   * Maxima are the current desktop values, so the approved desktop appearance
+   * does not move. The minima are a real mobile rhythm rather than the maxima
+   * times a factor. tests/unit/tokens.test.ts asserts the shared anchors. */
+  --spacing-4xs: clamp(4px, 2.667px + 0.37vw, 8px);
+  --spacing-3xs: clamp(6px, 4.667px + 0.37vw, 10px);
+  --spacing-2xs: clamp(10px, 8px + 0.556vw, 16px);
+  --spacing-xs: clamp(14px, 11.333px + 0.741vw, 22px);
+  --spacing-sm: clamp(18px, 14.667px + 0.926vw, 28px);
+  --spacing-md: clamp(24px, 18.667px + 1.481vw, 40px);
+  --spacing-lg: clamp(30px, 21.333px + 2.407vw, 56px);
+  --spacing-xl: clamp(40px, 29.333px + 2.963vw, 72px);
+  --spacing-2xl: clamp(52px, 34.667px + 4.815vw, 104px);
+  --spacing-3xl: clamp(64px, 46.667px + 4.815vw, 116px);
+
+  /* Layout measures. Same anchors, different constraints. */
+  --spacing-gutter: clamp(20px, 8.667px + 3.148vw, 54px);
+  --spacing-section: clamp(64px, 46.667px + 4.815vw, 116px);
+  --spacing-hero-top: clamp(64px, 50.667px + 3.704vw, 104px);
+  --spacing-hero-bottom: clamp(104px, 88px + 4.444vw, 152px);
+
+  /* --- Semantic spacing ------------------------------------------------
+   * What components actually reference. Naming the relationship rather than
+   * the size is what stops a one-off clamp reappearing next time.
+   *
+   * These repeat their step's clamp rather than saying var(--spacing-md),
+   * deliberately. With the indirection, ~90 utilities each resolved two var()
+   * hops during style recalculation, and on a 4x-throttled mobile profile that
+   * measured as roughly 350ms of extra Style & Layout and pushed LCP from
+   * 3.35s to 3.71s. The duplication is checked by
+   * tests/unit/tokens.test.ts, which asserts every alias still equals the step
+   * it is named after — so editing a step without its aliases fails CI. */
+  --spacing-gap-eyebrow: clamp(10px, 8px + 0.556vw, 16px);
+  --spacing-gap-heading: clamp(24px, 18.667px + 1.481vw, 40px);
+  --spacing-gap-body: clamp(24px, 18.667px + 1.481vw, 40px);
+  --spacing-items: clamp(10px, 8px + 0.556vw, 16px);
+  --spacing-inline: clamp(6px, 4.667px + 0.37vw, 10px);
+  --spacing-cards: clamp(14px, 11.333px + 0.741vw, 22px);
+  --spacing-columns: clamp(40px, 29.333px + 2.963vw, 72px);
+  --spacing-field: clamp(24px, 18.667px + 1.481vw, 40px);
+  --spacing-label: clamp(4px, 2.667px + 0.37vw, 8px);
+  --spacing-pad-card: clamp(18px, 14.667px + 0.926vw, 28px);
+  --spacing-pad-card-sm: clamp(14px, 11.333px + 0.741vw, 22px);
+  --spacing-pad-tile: clamp(14px, 11.333px + 0.741vw, 22px);
+  --spacing-pad-sheet: clamp(18px, 14.667px + 0.926vw, 28px);
+
   /* --- Layout ---------------------------------------------------------- */
   --spacing-shell: 1207px; /* content max-width (1420px recovered, x0.85) */
   --spacing-gutter: clamp(20.4px, 3.4vw, 54.4px);

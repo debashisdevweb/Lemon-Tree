@@ -31,7 +31,7 @@ export function Hero() {
         className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-scrim)/0.56),rgb(var(--brand-scrim)/0.18)_40%,rgb(var(--brand-scrim)/0.7))]"
       />
 
-      <div className="on-dark pt-hero-pt pb-hero-pb relative flex h-full min-h-[100svh] flex-col justify-center px-[clamp(20.4px,3.4vw,54.4px)] md:min-h-0">
+      <div className="on-dark pt-hero-top pb-hero-bottom px-gutter relative flex h-full min-h-[100svh] flex-col justify-center md:min-h-0">
         <div className="max-w-shell mx-auto w-full">
           <p className="anim-hero-eyebrow text-eyebrow-xs text-cream/90 font-bold tracking-[0.2em] uppercase">
             {HERO.eyebrow}
@@ -48,12 +48,23 @@ export function Hero() {
           <h1
             id="hero-heading"
             aria-label={`${HERO.headline} ${HERO.script}`}
-            className="anim-hero-h1 mt-gap-tight font-display text-h1 text-cream leading-[0.98] font-normal tracking-[-0.022em]"
+            className="anim-hero-h1 mt-gap-eyebrow font-display text-h1 text-cream leading-[0.98] font-normal tracking-[-0.022em]"
           >
             {HERO.headline}
           </h1>
 
-          <div className="gap-y-gap-grid flex flex-wrap items-end justify-between gap-x-[clamp(16.3px,3.4vw,68px)]">
+          {/*
+            Rhythm, in scale steps rather than one-off values:
+              eyebrow -> headline   gap-eyebrow  (10 -> 16)
+              headline -> script    4xs          (4 -> 8)   one sentence, so tight
+              script -> list        md           (24 -> 40)  different content
+              list -> promo pill    lg           (30 -> 56)  new idea
+            The headline and script are two halves of one sentence, so they sit
+            almost flush; everything after is a real separation. Previously all
+            four gaps came from unrelated clamps and the sequence read as
+            arbitrary on a phone.
+          */}
+          <div className="mt-4xs gap-y-md gap-x-columns flex flex-wrap items-start justify-between lg:items-end">
             <p
               aria-hidden="true"
               data-testid="hero-script"
@@ -64,17 +75,17 @@ export function Hero() {
             {/* Right-aligned and right-hugging below the script on a phone,
                 which is how the reference stacks these two; from lg they sit
                 side by side and the alignment no longer matters. */}
-            <ul className="anim-hero-list text-hero-list text-cream mb-[clamp(4.1px,0.68vw,10.9px)] ml-auto flex list-none flex-col gap-[--spacing(2.5)] p-0 text-right font-medium lg:ml-0 lg:text-left">
+            <ul className="anim-hero-list text-hero-list text-cream mb-4xs gap-3xs ml-auto flex list-none flex-col p-0 text-right font-medium lg:ml-0 lg:text-left">
               {HERO.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}
             </ul>
           </div>
 
-          <div className="anim-hero-cta gap-gap-grid mt-[clamp(23.8px,2.89vw,47.6px)] flex flex-wrap items-center">
+          <div className="anim-hero-cta gap-cards mt-lg flex flex-wrap items-center">
             <a
               href={HERO.promo.href}
-              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent-text inline-flex flex-wrap items-center gap-[clamp(8.5px,0.935vw,15.3px)] rounded-full transition-colors duration-[var(--dur-hover-bg)]"
+              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent-text gap-items inline-flex flex-wrap items-center rounded-full transition-colors duration-[var(--dur-hover-bg)]"
             >
               <span className="text-eyebrow-xs text-accent-text font-bold tracking-[0.1em] uppercase">
                 {HERO.promo.tag}
@@ -88,7 +99,7 @@ export function Hero() {
 
       <p
         aria-hidden="true"
-        className="anim-scroll-cue text-eyebrow-xs text-cream/75 absolute bottom-[clamp(89.2px,8.925vh,123.2px)] left-[clamp(20.4px,3.4vw,54.4px)] hidden items-center gap-[--spacing(3)] font-bold tracking-[0.2em] uppercase md:flex"
+        className="anim-scroll-cue text-eyebrow-xs text-cream/75 left-gutter gap-inline absolute bottom-[clamp(89.2px,8.925vh,123.2px)] hidden items-center font-bold tracking-[0.2em] uppercase md:flex"
       >
         {HERO.scrollCue}
         <span className="w-scroll-rule bg-cream/50 block h-px" />

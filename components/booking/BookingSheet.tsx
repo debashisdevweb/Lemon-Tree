@@ -17,7 +17,7 @@ import {
   type Occupancy,
   type StayType,
 } from '@/lib/booking/schemas';
-import { DURATION, DELAY, EASE, sec } from '@/lib/tokens/motion';
+import { DURATION, EASE, sec } from '@/lib/tokens/motion';
 import { useBooking } from './BookingProvider';
 import { DestinationCombobox } from './DestinationCombobox';
 import { ArrivalField, DepartureField } from './DateFields';
@@ -94,7 +94,7 @@ function SearchIcon() {
 
 function CloseIcon() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[44%]">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-[42%]">
       <g stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
         <line x1="4" y1="4" x2="20" y2="20" />
         <line x1="20" y1="4" x2="4" y2="20" />
@@ -198,10 +198,7 @@ export function BookingSheet() {
                   Check availability
                 </Dialog.Title>
 
-                <form
-                  onSubmit={onSubmit}
-                  className="max-w-sheet-max mx-auto px-[clamp(10.2px,1.7vw,27.2px)] pb-[clamp(10.2px,1.53vw,22.1px)]"
-                >
+                <form onSubmit={onSubmit} className="max-w-sheet-max px-sm pb-xs mx-auto">
                   <div className="shadow-sheet overflow-hidden rounded-lg">
                     <Tabs.Root
                       value={tab}
@@ -209,16 +206,27 @@ export function BookingSheet() {
                     >
                       {/* Forest strip: tabs + discount code */}
                       <div className="bg-forest grid gap-px md:grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)]">
+                        {/*
+                          Content-width tabs in a scrollable row, not three
+                          equal columns. `grid-cols-3` gave each tab a third of
+                          the width, which clipped "Last minute offers" on a
+                          phone. They fit at 375px; below that the row scrolls.
+                        */}
                         <Tabs.List
                           aria-label="Booking type"
-                          className="bg-forest grid grid-cols-3 gap-px"
+                          className={cn(
+                            'bg-forest flex gap-px overflow-x-auto',
+                            '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                            'md:grid md:grid-cols-3 md:overflow-visible',
+                          )}
                         >
                           {TAB_ORDER.map((value) => (
                             <Tabs.Trigger
                               key={value}
                               value={value}
                               className={cn(
-                                'on-dark px-btn-tab-x py-btn-tab-y text-tab cursor-pointer border-0 whitespace-nowrap',
+                                'on-dark px-btn-tab-x py-btn-tab-y text-tab shrink-0 cursor-pointer',
+                                'border-0 whitespace-nowrap md:shrink',
                                 'transition-colors duration-[var(--dur-hover-swap)]',
                                 'text-cream bg-transparent font-normal',
                                 'data-[state=active]:bg-cream data-[state=active]:font-bold',
@@ -230,7 +238,7 @@ export function BookingSheet() {
                           ))}
                         </Tabs.List>
 
-                        <div className="on-dark gap-gap-tight bg-forest flex items-center px-[clamp(11.9px,1.19vw,18.7px)]">
+                        <div className="on-dark gap-items bg-forest px-2xs flex items-center">
                           <span className="text-cream">
                             <TicketIcon />
                           </span>
@@ -246,6 +254,32 @@ export function BookingSheet() {
                               'text-cream placeholder:text-cream/80 outline-none',
                             )}
                           />
+
+                          {/*
+                            Inside the sheet, not floating over the page.
+                            The artboard floats an X near the top of the
+                            viewport, but that cannot work here: Motion puts a
+                            transform on Dialog.Content, and a transformed
+                            ancestor becomes the containing block for
+                            `position: fixed`, so the button measured its offset
+                            from the sheet and landed on the tab row. Moving it
+                            outside Dialog.Content fixed the geometry and broke
+                            accessibility instead — Radix marks everything
+                            outside the content aria-hidden while modal, so the
+                            only close affordance disappeared from the
+                            accessibility tree. In the sheet chrome it is
+                            correct on both counts at every width.
+                          */}
+                          <Dialog.Close
+                            aria-label="Close"
+                            className={cn(
+                              'grid size-11 shrink-0 cursor-pointer place-items-center rounded-full',
+                              'bg-cream/12 text-cream border-0',
+                              'hover:bg-cream/24 transition-colors duration-[var(--dur-hover-swap)]',
+                            )}
+                          >
+                            <CloseIcon />
+                          </Dialog.Close>
                         </div>
                       </div>
 
@@ -260,10 +294,22 @@ export function BookingSheet() {
                           {value === tab && (
                             <div
                               className={cn(
-                                'gap-y-gap-tight bg-paper grid items-center gap-x-[clamp(8.5px,1.36vw,23.8px)]',
-                                'px-[clamp(13.6px,1.615vw,27.2px)] py-[clamp(13.6px,1.36vw,22.1px)]',
-                                'grid-cols-1 sm:grid-cols-2',
-                                'lg:grid-cols-[auto_minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)_auto]',
+                                'bg-paper gap-x-xs grid',
+                                'px-sm py-sm',
+                                /*
+                                  Stacked, each field separated by a hairline
+                                  and given the same vertical rhythm. Without
+                                  the rules the six fields read as one loose
+                                  list on a phone, with no way to tell where
+                                  one stops and the next begins.
+                                */
+                                'grid-cols-1 gap-y-0',
+                                '[&>*]:py-field',
+                                '[&>*:not(:first-child)]:border-t-[length:var(--border-hair)]',
+                                '[&>*:not(:first-child)]:border-forest/14 [&>*]:border-solid',
+                                // From sm the rules come off and it is a grid again.
+                                'sm:gap-y-field sm:grid-cols-2 sm:[&>*]:border-t-0 sm:[&>*]:py-0',
+                                'lg:grid-cols-[auto_minmax(0,1.35fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)_auto] lg:items-center',
                               )}
                             >
                               <div>
@@ -275,7 +321,7 @@ export function BookingSheet() {
                                     if (next === 'overnight' || next === 'day-use') setStay(next);
                                   }}
                                   aria-label="Stay type"
-                                  className="bg-cream-2 mt-[--spacing(2)] flex gap-[--spacing(1)] rounded-xs p-[--spacing(1)]"
+                                  className="bg-cream-2 mt-label gap-4xs p-4xs flex rounded-xs"
                                 >
                                   {STAY_ORDER.map((value2) => (
                                     <ToggleGroup.Item
@@ -337,36 +383,13 @@ export function BookingSheet() {
                       <p
                         id={errorId}
                         role="alert"
-                        className="bg-paper text-body-sm text-accent-text px-[clamp(13.6px,1.615vw,27.2px)] pb-[clamp(10.2px,1.02vw,17px)] font-bold"
+                        className="bg-paper text-body-sm text-accent-text px-sm pb-2xs font-bold"
                       >
                         {firstError}
                       </p>
                     )}
                   </div>
                 </form>
-
-                <Dialog.Close asChild>
-                  <motion.button
-                    type="button"
-                    aria-label="Close"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      duration: reduced ? 0 : sec(DURATION.fade),
-                      delay: reduced ? 0 : sec(DELAY.sheetClose),
-                      ease: 'easeOut',
-                    }}
-                    className={cn(
-                      'fixed top-[clamp(44.2px,4.25vw,68px)] right-[clamp(13.6px,1.7vw,28.9px)] z-[320]',
-                      'size-close-btn grid cursor-pointer place-items-center rounded-full border-0',
-                      'bg-paper/90 text-forest transition-colors duration-[var(--dur-hover-swap)]',
-                      'hover:bg-paper',
-                    )}
-                  >
-                    <CloseIcon />
-                  </motion.button>
-                </Dialog.Close>
               </motion.div>
             </Dialog.Content>
           </Dialog.Portal>

@@ -26,7 +26,7 @@ export function Destinations() {
       <section
         id="destinations"
         aria-labelledby="destinations-heading"
-        className="bg-cream pt-stack-pt pb-stack-pb md:min-h-stack-min-lg relative z-2 flex flex-col overflow-hidden px-[clamp(20.4px,3.4vw,54.4px)] md:sticky md:top-0 md:h-screen"
+        className="bg-cream pt-section pb-hero-bottom md:min-h-stack-min-lg px-gutter relative z-2 flex flex-col overflow-hidden md:sticky md:top-0 md:h-screen"
       >
         <div className="max-w-shell mx-auto flex min-h-0 w-full flex-auto flex-col">
           <SectionHeader
@@ -37,7 +37,7 @@ export function Destinations() {
             headingId="destinations-heading"
           />
 
-          <div className="mt-gap-grid gap-gap-cards grid min-h-0 flex-auto grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-gap-heading gap-cards grid min-h-0 flex-auto grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
             {DESTINATIONS.cards.map((card, index) => (
               <Reveal
                 key={card.slug}
@@ -57,13 +57,13 @@ export function Destinations() {
                     aria-hidden="true"
                     className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.06),rgb(var(--brand-card-scrim)/0.76))]"
                   />
-                  <span className="p-card-pad-sm relative flex flex-col">
+                  <span className="p-pad-card-sm relative flex flex-col">
                     <span className="font-display text-h3 text-cream leading-[1.1] font-medium">
                       {card.titleLines[0]}
                       <br />
                       {card.titleLines[1]}
                     </span>
-                    <span className="mt-gap-tight text-meta text-cream/80 font-bold tracking-[0.1em] uppercase">
+                    <span className="mt-gap-eyebrow text-meta text-cream/80 font-bold tracking-[0.1em] uppercase">
                       {DESTINATIONS.cta} <span aria-hidden="true">&rarr;</span>
                     </span>
                   </span>

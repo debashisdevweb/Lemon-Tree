@@ -64,7 +64,7 @@ export function LoaderCurtain() {
         <div className="anim-loader-word font-display text-loader-word leading-none font-normal tracking-[-0.01em]">
           {LOADER.word}
         </div>
-        <div className="anim-loader-script font-script text-loader-script mt-[--spacing(1)] leading-[1.05]">
+        <div className="anim-loader-script font-script text-loader-script mt-label leading-[1.05]">
           {LOADER.script}
         </div>
       </div>

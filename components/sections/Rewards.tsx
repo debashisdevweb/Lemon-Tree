@@ -26,8 +26,8 @@ export function Rewards() {
       aria-labelledby="rewards-heading"
       className="on-dark bg-forest md:min-h-stack-min-lg relative z-3 grid overflow-hidden md:sticky md:top-0 md:h-screen lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]"
     >
-      <div className="pt-stack-pt pb-stack-pb flex flex-col justify-center px-[clamp(20.4px,3.4vw,54.4px)] lg:pr-[clamp(20.4px,2.55vw,47.6px)]">
-        <Reveal fast className="gap-gap-tight flex items-baseline">
+      <div className="pt-section pb-hero-bottom px-gutter lg:pr-md flex flex-col justify-center">
+        <Reveal fast className="gap-items flex items-baseline">
           <span className="font-display-italic text-infinity text-cream leading-none font-normal italic">
             {REWARDS.logoWord}
           </span>
@@ -39,7 +39,7 @@ export function Rewards() {
         <Reveal delay={110}>
           <h2
             id="rewards-heading"
-            className="mt-gap-grid font-display text-h2-rewards text-cream leading-[1.06] font-normal tracking-[-0.015em]"
+            className="mt-gap-heading font-display text-h2-rewards text-cream leading-[1.06] font-normal tracking-[-0.015em]"
           >
             {REWARDS.headlineLines[0]}
             <br />
@@ -48,17 +48,17 @@ export function Rewards() {
         </Reveal>
 
         <Reveal delay={200}>
-          <p className="mt-gap-grid text-body text-cream/82 max-w-[38ch] leading-[1.62]">
+          <p className="mt-gap-heading text-body text-cream/82 max-w-[38ch] leading-[1.62]">
             {REWARDS.body}
           </p>
         </Reveal>
 
         <Reveal delay={280}>
-          <ul className="mt-gap-grid bg-cream/20 grid list-none grid-cols-1 gap-px p-0 sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="mt-gap-heading bg-cream/20 grid list-none grid-cols-1 gap-px p-0 sm:grid-cols-2 xl:grid-cols-3">
             {REWARDS.benefits.map((benefit) => (
               <li
                 key={benefit}
-                className="bg-forest px-tile-pad-x py-tile-pad-y font-display text-h4 text-cream leading-[1.1]"
+                className="bg-forest px-pad-tile py-pad-tile font-display text-h4 text-cream leading-[1.1]"
               >
                 {benefit}
               </li>
@@ -67,7 +67,7 @@ export function Rewards() {
         </Reveal>
 
         <Reveal delay={360}>
-          <div className="mt-gap-grid gap-gap-tight flex flex-wrap items-center">
+          <div className="mt-gap-heading gap-items flex flex-wrap items-center">
             <Button slot="prominent" onClick={() => open({ tab: 'special-offers' })}>
               {REWARDS.joinCta}
             </Button>

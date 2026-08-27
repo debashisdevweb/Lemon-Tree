@@ -21,7 +21,7 @@ export function Presence({ map }: { map: ReactNode }) {
     <section
       id="presence"
       aria-labelledby="presence-heading"
-      className="bg-cream py-section-y relative z-20 px-[clamp(20.4px,3.4vw,54.4px)]"
+      className="bg-cream py-section px-gutter relative z-20"
     >
       <div className="max-w-shell mx-auto">
         <SectionHeader
@@ -36,21 +36,21 @@ export function Presence({ map }: { map: ReactNode }) {
           }
         />
 
-        <Reveal delay={120} className="mt-gap-grid">
+        <Reveal delay={120} className="mt-gap-heading">
           <div className="bg-map-ground min-h-[357px] overflow-hidden md:aspect-[1.72/1] md:min-h-[clamp(361.2px,36.125vw,637.5px)]">
             {map}
           </div>
         </Reveal>
 
-        <Reveal delay={200} className="mt-gap-grid">
-          <dl className="gap-gap-cards grid grid-cols-2 xl:grid-cols-4">
+        <Reveal delay={200} className="mt-gap-heading">
+          <dl className="gap-cards grid grid-cols-2 xl:grid-cols-4">
             {PRESENCE.stats.map((stat) => (
               <div
                 key={stat.figure}
                 className="border-forest/28 pt-gap-tight border-t-[length:var(--border-hair)] border-solid"
               >
                 <dt className="font-display text-stat text-forest leading-none">{stat.figure}</dt>
-                <dd className="text-meta text-muted mt-[--spacing(1)]">{stat.caption}</dd>
+                <dd className="text-meta text-muted mt-label">{stat.caption}</dd>
               </div>
             ))}
           </dl>

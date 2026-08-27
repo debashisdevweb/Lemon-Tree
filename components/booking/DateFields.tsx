@@ -52,10 +52,10 @@ const startOfToday = (): Date => {
 };
 
 const pickerClassNames = {
-  months: 'flex flex-col gap-gap-tight',
+  months: 'flex flex-col gap-items',
   month_caption: 'flex items-center justify-center py-[--spacing(2)]',
   caption_label: 'text-body-sm font-bold text-forest',
-  nav: 'flex items-center gap-[--spacing(1)]',
+  nav: 'flex items-center gap-4xs',
   button_previous:
     'inline-flex size-8 items-center justify-center rounded-xs text-forest hover:bg-cream-2',
   button_next:
@@ -94,7 +94,7 @@ function FieldShell({
       aria-describedby={describedBy}
     >
       <span className="text-field-label text-muted block">{label}</span>
-      <span className="text-field-value text-ink-strong mt-[--spacing(1)] block font-bold">
+      <span className="text-field-value text-ink-strong mt-label block font-bold">
         {/* The abbreviated date is for the eye only. Assistive tech gets the
             unambiguous long form instead, so the accessible name reads
             "Arrival, Thursday, 27 August 2026" rather than repeating itself. */}
@@ -108,7 +108,7 @@ function FieldShell({
 }
 
 const popoverContent =
-  'z-[320] rounded-md bg-paper p-card-pad-sm shadow-bar ' +
+  'z-[320] rounded-md bg-paper p-pad-card-sm shadow-bar ' +
   'data-[state=open]:animate-[lt-fade_var(--dur-hover-swap)_ease_both]';
 
 export function ArrivalField({
@@ -227,9 +227,7 @@ export function DepartureField({
     return (
       <div className="min-w-0">
         <span className="text-field-label text-muted block">{label}</span>
-        <span className="text-field-value text-ink-strong mt-[--spacing(1)] block font-bold">
-          Same day
-        </span>
+        <span className="text-field-value text-ink-strong mt-label block font-bold">Same day</span>
       </div>
     );
   }
