@@ -122,6 +122,13 @@ export const SITE = {
   legalName: 'Lemon Tree Hotels Ltd.',
   copyrightYear: 2026,
   note: 'Redesign concept',
-  url: 'https://www.lemontreehotels.example',
+  /**
+   * Public origin, used for canonicals, the sitemap and every JSON-LD @id.
+   *
+   * Only NEXT_PUBLIC_* is read: this module is imported by client components
+   * too, and a server-only variable would be undefined on the client, so the
+   * two sides could disagree. Set NEXT_PUBLIC_SITE_URL on the host.
+   */
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   locale: 'en-IN',
 } as const;

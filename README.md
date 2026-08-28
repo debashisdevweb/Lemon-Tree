@@ -490,6 +490,47 @@ out of the initial document entirely — pre-rendering it to a static SVG asset 
 build time, which also removes it from the RSC payload, at the cost of losing
 `[data-brand]` theming on the map.
 
+## Deployment
+
+Vercel is the natural target: this app uses ISR, route handlers, `next/image`
+optimisation and `sharp`, all of which work there without configuration.
+
+### Required environment variable
+
+| Variable               | Why                                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | Public origin. Every canonical, the sitemap and every JSON-LD `@id` is built from it. Without it they fall back to `http://localhost:3000`. |
+
+Optional, and inert when unset: `NEXT_PUBLIC_GTM_ID` (no analytics code is
+emitted without it) and `NEXT_PUBLIC_SENTRY_DSN`.
+
+### What CI does on push
+
+| Job       | Runs                                                       |
+| --------- | ---------------------------------------------------------- |
+| `verify`  | lint, typecheck, 266 unit tests, production build          |
+| `e2e`     | Playwright + axe on Linux, **excluding `@visual`**         |
+| `budgets` | Lighthouse desktop (passes) and mobile (fails, on purpose) |
+
+Two things to know:
+
+- **Screenshot baselines are macOS-only.** Playwright names them per platform
+  (`-darwin.png`), so they cannot match on `ubuntu-latest`. The visual specs are
+  tagged `@visual` and excluded in CI; they remain a local gate via
+  `npm run e2e`. To gate them in CI, generate Linux baselines inside the matching
+  Playwright container and commit those alongside.
+- **The mobile budget job is red deliberately.** Mobile 4G LCP is ~3.16s against
+  a 2.5s target. It is left failing rather than silenced so it stays visible —
+  see Performance above. Mark that step `continue-on-error: true` if you need a
+  green pipeline before it is fixed.
+
+### Repository note
+
+`.git` is around 60 MB, almost all of it screenshot baselines rewritten across
+several re-baselining passes. That is well inside GitHub's limits, but if a
+lean clone matters, either squash the history or move
+`tests/e2e/visual.spec.ts-snapshots/` to Git LFS.
+
 ## Known gaps
 
 - **Undesigned routes.** Only home and the property-detail artboard are designed.

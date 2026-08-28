@@ -23,7 +23,7 @@ const SECTIONS = [
   'contact',
 ] as const;
 
-test.describe('home page', () => {
+test.describe('home page @visual', () => {
   test.beforeEach(async ({ page }) => {
     await skipLoader(page);
     await page.goto('/');
@@ -47,7 +47,7 @@ test.describe('home page', () => {
   }
 });
 
-test('the booking sheet matches its baseline', async ({ page }) => {
+test('the booking sheet matches its baseline @visual', async ({ page }) => {
   await skipLoader(page);
   await page.goto('/');
   await settleHome(page);
@@ -63,7 +63,7 @@ test('the booking sheet matches its baseline', async ({ page }) => {
   await expect(page).toHaveScreenshot('booking-sheet.png');
 });
 
-test('the contact page matches its baseline', async ({ page }) => {
+test('the contact page matches its baseline @visual', async ({ page }) => {
   await skipLoader(page);
   await page.goto('/contact');
   await page.waitForLoadState('domcontentloaded');
