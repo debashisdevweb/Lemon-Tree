@@ -537,6 +537,19 @@ several re-baselining passes. That is well inside GitHub's limits, but if a
 lean clone matters, either squash the history or move
 `tests/e2e/visual.spec.ts-snapshots/` to Git LFS.
 
+### npm audit
+
+`npm audit` reports two advisories (1 high, 1 moderate) against `postcss`, which
+is bundled inside `next` itself. `next@15.5.24` is the latest 15.x, so there is
+no upgrade that clears them, and `npm audit fix --force` would move to a
+different major of Next for no benefit.
+
+They are not acted on deliberately. All four advisories concern PostCSS reading
+attacker-controlled `sourceMappingURL` comments or stringifying hostile CSS.
+Every stylesheet here is authored in this repo and processed at build time; no
+user input reaches PostCSS, and it is not part of the runtime. Revisit when Next
+ships a release that bumps its own PostCSS.
+
 ## Known gaps
 
 - **Undesigned routes.** Only home and the property-detail artboard are designed.
