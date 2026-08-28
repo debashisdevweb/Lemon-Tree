@@ -23,16 +23,28 @@ import { Wordmark } from './Wordmark';
  * no mobile navigation at all, so the link row collapses into a sheet. That
  * sheet is net-new and built from the same tokens.
  */
-export function SiteHeader() {
+export function SiteHeader({ overHero = false }: { overHero?: boolean }) {
   const { open } = useBooking();
   const headerRef = useRef<HTMLElement>(null);
-  const [isSolid, setIsSolid] = useState(false);
+  /*
+    Routes without a hero photograph — /contact, /book/search — render solid
+    from the first paint. Deciding this in an effect instead meant the header
+    started transparent, so its on-image white type sat on the cream page for
+    the length of the 550ms colour transition before correcting itself: a
+    visible flash, and unreadable while it lasted.
+  */
+  const [isSolid, setIsSolid] = useState(!overHero);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    if (!overHero) return;
+
     const sentinel = document.getElementById('nav-trigger');
     const header = headerRef.current;
-    if (!sentinel || !header) return;
+    if (!sentinel || !header) {
+      setIsSolid(true);
+      return;
+    }
 
     let observer: IntersectionObserver | null = null;
 
@@ -54,7 +66,7 @@ export function SiteHeader() {
       observer?.disconnect();
       window.removeEventListener('resize', onResize);
     };
-  }, []);
+  }, [overHero]);
 
   return (
     <header
@@ -63,7 +75,9 @@ export function SiteHeader() {
       className={cn(
         'h-nav gap-cards px-md fixed inset-x-0 top-0 z-60 flex items-center',
         'transition-[background-color,color,box-shadow] duration-[var(--dur-nav)] ease-in-out',
-        isSolid ? 'bg-cream text-forest shadow-nav' : 'on-dark text-cream bg-transparent',
+        // Over the hero photograph the header is type on an image, so it
+        // takes the same white as the hero; on the cream ground it is forest.
+        isSolid ? 'bg-cream text-forest shadow-nav' : 'on-dark text-on-photo bg-transparent',
       )}
     >
       <Link href="/#top" className="shrink-0 text-inherit" aria-label="Lemon Tree Hotels, home">

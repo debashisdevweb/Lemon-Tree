@@ -23,6 +23,16 @@
 [data-brand='lemon-tree'] {
   --brand-forest: #2f4f3e;
   --brand-cream: #eae1d6;
+  /**
+   * Text set over photography.
+   *
+   * Cream is the right colour on a forest surface, where it reads as part of
+   * the palette. Over a photograph it reads as warm grey and looks washed out,
+   * so type on an image uses white. Separate token rather than `text-white` so
+   * the distinction is a design decision recorded in one place, and so a brand
+   * that wants a tinted white can override it.
+   */
+  --brand-on-photo: #ffffff;
   --brand-paper: #faf8f5;
   --brand-cream-2: #efe7dc;
   --brand-accent: #c66a3c;
@@ -101,6 +111,7 @@
   /* --- Color ----------------------------------------------------------- */
   --color-forest: var(--brand-forest);
   --color-cream: var(--brand-cream);
+  --color-on-photo: var(--brand-on-photo);
   --color-paper: var(--brand-paper);
   --color-cream-2: var(--brand-cream-2);
   --color-accent: var(--brand-accent);

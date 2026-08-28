@@ -33,7 +33,7 @@ export function Hero() {
 
       <div className="on-dark pt-hero-top pb-hero-bottom px-gutter relative flex h-full min-h-[100svh] flex-col justify-center md:min-h-0">
         <div className="max-w-shell mx-auto w-full">
-          <p className="anim-hero-eyebrow text-eyebrow-xs text-cream/90 font-bold tracking-[0.2em] uppercase">
+          <p className="anim-hero-eyebrow text-eyebrow-xs text-on-photo font-bold tracking-[0.2em] uppercase">
             {HERO.eyebrow}
           </p>
 
@@ -48,7 +48,7 @@ export function Hero() {
           <h1
             id="hero-heading"
             aria-label={`${HERO.headline} ${HERO.script}`}
-            className="anim-hero-h1 mt-gap-eyebrow font-display text-h1 text-cream leading-[0.98] font-medium tracking-[-0.022em]"
+            className="anim-hero-h1 mt-gap-eyebrow font-display text-h1 text-on-photo leading-[0.98] font-medium tracking-[-0.022em]"
           >
             {HERO.headline}
           </h1>
@@ -68,14 +68,14 @@ export function Hero() {
             <p
               aria-hidden="true"
               data-testid="hero-script"
-              className="anim-hero-script font-script text-hero-script text-cream m-0 leading-none"
+              className="anim-hero-script font-script text-hero-script text-on-photo m-0 leading-none"
             >
               {HERO.script}
             </p>
             {/* Right-aligned and right-hugging below the script on a phone,
                 which is how the reference stacks these two; from lg they sit
                 side by side and the alignment no longer matters. */}
-            <ul className="anim-hero-list text-hero-list text-cream mb-4xs gap-3xs ml-auto flex list-none flex-col p-0 text-right font-normal lg:ml-0 lg:text-left">
+            <ul className="anim-hero-list text-hero-list text-on-photo mb-4xs gap-3xs ml-auto flex list-none flex-col p-0 text-right font-normal lg:ml-0 lg:text-left">
               {HERO.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}
@@ -99,10 +99,10 @@ export function Hero() {
 
       <p
         aria-hidden="true"
-        className="anim-scroll-cue text-eyebrow-xs text-cream/75 left-gutter gap-inline absolute bottom-[clamp(89.2px,8.925vh,123.2px)] hidden items-center font-bold tracking-[0.2em] uppercase md:flex"
+        className="anim-scroll-cue text-eyebrow-xs text-on-photo/80 left-gutter gap-inline absolute bottom-[clamp(89.2px,8.925vh,123.2px)] hidden items-center font-bold tracking-[0.2em] uppercase md:flex"
       >
         {HERO.scrollCue}
-        <span className="w-scroll-rule bg-cream/50 block h-px" />
+        <span className="w-scroll-rule bg-on-photo/60 block h-px" />
       </p>
     </section>
   );

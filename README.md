@@ -194,6 +194,12 @@ where the colour carries small text.
 | `--brand-accent-cta`  | `#ac5c34` | solid button fill      | 3.58 : 1 | 4.57 : 1          |
 | `--brand-muted`       | `#575f5a` | nudged 3% darker       | 4.66 : 1 | 5.09 : 1 (margin) |
 
+`--brand-on-photo` (`#ffffff`) is a separate concern from contrast: cream is the
+right colour on a forest surface, where it belongs to the palette, but over a
+photograph it reads as warm grey and looks washed out. Type on an image uses
+white. It is a token rather than `text-white` so the distinction is recorded in
+one place and a brand can override it with a tinted white.
+
 `--brand-accent-cta` is the smallest darkening of the brand terracotta (13%) that
 lets paper-coloured text clear 4.5:1, so primary CTAs stay recognisably
 terracotta. **This is a visible change to the brand's primary CTA colour and

@@ -35,7 +35,7 @@ export default function HomePage() {
       <JsonLd graph={homeGraph()} />
       <SkipLink />
       <LoaderCurtain />
-      <SiteHeader />
+      <SiteHeader overHero />
 
       <div id="top" className="bg-cream relative overflow-x-clip">
         <main id="main" className="relative z-1">
