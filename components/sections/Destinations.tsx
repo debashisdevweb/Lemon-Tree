@@ -37,39 +37,50 @@ export function Destinations() {
             headingId="destinations-heading"
           />
 
-          <div className="mt-gap-heading gap-cards grid min-h-0 flex-auto grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
-            {DESTINATIONS.cards.map((card, index) => (
-              <Reveal
-                key={card.slug}
-                delay={CARD_DELAYS[index] ?? 0}
-                className="min-h-[187px] md:min-h-0"
-              >
-                <Link
-                  href={`/book/search?theme=${card.slug}`}
-                  className="group relative flex h-full min-h-[187px] flex-col justify-end overflow-hidden md:min-h-0"
-                >
-                  <CoverImage
-                    image={card.image}
-                    zoom
-                    sizes="(max-width:640px) 100vw, (max-width:1280px) 50vw, 25vw"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.06),rgb(var(--brand-card-scrim)/0.76))]"
-                  />
-                  <span className="p-pad-card-sm relative flex flex-col">
-                    <span className="font-display text-h3 text-cream leading-[1.1] font-medium">
-                      {card.titleLines[0]}
-                      <br />
-                      {card.titleLines[1]}
+          {/*
+            The cards hold a card proportion rather than absorbing whatever the
+            100vh section leaves over. Stretching them swung the aspect ratio
+            from 0.57 at a 900px-tall window to 0.36 at 1200px — narrow columns
+            rather than cards — and it wrecked the photographs too, because a
+            cover crop into a very tall box is height-driven and the 700x499
+            sources were being upscaled about 3x.
+
+            2/3 is the proportion, `max-h-full` keeps them inside a short
+            viewport, and the row centres in the leftover space so the sticky
+            section still reads as a full screen.
+          */}
+          <div className="mt-gap-heading flex min-h-0 flex-auto items-center">
+            <div className="gap-cards grid w-full grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+              {DESTINATIONS.cards.map((card, index) => (
+                <Reveal key={card.slug} delay={CARD_DELAYS[index] ?? 0}>
+                  <Link
+                    href={`/book/search?theme=${card.slug}`}
+                    className="group relative flex aspect-2/3 max-h-full flex-col justify-end overflow-hidden"
+                  >
+                    <CoverImage
+                      image={card.image}
+                      zoom
+                      boxAspect={2 / 3}
+                      sizes="(max-width:640px) 100vw, (max-width:1280px) 50vw, 25vw"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--brand-card-scrim)/0.06),rgb(var(--brand-card-scrim)/0.76))]"
+                    />
+                    <span className="p-pad-card-sm relative flex flex-col">
+                      <span className="font-display text-h3 text-cream leading-[1.1] font-medium">
+                        {card.titleLines[0]}
+                        <br />
+                        {card.titleLines[1]}
+                      </span>
+                      <span className="mt-gap-eyebrow text-meta text-cream/80 font-bold tracking-[0.1em] uppercase">
+                        {DESTINATIONS.cta} <span aria-hidden="true">&rarr;</span>
+                      </span>
                     </span>
-                    <span className="mt-gap-eyebrow text-meta text-cream/80 font-bold tracking-[0.1em] uppercase">
-                      {DESTINATIONS.cta} <span aria-hidden="true">&rarr;</span>
-                    </span>
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

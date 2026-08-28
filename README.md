@@ -515,3 +515,10 @@ build time, which also removes it from the RSC payload, at the cost of losing
   currently spare — worth revisiting once LCP is fixed.
 - **Three source images are low-resolution wide strips** (`offer-pool.jpg` is
   1100×176) rendered in 4/3 boxes, so they upscale. Replacements needed.
+- **Sixteen source images arrived with a synthetic band across the top** and have
+  been trimmed. The row count was identical within each family — 61 rows on all
+  four destination photographs, 39 on all three event photographs, 6 on the
+  upcoming set, 4 on the new-hotel set, 14 on the rewards photograph — which is
+  what proved it was pasted on rather than photo content; on the event images it
+  was pure white (mean 254). It read as a hard pale stripe along the top edge of
+  every card. Originals from the design project still contain it.

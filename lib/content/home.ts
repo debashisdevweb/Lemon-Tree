@@ -88,22 +88,22 @@ export const DESTINATIONS = {
     {
       slug: 'mountains-hill-stations',
       titleLines: ['Mountains &', 'hill stations'],
-      image: img('dest-mountains.jpg', 700, 499, 'Pine ridges above a hill-station valley'),
+      image: img('dest-mountains.jpg', 700, 438, 'Pine ridges above a hill-station valley'),
     },
     {
       slug: 'wildlife-nature',
       titleLines: ['Wildlife &', 'nature'],
-      image: img('dest-wildlife.jpg', 700, 499, 'Dense sal forest at the edge of a reserve'),
+      image: img('dest-wildlife.jpg', 700, 438, 'Dense sal forest at the edge of a reserve'),
     },
     {
       slug: 'heritage-spiritual',
       titleLines: ['Heritage &', 'spiritual'],
-      image: img('dest-heritage.jpg', 700, 499, 'Carved sandstone temple steps in low sun'),
+      image: img('dest-heritage.jpg', 700, 438, 'Carved sandstone temple steps in low sun'),
     },
     {
       slug: 'beaches-backwaters',
       titleLines: ['Beaches &', 'backwaters'],
-      image: img('dest-beach.jpg', 700, 499, 'Palm-fringed shoreline meeting still backwater'),
+      image: img('dest-beach.jpg', 700, 438, 'Palm-fringed shoreline meeting still backwater'),
     },
   ] satisfies readonly DestinationCard[],
 } as const;
@@ -129,7 +129,7 @@ export const REWARDS = {
   image: img(
     'rewards-beach.jpg',
     1000,
-    618,
+    604,
     'Loungers on a quiet resort beach at golden hour',
     'center 40%'
   ),
@@ -206,19 +206,19 @@ export const EVENTS = {
       slug: 'corporate-events',
       title: 'Corporate events',
       body: 'Board meetings, training days and offsites, with AV and catering handled.',
-      image: img('event-corporate.jpg', 800, 391, 'Boardroom table set for a morning meeting'),
+      image: img('event-corporate.jpg', 800, 352, 'Boardroom table set for a morning meeting'),
     },
     {
       slug: 'weddings-social',
       title: 'Weddings & social',
       body: 'Banquet halls and lawns, room blocks for the family, one coordinator throughout.',
-      image: img('event-wedding.jpg', 800, 390, 'Marigold-strung wedding mandap on a hotel lawn'),
+      image: img('event-wedding.jpg', 800, 351, 'Marigold-strung wedding mandap on a hotel lawn'),
     },
     {
       slug: 'conference-rooms',
       title: 'Conference rooms',
       body: 'Smaller, quieter rooms by the half-day when you only need the table.',
-      image: img('event-conference.jpg', 800, 391, 'Small conference room with daylight and screen'),
+      image: img('event-conference.jpg', 800, 352, 'Small conference room with daylight and screen'),
     },
   ],
 } as const;
@@ -235,25 +235,25 @@ export const NEW_HOTELS = {
       city: 'Ajmer',
       brand: 'Keys Lite',
       citySlug: 'ajmer',
-      image: img('new-ajmer.jpg', 700, 500, 'Keys Lite Ajmer seen from the forecourt'),
+      image: img('new-ajmer.jpg', 700, 496, 'Keys Lite Ajmer seen from the forecourt'),
     },
     {
       city: 'Amritsar',
       brand: 'Keys Select',
       citySlug: 'amritsar',
-      image: img('new-amritsar.jpg', 700, 503, 'Keys Select Amritsar entrance at dusk'),
+      image: img('new-amritsar.jpg', 700, 499, 'Keys Select Amritsar entrance at dusk'),
     },
     {
       city: 'Bharuch',
       brand: 'Lemon Tree Hotel',
       citySlug: 'bharuch',
-      image: img('new-bharuch.jpg', 700, 505, 'Lemon Tree Hotel Bharuch exterior'),
+      image: img('new-bharuch.jpg', 700, 501, 'Lemon Tree Hotel Bharuch exterior'),
     },
     {
       city: 'Bhubaneswar',
       brand: 'Lemon Tree Hotel',
       citySlug: 'bhubaneswar',
-      image: img('new-bhubaneswar.jpg', 700, 509, 'Lemon Tree Hotel Bhubaneswar frontage'),
+      image: img('new-bhubaneswar.jpg', 700, 505, 'Lemon Tree Hotel Bhubaneswar frontage'),
     },
   ],
 } as const;
@@ -268,25 +268,25 @@ export const UPCOMING = {
       city: 'Ujjain',
       brand: 'Lemon Tree Hotel',
       citySlug: 'ujjain',
-      image: img('up-ujjain.jpg', 700, 493, 'Ghats and temple spires at Ujjain'),
+      image: img('up-ujjain.jpg', 700, 487, 'Ghats and temple spires at Ujjain'),
     },
     {
       city: 'Nasik',
       brand: 'Keys Prima',
       citySlug: 'nasik',
-      image: img('up-caves.jpg', 700, 495, 'Rock-cut cave colonnade near Nasik'),
+      image: img('up-caves.jpg', 700, 489, 'Rock-cut cave colonnade near Nasik'),
     },
     {
       city: 'Nasik',
       brand: 'Lemon Tree Resort',
       citySlug: 'nasik',
-      image: img('up-temple.jpg', 700, 497, 'Stone temple tower against monsoon sky'),
+      image: img('up-temple.jpg', 700, 491, 'Stone temple tower against monsoon sky'),
     },
     {
       city: 'Pali',
       brand: 'Keys Select Hotel',
       citySlug: 'pali',
-      image: img('up-pali.jpg', 700, 501, 'Desert-edge fort walls outside Pali'),
+      image: img('up-pali.jpg', 700, 495, 'Desert-edge fort walls outside Pali'),
     },
   ],
 } as const;
