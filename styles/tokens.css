@@ -147,7 +147,14 @@
    * focus. The slope and maximum still carry the global 0.85 reduction, so
    * desktop is unchanged; only the small end is habitable. */
   --text-micro: clamp(10px, 0.68vw, 11px); /* logo lockup "HOTELS" */
-  --text-eyebrow-xs: clamp(11px, 0.722vw, 11.9px); /* hero promo tag, scroll cue */
+  --text-eyebrow-xs: clamp(11px, 0.722vw, 11.9px); /* scroll cue */
+  /* The hero badge. It borrowed --text-eyebrow-xs and --text-body-sm, whose
+   * mobile floors are set for readability of running copy — at those sizes the
+   * badge's 41-character label could not fit on one line on a phone and wrapped
+   * under the "NOW ON" tag. A badge is a label, not body copy, so it takes its
+   * own smaller pair. */
+  --text-hero-badge-tag: clamp(9px, 0.68vw, 11.2px);
+  --text-hero-badge: clamp(12px, 1.02vw, 17px);
   --text-eyebrow-sm: clamp(11px, 0.744vw, 11.9px); /* upcoming-card brand label */
   --text-label: clamp(12px, 0.765vw, 12.8px); /* booking bar caption */
   --text-eyebrow: clamp(12px, 0.807vw, 12.8px); /* section eyebrow - most used */
@@ -293,8 +300,8 @@
   --spacing-btn-toggle-x: clamp(10.2px, 1.02vw, 17px);
   --spacing-btn-submit-y: clamp(11px, 0.977vw, 15.3px);
   --spacing-btn-submit-x: clamp(17px, 1.615vw, 25.5px);
-  --spacing-hero-pill-y: clamp(7.6px, 0.765vw, 11.9px);
-  --spacing-hero-pill-x: clamp(15.3px, 1.445vw, 23.8px);
+  --spacing-hero-pill-y: clamp(8px, 0.765vw, 11.9px);
+  --spacing-hero-pill-x: clamp(12px, 1.445vw, 23.8px);
 
   /* --- Misc measured values -------------------------------------------- */
   --spacing-loader-bar-w: 59.5px; /* 56 / 0.8 x 0.85 */

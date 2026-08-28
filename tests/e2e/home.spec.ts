@@ -273,6 +273,36 @@ test.describe('hero entrance', () => {
     expect(list!.y).toBeLessThan(script!.y + script!.height);
   });
 
+  /**
+   * The promo badge wrapped under its own "NOW ON" tag on a phone, which read as
+   * two unrelated lines. It now takes its own type scale, below the running-copy
+   * floor, so it holds one line from 360px up — the width of the narrowest phone
+   * in real use. 320px is left free to wrap: 41 characters cannot fit there at
+   * any legible size.
+   */
+  test('keeps the hero promo badge on one line on a phone', async ({ page }) => {
+    await skipLoader(page);
+    await page.goto('/');
+
+    for (const width of [360, 375, 393, 430]) {
+      await page.setViewportSize({ width, height: 850 });
+      await settleHome(page);
+
+      const badge = page.locator('#hero a[href="#offers"]');
+      const lines = await badge.evaluate((node) => {
+        const label = node.querySelectorAll('span')[1] as HTMLElement;
+        const height = label.getBoundingClientRect().height;
+        const lineHeight = parseFloat(getComputedStyle(label).lineHeight);
+        return Math.round(height / (Number.isFinite(lineHeight) ? lineHeight : height));
+      });
+
+      expect(lines, `badge wrapped at ${width}px`).toBe(1);
+      // And it does not achieve that by pushing itself past the gutter.
+      const box = (await badge.boundingBox())!;
+      expect(box.x + box.width).toBeLessThanOrEqual(width);
+    }
+  });
+
   test('announces the whole headline sentence once', async ({ page }) => {
     await skipLoader(page);
     await page.goto('/');

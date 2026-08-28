@@ -196,6 +196,25 @@ describe('the global size scale', () => {
   });
 
   /**
+   * The hero badge is the one place that sits BELOW the running-copy floor
+   * above, and deliberately so: it is a label, and at the body-copy floor its
+   * 41-character promo could not fit on one line on a phone, so it wrapped
+   * under its own tag. The floors here are the absolute bottom — a label may be
+   * small, but it still has to be legible — and the tag stays the smaller of
+   * the two so the pill reads tag-then-label rather than as one run of text.
+   */
+  it('sizes the hero badge below body copy but keeps it legible', () => {
+    const [tagMin] = parseClamp(readVar('text-hero-badge-tag'));
+    const [labelMin] = parseClamp(readVar('text-hero-badge'));
+
+    expect(tagMin).toBeGreaterThanOrEqual(9);
+    expect(labelMin).toBeGreaterThanOrEqual(12);
+    expect(tagMin).toBeLessThan(labelMin);
+    // Below the running-copy floor, which is the whole point of the exception.
+    expect(labelMin).toBeLessThan(15);
+  });
+
+  /**
    * iOS Safari zooms the whole page when a focused input renders below 16px.
    * Every field the booking sheet and the forms use must clear it.
    */

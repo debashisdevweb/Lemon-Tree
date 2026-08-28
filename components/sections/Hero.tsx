@@ -85,13 +85,20 @@ export function Hero() {
           <div className="anim-hero-cta gap-cards mt-lg flex flex-wrap items-center">
             <a
               href={HERO.promo.href}
-              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-body-sm text-forest hover:bg-paper hover:text-accent-text gap-items inline-flex flex-wrap items-center rounded-full transition-colors duration-[var(--dur-hover-bg)]"
+              className="group bg-paper/94 px-hero-pill-x py-hero-pill-y text-hero-badge text-forest hover:bg-paper hover:text-accent-text gap-3xs sm:gap-items inline-flex max-w-full items-center rounded-full transition-colors duration-[var(--dur-hover-bg)]"
             >
-              <span className="text-eyebrow-xs text-accent-text font-bold tracking-[0.1em] uppercase">
+              <span className="text-hero-badge-tag text-accent-text shrink-0 font-bold tracking-[0.1em] uppercase">
                 {HERO.promo.tag}
               </span>
-              {HERO.promo.label}
-              <span aria-hidden="true">&rarr;</span>
+              {/* One line from 360px up. Wrapping is still allowed below that,
+                  where 41 characters cannot fit at any readable size — a wrapped
+                  badge beats a clipped or 10px one. */}
+              <span className="min-w-0 [@media(min-width:360px)]:whitespace-nowrap">
+                {HERO.promo.label}
+              </span>
+              <span aria-hidden="true" className="shrink-0">
+                &rarr;
+              </span>
             </a>
           </div>
         </div>
