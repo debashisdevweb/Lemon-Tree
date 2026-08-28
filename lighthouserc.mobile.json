@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npx next start --port 3202",
+      "startServerCommand": "NEXT_DIST_DIR=.next-verify npx next start --port 3202",
       "url": [
         "http://127.0.0.1:3202/"
       ],

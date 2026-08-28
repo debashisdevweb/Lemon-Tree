@@ -41,7 +41,9 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Desktop Chrome'], viewport: VIEWPORTS.mobile } },
   ],
   webServer: {
-    command: 'npx next start --port 3100',
+    // Same output directory the e2e script builds into, so the suite never
+    // touches the .next a dev server may be using.
+    command: 'NEXT_DIST_DIR=.next-verify npx next start --port 3100',
     url: 'http://127.0.0.1:3100',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

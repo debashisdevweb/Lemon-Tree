@@ -8,6 +8,7 @@ const config = [
   {
     ignores: [
       '.next/**',
+      '.next-verify/**',
       'node_modules/**',
       'design/**',
       'coverage/**',

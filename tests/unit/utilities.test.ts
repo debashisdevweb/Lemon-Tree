@@ -16,7 +16,13 @@ import { describe, expect, it } from 'vitest';
  * emitted.
  */
 
-const CSS_DIR = join(process.cwd(), '.next/static/css');
+/**
+ * Verification builds write to .next-verify (see next.config.ts), so read from
+ * whichever directory the current run produced. Falling back to .next keeps
+ * this working after a plain `next build`.
+ */
+const DIST = process.env.NEXT_DIST_DIR || '.next';
+const CSS_DIR = join(process.cwd(), DIST, 'static/css');
 
 const PROPS = [
   'gap-x',
@@ -72,10 +78,15 @@ const tokenNames = new Set(
 
 let compiledCss = '';
 try {
-  compiledCss = readdirSync(CSS_DIR)
-    .filter((f) => f.endsWith('.css'))
-    .map((f) => readFileSync(join(CSS_DIR, f), 'utf8'))
-    .join('');
+  const collect = (dir: string): string[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+      entry.isDirectory()
+        ? collect(join(dir, entry.name))
+        : entry.name.endsWith('.css')
+          ? [readFileSync(join(dir, entry.name), 'utf8')]
+          : [],
+    );
+  compiledCss = collect(CSS_DIR).join('');
 } catch {
   compiledCss = '';
 }
